@@ -1,6 +1,11 @@
 ##January 28 2026
 ##This is a script for extracting and cleaning CMIP6 temperature data
 
+###Dataset: Monthly information aggregated on IPCC reference regions for CMIP5/6 and CORDEX
+#Reference: https://doi.org/10.5194/essd-12-2959-2020
+#Project: CMIP6
+#Variable_longname: mean near-surface air temperature
+#Units: degC
 
 library(tidyverse)
 library(lubridate)
