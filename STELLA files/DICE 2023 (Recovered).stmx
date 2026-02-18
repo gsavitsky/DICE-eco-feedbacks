@@ -1,0 +1,1825 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
+	<header>
+		<smile version="1.0" namespace="std, isee" uses_submodels=""/>
+		<name>DICE 2023 (Recovered)</name>
+		<uuid>9777f8dd-b692-4ee2-8196-7b70e1548798</uuid>
+		<vendor>isee systems, inc.</vendor>
+		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
+	</header>
+	<ai_information>
+		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1771348056" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="BK6mmXpzMzlr9zCWNuYg8odaNIglty48vl2V2V4a2pKIoriqTYYl14/ar9zf5ox5LLQWrYuhZbyjkWxfmX3KDQ=="/>
+	</ai_information>
+	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.0189873" isee:restore_on_start="false" method="Euler" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
+		<start>1</start>
+		<stop>80</stop>
+		<dt reciprocal="true">4</dt>
+	</sim_specs>
+	<isee:prefs saved_runs="5" keep="false" show_module_prefix="true" live_update_on_drag="true" show_restore_buttons="false" layer="model" isee:design="Deluxe Prev-Next Blue Green Pastel" isee:design_custom="false" interface_scale_ui="true" interface_max_page_width="10000" interface_max_page_height="10000" interface_min_page_width="0" interface_min_page_height="0" rifp="true"/>
+	<isee:multiplayer_settings include_chat="true" allow_observers="false" advance_time_increment="1" max_advance_time_in_ms="0" model_stops_when_players_drop="false" observer_start_page="home_page" enabled="false"/>
+	<isee:time_formats default_format="Builtin">
+		<isee:time_format name="Builtin" type="adaptive"/>
+	</isee:time_formats>
+	<isee:number_format_extenders/>
+	<default_format/>
+	<isee:sensi_specs_list active_index="0">
+		<isee:sensi_specs name="Sensitivity" method="grid">
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Economy."emissions_control_rate_(μ)"' num_samples="5"/>
+		</isee:sensi_specs>
+	</isee:sensi_specs_list>
+	<isee:optimizer_specs_list active_index="0">
+		<isee:optimizer_specs name="Optimization" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0"/>
+	</isee:optimizer_specs_list>
+	<isee:payoff_specs_list>
+		<isee:payoff_specs name="Payoff"/>
+	</isee:payoff_specs_list>
+	<model_units/>
+	<model>
+		<variables>
+			<module name="Economy" isee:label="">
+				<connect to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
+				<connect2 to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
+				<connect to='Climate."emissions_control_rate_(μ)"' from='Economy."emissions_control_rate_(μ)"'/>
+				<connect2 to='Climate."emissions_control_rate_(μ)"' from='Economy."emissions_control_rate_(μ)"'/>
+				<connect to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
+				<connect2 to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
+				<connect to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+			</module>
+			<module name="Climate" isee:label="">
+				<connect to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
+				<connect2 to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
+				<connect to='Climate."emissions_control_rate_(μ)"' from='Economy."emissions_control_rate_(μ)"'/>
+				<connect2 to='Climate."emissions_control_rate_(μ)"' from='Economy."emissions_control_rate_(μ)"'/>
+				<connect to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
+				<connect2 to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
+			</module>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#0075FF" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<isee:dropdown_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="1" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</flow>
+					<isee:placeholder color="#228B22" background="white" font_color="#228B22" font_size="9pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="red" background="white" font_color="red" font_size="9pt"/>
+					<connector color="#FF007F" background="white" font_color="#FF007F" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<module x="248.973" y="153.762" name="Economy"/>
+				<module x="524.637" y="153.762" name="Climate"/>
+				<connector uid="30" isee:thickness="2" angle="205" isee:autocreated="true">
+					<from>Climate</from>
+					<to>Economy</to>
+				</connector>
+				<connector uid="31" isee:thickness="2" angle="25" isee:autocreated="true">
+					<from>Economy</from>
+					<to>Climate</to>
+				</connector>
+			</view>
+		</views>
+	</model>
+	<model name="Climate">
+		<variables>
+			<stock name="Deep ocean temperature anomaly (T1)">
+				<eqn>0.1477</eqn>
+				<inflow>Flow_5</inflow>
+				<non_negative/>
+				<units>°C from 1765</units>
+			</stock>
+			<stock name="Carbon Reservoir 0 (R0)">
+				<eqn>150.093</eqn>
+				<inflow>Flow_1</inflow>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<stock name="Carbon Reservoir 1 (R1)">
+				<eqn>102.698</eqn>
+				<inflow>Flow_2</inflow>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<stock name="Carbon Reservoir 2 (R2)">
+				<eqn>39.534</eqn>
+				<inflow>Flow_3</inflow>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<stock name="Carbon Reservoir 3 (R3)">
+				<eqn>6.1865</eqn>
+				<inflow>Flow_4</inflow>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<stock name="Upper ocean temperature anomaly (T2)">
+				<eqn>1.099454</eqn>
+				<inflow>Flow_6</inflow>
+				<non_negative/>
+				<units>°C from 1765</units>
+			</stock>
+			<stock name="Non-CO2 GHG forcing (FGHG)">
+				<eqn>0.518</eqn>
+				<inflow>Flow_7</inflow>
+				<non_negative/>
+				<units>W/m^2</units>
+			</stock>
+			<aux name="Emission share into\nreservoir 0 (ϵ0)">
+				<eqn>0.2173</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Emission share into\nreservoir 1 (ϵ1)">
+				<eqn>0.224</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Emission share into\nreservoir 2 (ϵ2)">
+				<eqn>0.2824</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Emission share into\nreservoir 3 (ϵ3)">
+				<eqn>0.2763</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Decay time constant for reservoir 0 (τ0)">
+				<eqn>1000000</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="Decay time constant\nfor reservoir 1 (τ1)">
+				<eqn>394.4</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="Decay time constant\nfor reservoir 2 (τ2)">
+				<eqn>36.53</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="Decay time constant\nfor reservoir 3 (τ3)">
+				<eqn>4.304</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="total CO2 emissions (ECo2)" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<flow name="Flow 1">
+				<eqn>(&quot;Emission_share_into_reservoir_0_(ϵ0)&quot;*&quot;total_CO2_emissions_(ECo2)&quot;/3.666)-(&quot;Carbon_Reservoir_0_(R0)&quot;/(&quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;*&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;))</eqn>
+				<units>GtC/Year</units>
+			</flow>
+			<flow name="Flow 2">
+				<eqn>(&quot;Emission_share_into_reservoir_1_(ϵ1)&quot;*&quot;total_CO2_emissions_(ECo2)&quot;/3.666)-(&quot;Carbon_Reservoir_1_(R1)&quot;/(&quot;Decay_time_constant_for_reservoir_1_(τ1)&quot;*&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;))</eqn>
+				<units>GtC/Year</units>
+			</flow>
+			<flow name="Flow 3">
+				<eqn>(&quot;Emission_share_into_reservoir_2_(ϵ2)&quot;*&quot;total_CO2_emissions_(ECo2)&quot;/3.666)-(&quot;Carbon_Reservoir_2_(R2)&quot;/(&quot;Decay_time_constant_for_reservoir_2_(τ2)&quot;*&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;))</eqn>
+				<units>GtC/Year</units>
+			</flow>
+			<flow name="Flow 4">
+				<eqn>(&quot;Emission_share_into_reservoir_3_(ϵ3)&quot;*&quot;total_CO2_emissions_(ECo2)&quot;/3.666)-(&quot;Carbon_Reservoir_3_(R3)&quot;/(&quot;Decay_time_constant_for_reservoir_3_(τ3)&quot;*&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;))</eqn>
+				<units>GtC/Year</units>
+			</flow>
+			<aux name="thermal equilibration\nparameter for box 1 (Teq1)">
+				<eqn>0.324</eqn>
+				<units>m^2/kW</units>
+			</aux>
+			<aux name="thermal equilibration\nparameter for box 2 (Teq2)">
+				<eqn>0.44</eqn>
+				<units>m^2/kW</units>
+			</aux>
+			<flow name="Flow 5">
+				<eqn>(1/&quot;thermal_response_time_for_box_1_(d1)&quot;)*(&quot;thermal_equilibration_parameter_for_box_1_(Teq1)&quot;*&quot;radiative_forcing_(F)&quot;-&quot;Deep_ocean_temperature_anomaly_(T1)&quot;)</eqn>
+				<units>°C from 1765/Year</units>
+			</flow>
+			<flow name="Flow 6">
+				<eqn>(1/&quot;thermal_response_time_for_box_2_(d2)&quot;)*(&quot;thermal_equilibration_parameter_for_box_2_(Teq2)&quot;*&quot;radiative_forcing_(F)&quot;-&quot;Upper_ocean_temperature_anomaly_(T2)&quot;)</eqn>
+				<units>°C from 1765/Year</units>
+			</flow>
+			<aux name="radiative forcing (F)">
+				<eqn>&quot;Non-CO2_GHG_forcing_(FGHG)&quot;+&quot;Miscellaneous_forcing_2020_(Fmisc)&quot;+&quot;Co2_forcing_(FCO2)&quot;</eqn>
+				<units>W/m^2</units>
+			</aux>
+			<aux name="thermal response time for box 1 (d1)">
+				<eqn>236</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="thermal response time\nfor box 2 (d2)">
+				<eqn>4.07</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="forcing coefficient 1 (Fc1)">
+				<eqn>0.00955</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="forcing coefficient 2 (Fc2)">
+				<eqn>0.861</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="non-CO2 GHG\nemissions 2020 (EGHG0)">
+				<eqn>9.96</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<flow name="Flow 7">
+				<eqn>(&quot;forcing_coefficient_2_(Fc2)&quot;-1)*&quot;Non-CO2_GHG_forcing_(FGHG)&quot;+&quot;forcing_coefficient_1_(Fc1)&quot;*&quot;non-CO2_GHG_emissions_(EGHGbase)&quot;*(1-&quot;emissions_control_rate_(μ)&quot;)</eqn>
+				<units>W/m^2/Year</units>
+			</flow>
+			<aux name="pre-industrial equilibrium atosmpheric carbon (Meq)">
+				<eqn>588</eqn>
+				<units>GtC</units>
+			</aux>
+			<aux name="carbon accumulated in ocean and land sinks (Cacc)">
+				<eqn>&quot;cumulative_carbon_emissions_(Ctot)&quot;-(&quot;Atmospheric_carbon_concentration_(MAT)&quot;-&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;)</eqn>
+			</aux>
+			<aux name="Atmospheric carbon concentration (MAT)">
+				<eqn>&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;+&quot;Carbon_Reservoir_3_(R3)&quot;+&quot;Carbon_Reservoir_2_(R2)&quot;+&quot;Carbon_Reservoir_1_(R1)&quot;+&quot;Carbon_Reservoir_0_(R0)&quot;</eqn>
+			</aux>
+			<aux name="Atmospheric temperature anomaly (TATM)" access="output" isee:autocreated="true">
+				<eqn>&quot;Deep_ocean_temperature_anomaly_(T1)&quot;+&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</eqn>
+				<units>°C from 1765</units>
+			</aux>
+			<aux name="Forcing from CO2 doubling (F2CO2)">
+				<eqn>3.93</eqn>
+				<units>W/m^2</units>
+			</aux>
+			<aux name="Miscellaneous forcing 2020 (Fmisc0)">
+				<eqn>-0.054</eqn>
+				<units>W/m^2</units>
+			</aux>
+			<stock name="Carbon cycle feedback\nscaling factor (α)">
+				<eqn>scaling_factor_init</eqn>
+				<inflow>Flow_8</inflow>
+				<non_negative/>
+			</stock>
+			<flow name="Flow 8">
+				<eqn>(IRF_100_target-IRF100_modeled)*0.1</eqn>
+				<non_negative/>
+			</flow>
+			<aux name="IRF 100 target">
+				<eqn>IRF0+&quot;Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)&quot;*&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;+&quot;Sensitivity_of_IRF_to_temperature_(irT)&quot;*&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</eqn>
+			</aux>
+			<aux name="IRF0">
+				<eqn>32.4</eqn>
+				<units>Years</units>
+			</aux>
+			<aux name="Sensitivity of IRF to\ncumulative carbon uptake (irC)">
+				<eqn>0.019</eqn>
+				<units>Year/GtC</units>
+			</aux>
+			<aux name="Sensitivity of IRF\nto temperature (irT)">
+				<eqn>4.165</eqn>
+				<units>year/°C</units>
+			</aux>
+			<aux name="IRF100 modeled">
+				<eqn>&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot; * (
+ &quot;Emission_share_into_reservoir_0_(ϵ0)&quot; * &quot;Decay_time_constant_for_reservoir_0_(τ0)&quot; * (1 - EXP(-100 / (&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot; * &quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;))) +
+&quot;Emission_share_into_reservoir_1_(ϵ1)&quot; * &quot;Decay_time_constant_for_reservoir_1_(τ1)&quot; * (1 - EXP(-100 / (&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot; * &quot;Decay_time_constant_for_reservoir_1_(τ1)&quot;))) +
+&quot;Emission_share_into_reservoir_2_(ϵ2)&quot; * &quot;Decay_time_constant_for_reservoir_2_(τ2)&quot; * (1 - EXP(-100 / (&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot; * &quot;Decay_time_constant_for_reservoir_2_(τ2)&quot;))) +
+&quot;Emission_share_into_reservoir_3_(ϵ3)&quot; * &quot;Decay_time_constant_for_reservoir_3_(τ3)&quot; * (1 - EXP(-100 / (&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot; * &quot;Decay_time_constant_for_reservoir_3_(τ3)&quot;))))</eqn>
+			</aux>
+			<aux name="Miscellaneous forcing\n2100 (Fmisc80)">
+				<eqn>0.265</eqn>
+				<units>W/m^2</units>
+			</aux>
+			<aux name="non-CO2 GHG\nemissions 2100 (EGHG80)">
+				<eqn>15.5</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="emissions control rate (μ)" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+			</aux>
+			<aux name="Co2 forcing (FCO2)">
+				<eqn>3.93*(LN(&quot;Atmospheric_carbon_concentration_(MAT)&quot;/588))/LN(2)</eqn>
+			</aux>
+			<aux name="Miscellaneous forcing\n2020 (Fmisc)">
+				<eqn>IF TIME &lt;= 80 THEN 
+                &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forcing_2100_(Fmisc80)&quot; - &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot;)/80 * TIME 
+             ELSE 
+              &quot;Miscellaneous_forcing_2100_(Fmisc80)&quot;</eqn>
+				<units>W/m^2</units>
+			</aux>
+			<aux name="non-CO2 GHG\nemissions (EGHGbase)">
+				<eqn>IF TIME &lt;= 80 THEN 
+                &quot;non-CO2_GHG_emissions_2020_(EGHG0)&quot; + (&quot;non-CO2_GHG_emissions_2100_(EGHG80)&quot; - &quot;non-CO2_GHG_emissions_2020_(EGHG0)&quot;)/80 * TIME 
+             ELSE 
+                &quot;non-CO2_GHG_emissions_2100_(EGHG80)&quot;</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<stock name="cumulative carbon\nemissions (Ctot)" access="input">
+				<eqn>633.5</eqn>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<aux name="scaling factor init">
+				<eqn>0.447</eqn>
+			</aux>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#0075FF" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<isee:dropdown_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="1" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:page_rows="2" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</flow>
+					<isee:placeholder color="#228B22" background="white" font_color="#228B22" font_size="9pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="red" background="white" font_color="red" font_size="9pt"/>
+					<connector color="#FF007F" background="white" font_color="#FF007F" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<stock x="483.266" y="228.148" name="Deep ocean temperature anomaly (T1)"/>
+				<stock x="924.297" y="125.164" name="Carbon Reservoir 0 (R0)"/>
+				<stock x="933.117" y="374.039" name="Carbon Reservoir 1 (R1)"/>
+				<stock x="1254.7" y="125.426" name="Carbon Reservoir 2 (R2)"/>
+				<stock x="1248.98" y="381.746" name="Carbon Reservoir 3 (R3)"/>
+				<stock label_side="top" x="483.266" y="362.086" name="Upper ocean temperature anomaly (T2)"/>
+				<stock x="1076.44" y="669.246" name="Non-CO2 GHG forcing (FGHG)"/>
+				<aux x="877.515" y="178.965" name="Emission share into\nreservoir 0 (ϵ0)"/>
+				<aux x="955.797" y="444.293" name="Emission share into\nreservoir 1 (ϵ1)"/>
+				<aux label_side="right" label_angle="315" x="1102.25" y="201.648" name="Emission share into\nreservoir 2 (ϵ2)"/>
+				<aux x="1098.15" y="317.586" name="Emission share into\nreservoir 3 (ϵ3)"/>
+				<aux x="851.734" y="44.9961" name="Decay time constant for reservoir 0 (τ0)"/>
+				<aux x="901.617" y="285.074" name="Decay time constant\nfor reservoir 1 (τ1)"/>
+				<aux x="1208.47" y="164.984" name="Decay time constant\nfor reservoir 2 (τ2)"/>
+				<aux x="1056.52" y="423.551" width="17.1484" height="17.1484" name="Decay time constant\nfor reservoir 3 (τ3)"/>
+				<aux font_style="italic" font_weight="bold" x="1027.26" y="173.863" name="total CO2 emissions (ECo2)"/>
+				<flow x="820.465" y="135.359" name="Flow 1">
+					<pts>
+						<pt x="727.133" y="135.359"/>
+						<pt x="901.797" y="135.359"/>
+					</pts>
+				</flow>
+				<connector uid="1" angle="250.912">
+					<from>&quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;</from>
+					<to>Flow_1</to>
+				</connector>
+				<connector uid="2" angle="142.608">
+					<from>&quot;Emission_share_into_reservoir_0_(ϵ0)&quot;</from>
+					<to>Flow_1</to>
+				</connector>
+				<connector uid="3" angle="169.453">
+					<from>&quot;total_CO2_emissions_(ECo2)&quot;</from>
+					<to>Flow_1</to>
+				</connector>
+				<connector uid="4" angle="159.285">
+					<from>&quot;Carbon_Reservoir_0_(R0)&quot;</from>
+					<to>Flow_1</to>
+				</connector>
+				<flow x="825.718" y="381.746" name="Flow 2">
+					<pts>
+						<pt x="728.82" y="381.746"/>
+						<pt x="910.617" y="381.746"/>
+					</pts>
+				</flow>
+				<connector uid="6" angle="231.864">
+					<from>&quot;Decay_time_constant_for_reservoir_1_(τ1)&quot;</from>
+					<to>Flow_2</to>
+				</connector>
+				<connector uid="7" angle="133.633">
+					<from>&quot;Emission_share_into_reservoir_1_(ϵ1)&quot;</from>
+					<to>Flow_2</to>
+				</connector>
+				<connector uid="8" angle="151.468">
+					<from>&quot;Carbon_Reservoir_1_(R1)&quot;</from>
+					<to>Flow_2</to>
+				</connector>
+				<connector uid="10" angle="184.473">
+					<from>&quot;total_CO2_emissions_(ECo2)&quot;</from>
+					<to>Flow_2</to>
+				</connector>
+				<flow x="1151.03" y="125.426" name="Flow 3">
+					<pts>
+						<pt x="1057.85" y="125.426"/>
+						<pt x="1232.2" y="125.426"/>
+					</pts>
+				</flow>
+				<connector uid="11" angle="105.027">
+					<from>&quot;Emission_share_into_reservoir_2_(ϵ2)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<connector uid="12" angle="165.681">
+					<from>&quot;Decay_time_constant_for_reservoir_2_(τ2)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<connector uid="13" angle="213.077">
+					<from>&quot;Carbon_Reservoir_2_(R2)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<connector uid="14" angle="21.3735">
+					<from>&quot;total_CO2_emissions_(ECo2)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<flow x="1164.81" y="381.746" name="Flow 4">
+					<pts>
+						<pt x="1091.13" y="381.746"/>
+						<pt x="1226.48" y="381.746"/>
+					</pts>
+				</flow>
+				<connector uid="17" angle="346.41">
+					<from>&quot;total_CO2_emissions_(ECo2)&quot;</from>
+					<to>Flow_4</to>
+				</connector>
+				<connector uid="18" angle="316.093">
+					<from>&quot;Emission_share_into_reservoir_3_(ϵ3)&quot;</from>
+					<to>Flow_4</to>
+				</connector>
+				<connector uid="19" angle="26.8053">
+					<from>&quot;Decay_time_constant_for_reservoir_3_(τ3)&quot;</from>
+					<to>Flow_4</to>
+				</connector>
+				<connector uid="20" angle="211.151">
+					<from>&quot;Carbon_Reservoir_3_(R3)&quot;</from>
+					<to>Flow_4</to>
+				</connector>
+				<aux x="422.363" y="143.484" name="thermal equilibration\nparameter for box 1 (Teq1)"/>
+				<aux x="413.02" y="457.121" name="thermal equilibration\nparameter for box 2 (Teq2)"/>
+				<flow x="386.829" y="230.836" name="Flow 5">
+					<pts>
+						<pt x="300.891" y="230.836"/>
+						<pt x="460.766" y="230.836"/>
+					</pts>
+				</flow>
+				<flow x="360.395" y="368.141" name="Flow 6">
+					<pts>
+						<pt x="248.023" y="368.141"/>
+						<pt x="460.766" y="368.141"/>
+					</pts>
+				</flow>
+				<aux x="362.828" y="294.75" name="radiative forcing (F)"/>
+				<aux x="299.844" y="143.484" name="thermal response time for box 1 (d1)"/>
+				<aux x="299.844" y="452.188" name="thermal response time\nfor box 2 (d2)"/>
+				<aux x="997.871" y="564.629" name="forcing coefficient 1 (Fc1)"/>
+				<aux x="877.515" y="569.77" name="forcing coefficient 2 (Fc2)"/>
+				<aux x="997.871" y="752.467" name="non-CO2 GHG\nemissions 2020 (EGHG0)"/>
+				<flow x="918.293" y="669.246" name="Flow 7">
+					<pts>
+						<pt x="794.645" y="683.855"/>
+						<pt x="794.645" y="669.246"/>
+						<pt x="1053.94" y="669.246"/>
+					</pts>
+				</flow>
+				<connector uid="21" angle="292.29">
+					<from>&quot;forcing_coefficient_2_(Fc2)&quot;</from>
+					<to>Flow_7</to>
+				</connector>
+				<connector uid="22" angle="232.741">
+					<from>&quot;forcing_coefficient_1_(Fc1)&quot;</from>
+					<to>Flow_7</to>
+				</connector>
+				<connector uid="25" angle="216.919">
+					<from>&quot;Non-CO2_GHG_forcing_(FGHG)&quot;</from>
+					<to>Flow_7</to>
+				</connector>
+				<connector uid="26" angle="247.864">
+					<from>&quot;thermal_equilibration_parameter_for_box_1_(Teq1)&quot;</from>
+					<to>Flow_5</to>
+				</connector>
+				<connector uid="27" angle="272.045">
+					<from>&quot;thermal_response_time_for_box_1_(d1)&quot;</from>
+					<to>Flow_5</to>
+				</connector>
+				<connector uid="28" angle="155.262">
+					<from>&quot;Deep_ocean_temperature_anomaly_(T1)&quot;</from>
+					<to>Flow_5</to>
+				</connector>
+				<connector uid="29" angle="14.1865">
+					<from>&quot;thermal_response_time_for_box_2_(d2)&quot;</from>
+					<to>Flow_6</to>
+				</connector>
+				<connector uid="30" angle="93.5991">
+					<from>&quot;thermal_equilibration_parameter_for_box_2_(Teq2)&quot;</from>
+					<to>Flow_6</to>
+				</connector>
+				<connector uid="31" angle="45.8463">
+					<from>&quot;radiative_forcing_(F)&quot;</from>
+					<to>Flow_5</to>
+				</connector>
+				<connector uid="32" angle="284.21">
+					<from>&quot;radiative_forcing_(F)&quot;</from>
+					<to>Flow_6</to>
+				</connector>
+				<aux x="499.959" y="546.629" name="pre-industrial equilibrium atosmpheric carbon (Meq)"/>
+				<aux x="543.179" y="661.201" name="carbon accumulated in ocean and land sinks (Cacc)"/>
+				<aux x="357.866" y="721.898" name="Atmospheric carbon concentration (MAT)"/>
+				<connector uid="36" angle="54.3182">
+					<from>
+						<alias uid="33"/>
+					</from>
+					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
+				</connector>
+				<connector uid="37" angle="72.7517">
+					<from>
+						<alias uid="34"/>
+					</from>
+					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
+				</connector>
+				<connector uid="38" angle="104.967">
+					<from>
+						<alias uid="35"/>
+					</from>
+					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
+				</connector>
+				<connector uid="39" angle="132.313">
+					<from>
+						<alias uid="40"/>
+					</from>
+					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
+				</connector>
+				<connector uid="41" angle="230.968">
+					<from>&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;</from>
+					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
+				</connector>
+				<connector uid="43" angle="238.238">
+					<from>&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;</from>
+					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
+				</connector>
+				<connector uid="44" angle="343.226">
+					<from>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</from>
+					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
+				</connector>
+				<aux x="667.969" y="276.75" name="Atmospheric temperature anomaly (TATM)"/>
+				<connector uid="45" angle="21.0912">
+					<from>&quot;Deep_ocean_temperature_anomaly_(T1)&quot;</from>
+					<to>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</to>
+				</connector>
+				<connector uid="46" angle="11.6755">
+					<from>&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</from>
+					<to>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</to>
+				</connector>
+				<aux x="205.373" y="569.77" name="Forcing from CO2 doubling (F2CO2)"/>
+				<aux x="52.3002" y="173.863" name="Miscellaneous forcing 2020 (Fmisc0)"/>
+				<connector uid="49" angle="11.5705">
+					<from>
+						<alias uid="50"/>
+					</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<stock x="1430.4" y="223.727" name="Carbon cycle feedback\nscaling factor (α)"/>
+				<flow x="1320.69" y="223.973" name="Flow 8">
+					<pts>
+						<pt x="1233.47" y="223.973"/>
+						<pt x="1407.9" y="223.973"/>
+					</pts>
+				</flow>
+				<aux x="1467.31" y="430.215" name="IRF 100 target"/>
+				<aux x="1457.03" y="520.926" name="IRF0"/>
+				<aux x="1380.9" y="569.77" name="Sensitivity of IRF to\ncumulative carbon uptake (irC)"/>
+				<aux x="1280.48" y="538.926" name="Sensitivity of IRF\nto temperature (irT)"/>
+				<aux x="1009.26" y="263.285" name="IRF100 modeled"/>
+				<connector uid="57" angle="338.662">
+					<from>&quot;Emission_share_into_reservoir_0_(ϵ0)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="58" angle="6.03566">
+					<from>&quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="59" angle="223.614">
+					<from>&quot;Emission_share_into_reservoir_2_(ϵ2)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="60" angle="272.914">
+					<from>&quot;Decay_time_constant_for_reservoir_2_(τ2)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="61" angle="48.8006">
+					<from>&quot;Decay_time_constant_for_reservoir_1_(τ1)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="62" angle="52.01">
+					<from>&quot;Emission_share_into_reservoir_1_(ϵ1)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="63" angle="160.71">
+					<from>&quot;Emission_share_into_reservoir_3_(ϵ3)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="64" angle="114.184">
+					<from>&quot;Decay_time_constant_for_reservoir_3_(τ3)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="65" angle="206.901">
+					<from>&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;</from>
+					<to>IRF100_modeled</to>
+				</connector>
+				<connector uid="66" angle="64.7441">
+					<from>IRF0</from>
+					<to>IRF_100_target</to>
+				</connector>
+				<connector uid="67" angle="280.124">
+					<from>
+						<alias uid="56"/>
+					</from>
+					<to>IRF_100_target</to>
+				</connector>
+				<connector uid="68" angle="54.6097">
+					<from>&quot;Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)&quot;</from>
+					<to>IRF_100_target</to>
+				</connector>
+				<connector uid="69" angle="34.8975">
+					<from>&quot;Sensitivity_of_IRF_to_temperature_(irT)&quot;</from>
+					<to>IRF_100_target</to>
+				</connector>
+				<connector uid="70" angle="26.1272">
+					<from>
+						<alias uid="55"/>
+					</from>
+					<to>IRF_100_target</to>
+				</connector>
+				<connector uid="71" angle="84.7814">
+					<from>IRF_100_target</from>
+					<to>Flow_8</to>
+				</connector>
+				<connector uid="72" angle="23.5877">
+					<from>IRF100_modeled</from>
+					<to>Flow_8</to>
+				</connector>
+				<aux x="57.1713" y="263.285" name="Miscellaneous forcing\n2100 (Fmisc80)"/>
+				<aux x="1312.4" y="724.938" name="non-CO2 GHG\nemissions 2100 (EGHG80)"/>
+				<connector uid="73" angle="139.12">
+					<from>&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<connector uid="74" angle="222.895">
+					<from>&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;</from>
+					<to>Flow_4</to>
+				</connector>
+				<connector uid="75" angle="63.2849">
+					<from>
+						<alias uid="76"/>
+					</from>
+					<to>Flow_1</to>
+				</connector>
+				<connector uid="77" angle="286.074">
+					<from>
+						<alias uid="76"/>
+					</from>
+					<to>Flow_2</to>
+				</connector>
+				<connector uid="78" angle="135.317">
+					<from>&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</from>
+					<to>Flow_6</to>
+				</connector>
+				<aux font_style="italic" font_weight="bold" x="721.482" y="574.874" name="emissions control rate (μ)"/>
+				<connector uid="85" angle="334.382">
+					<from>&quot;emissions_control_rate_(μ)&quot;</from>
+					<to>Flow_7</to>
+				</connector>
+				<aux x="149.035" y="414.551" name="Co2 forcing (FCO2)"/>
+				<connector uid="86" angle="124.195">
+					<from>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</from>
+					<to>&quot;Co2_forcing_(FCO2)&quot;</to>
+				</connector>
+				<aux x="125.171" y="237.209" name="Miscellaneous forcing\n2020 (Fmisc)"/>
+				<connector uid="87" angle="351.267">
+					<from>&quot;Miscellaneous_forcing_2020_(Fmisc0)&quot;</from>
+					<to>&quot;Miscellaneous_forcing_2020_(Fmisc)&quot;</to>
+				</connector>
+				<connector uid="88" angle="45.8762">
+					<from>&quot;Miscellaneous_forcing_2100_(Fmisc80)&quot;</from>
+					<to>&quot;Miscellaneous_forcing_2020_(Fmisc)&quot;</to>
+				</connector>
+				<connector uid="89" angle="358.799">
+					<from>&quot;Miscellaneous_forcing_2020_(Fmisc)&quot;</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<connector uid="90" angle="43.2838">
+					<from>&quot;Co2_forcing_(FCO2)&quot;</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<aux x="1171.3" y="747.119" name="non-CO2 GHG\nemissions (EGHGbase)"/>
+				<connector uid="92" angle="133.338">
+					<from>&quot;non-CO2_GHG_emissions_(EGHGbase)&quot;</from>
+					<to>Flow_7</to>
+				</connector>
+				<connector uid="93" angle="1.76601">
+					<from>&quot;non-CO2_GHG_emissions_2020_(EGHG0)&quot;</from>
+					<to>&quot;non-CO2_GHG_emissions_(EGHGbase)&quot;</to>
+				</connector>
+				<connector uid="94" angle="167.801">
+					<from>&quot;non-CO2_GHG_emissions_2100_(EGHG80)&quot;</from>
+					<to>&quot;non-CO2_GHG_emissions_(EGHGbase)&quot;</to>
+				</connector>
+				<stock font_style="italic" font_weight="bold" x="661.395" y="774.722" name="cumulative carbon\nemissions (Ctot)"/>
+				<connector uid="95" angle="136.161">
+					<from>&quot;cumulative_carbon_emissions_(Ctot)&quot;</from>
+					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
+				</connector>
+				<aux x="1457.03" y="125.426" name="scaling factor init"/>
+				<alias color="blue" background="white" font_style="italic" uid="33" x="175.629" y="825.022" width="45" height="35">
+					<shape type="rectangle" width="45" height="35"/>
+					<of>&quot;Carbon_Reservoir_0_(R0)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="34" x="299.621" y="819.526" width="45" height="35">
+					<of>&quot;Carbon_Reservoir_1_(R1)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="35" x="415.875" y="824.643" width="45" height="35">
+					<of>&quot;Carbon_Reservoir_2_(R2)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="40" x="534.957" y="819.526" width="45" height="35">
+					<of>&quot;Carbon_Reservoir_3_(R3)&quot;</of>
+				</alias>
+				<alias color="blue" background="white" font_style="italic" uid="50" x="88.8759" y="328.731" width="45" height="35">
+					<shape type="rectangle" width="45" height="35"/>
+					<of>&quot;Non-CO2_GHG_forcing_(FGHG)&quot;</of>
+				</alias>
+				<alias color="blue" background="white" font_style="italic" uid="55" x="1359.25" y="440.699" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</of>
+				</alias>
+				<alias color="blue" background="white" font_style="italic" uid="56" x="1461.67" y="325.355" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="76" x="735.877" y="241.227" width="45" height="35">
+					<of>&quot;Carbon_cycle_feedback_scaling_factor_(α)&quot;</of>
+				</alias>
+			</view>
+		</views>
+	</model>
+	<model name="Economy">
+		<variables>
+			<stock name="Population (L)">
+				<eqn>&quot;initial_Population_(Linit)&quot;</eqn>
+				<inflow>Population_growth</inflow>
+				<non_negative/>
+				<units>million people</units>
+			</stock>
+			<stock name="TFP (AL)">
+				<eqn>&quot;initial_TFP_(ALinit)&quot;</eqn>
+				<inflow>Change_in_TFP</inflow>
+				<non_negative/>
+				<units>unitless</units>
+			</stock>
+			<stock name="Carbon Intensity (σ)" access="output" isee:autocreated="true">
+				<eqn>initial_carbon_intensity</eqn>
+				<inflow>Flow_3</inflow>
+				<non_negative/>
+				<units>kgCO2/USD</units>
+			</stock>
+			<stock name="Capital (K)">
+				<eqn>295</eqn>
+				<inflow>Change_in_capital</inflow>
+				<non_negative/>
+				<units>trillion 2019 USD</units>
+			</stock>
+			<aux name="Investment (I)">
+				<eqn>&quot;savings_rate_(s)&quot;*&quot;Output_(Y)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="Depreciation rate of capital (δK)">
+				<eqn>0.1</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="asymtotic population">
+				<eqn>10825</eqn>
+				<units>million people</units>
+			</aux>
+			<aux name="population growth adjustment">
+				<eqn>0.145</eqn>
+				<units>million people/Year</units>
+			</aux>
+			<flow name="Population growth">
+				<eqn>&quot;Population_(L)&quot;*LN(asymtotic_population/&quot;Population_(L)&quot;)*population_growth_adjustment</eqn>
+				<non_negative/>
+				<units>million people/Year</units>
+			</flow>
+			<aux name="TFP growth rate (gA, t)">
+				<eqn>&quot;initial_TFP_growth_rate_(gA,0)&quot;*EXP(-&quot;decline_rate_of_TFP_growth_(δA)&quot;*TIME)</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="initial TFP growth rate (gA,0)">
+				<eqn>0.0132</eqn>
+				<units>unitless</units>
+			</aux>
+			<flow name="Change in TFP">
+				<eqn>&quot;TFP_growth_rate_(gA,_t)&quot;*&quot;TFP_(AL)&quot;</eqn>
+				<non_negative/>
+				<units>Per Year</units>
+			</flow>
+			<aux name="decline rate of TFP growth (δA)">
+				<eqn>0.0003</eqn>
+			</aux>
+			<flow name="Flow 3">
+				<eqn>&quot;Carbon_Intensity_(σ)&quot;*&quot;carbon_intensity_decline_rate_(gσ,t)&quot;</eqn>
+				<units>kgCO2/USD/Year</units>
+			</flow>
+			<aux name="carbon intensity\ndecline rate (gσ,t)">
+				<eqn>MIN(&quot;initial_carbon_intensity_decline_rate_(gσ,1)&quot; * (&quot;decline_rate_of_carbon_intensity_decline_rate_(δgσ)&quot;^(TIME/5)), &quot;carbon_intensity_decline_asymtote_(gσ,asym)&quot;)</eqn>
+			</aux>
+			<aux name="initial carbon\nintensity decline rate (gσ,1)">
+				<eqn>-0.015</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="decline rate of carbon\nintensity decline rate (δgσ)">
+				<eqn>0.9918</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="carbon intensity\ndecline asymtote (gσ,asym)">
+				<eqn>-0.005</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="2020 industrial emissions">
+				<eqn>37.56</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="2020 world output">
+				<eqn>135.7</eqn>
+				<units>trillion 2019 USD</units>
+			</aux>
+			<aux name="2020 emissions control rate">
+				<eqn>0.05</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="initial carbon intensity">
+				<eqn>&quot;2020_industrial_emissions&quot;/(&quot;2020_world_output&quot;*(1-&quot;2020_emissions_control_rate&quot;))</eqn>
+				<units>kgCO2/USD</units>
+			</aux>
+			<flow name="Change in capital">
+				<eqn>&quot;Investment_(I)&quot;-&quot;Depreciation_rate_of_capital_(δK)&quot;*&quot;Capital_(K)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</flow>
+			<aux name="savings rate (s)">
+				<eqn>0.28</eqn>
+				<units>fraction</units>
+			</aux>
+			<aux name="gross output (Ygross)">
+				<eqn>&quot;TFP_(AL)&quot;*(&quot;Population_(L)&quot;/1000)^(1-&quot;capital_elasticity_(γ)&quot;)*&quot;Capital_(K)&quot;^&quot;capital_elasticity_(γ)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="damages as fraction\nof gross output (Dfrac)">
+				<eqn>a1*&quot;Atmospheric_temperature_anomaly_(TATM)&quot;+a2*&quot;Atmospheric_temperature_anomaly_(TATM)&quot;^a3</eqn>
+			</aux>
+			<aux name="capital elasticity (γ)">
+				<eqn>0.3</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="a1">
+				<eqn>0</eqn>
+				<units>/°C</units>
+			</aux>
+			<aux name="a2">
+				<eqn>0.003467</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="a3">
+				<eqn>2</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Atmospheric temperature anomaly (TATM)" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>°C from 1765</units>
+			</aux>
+			<aux name="Economic damages (D)">
+				<eqn>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;*&quot;gross_output_(Ygross)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<group name="Carbon Intensity" run="false">
+				<entity name='"2020_emissions_control_rate"'/>
+				<entity name='"2020_industrial_emissions"'/>
+				<entity name='"2020_world_output"'/>
+				<entity name='"Carbon_Intensity_(σ)"'/>
+				<entity name='"carbon_intensity_decline_asymtote_(gσ,asym)"'/>
+				<entity name='"carbon_intensity_decline_rate_(gσ,t)"'/>
+				<entity name='"decline_rate_of_carbon_intensity_decline_rate_(δgσ)"'/>
+				<entity name='"initial_carbon_intensity_decline_rate_(gσ,1)"'/>
+				<entity name="Flow_3"/>
+				<entity name="initial_carbon_intensity"/>
+			</group>
+			<group name="TFP" run="false">
+				<entity name='"decline_rate_of_TFP_growth_(δA)"'/>
+				<entity name='"initial_TFP_growth_rate_(gA,0)"'/>
+				<entity name='"TFP_(AL)"'/>
+				<entity name='"TFP_growth_rate_(gA,_t)"'/>
+				<entity name="Change_in_TFP"/>
+			</group>
+			<group name="Population" run="false">
+				<entity name='"Population_(L)"'/>
+				<entity name="asymtotic_population"/>
+				<entity name="Population_growth"/>
+				<entity name="population_growth_adjustment"/>
+			</group>
+			<group name="Capital" run="false">
+				<entity name='"Capital_(K)"'/>
+				<entity name='"consumption_(C)"'/>
+				<entity name='"Depreciation_rate_of_capital_(δK)"'/>
+				<entity name='"Investment_(I)"'/>
+				<entity name='"Output_(Y)"'/>
+				<entity name='"per_capital_consumption_(c)"'/>
+				<entity name='"savings_rate_(s)"'/>
+				<entity name="Change_in_capital"/>
+			</group>
+			<group name="Damages to Econ" run="false">
+				<entity name='"Atmospheric_temperature_anomaly_(TATM)"'/>
+				<entity name='"damages_as_fraction_of_gross_output_(Dfrac)"'/>
+				<entity name='"Economic_damages_(D)"'/>
+				<entity name='"net_output_(Ynet)"'/>
+				<entity name="a1"/>
+				<entity name="a2"/>
+				<entity name="a3"/>
+			</group>
+			<aux name="net output (Ynet)">
+				<eqn>&quot;gross_output_(Ygross)&quot;*(1-&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;)</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="cost of emissions abatement (Cabate)">
+				<eqn>&quot;gross_output_(Ygross)&quot;*&quot;total_abatement_cost_factor_(θ1)&quot;*&quot;emissions_control_rate_(μ)&quot;^&quot;cost_function_exponent_(θ2)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="total abatement\ncost factor (θ1)">
+				<eqn>(&quot;total_emissions_intensity_(σtot)&quot;*pback)/(&quot;cost_function_exponent_(θ2)&quot;*1000)</eqn>
+			</aux>
+			<aux name="cost function exponent (θ2)">
+				<eqn>2.6</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="pback">
+				<eqn>IF TIME &lt;= 30 THEN 
+pback2020 ELSE
+pback2050</eqn>
+				<units>2019 USD/tCO2</units>
+			</aux>
+			<aux name="pback2020">
+				<eqn>515 * EXP(-0.05 * (TIME - 30))</eqn>
+				<units>2019 USD/tCO2</units>
+			</aux>
+			<aux name="marginal cost of abatement (MCabate)">
+				<eqn>pback*&quot;emissions_control_rate_(μ)&quot;^(&quot;cost_function_exponent_(θ2)&quot;-1)</eqn>
+				<units>2019 USD/tCO2</units>
+			</aux>
+			<aux name="initial Population (Linit)">
+				<eqn>7752.9</eqn>
+				<units>million people</units>
+			</aux>
+			<aux name="initial output (Ygross0)">
+				<eqn>135.7</eqn>
+				<units>trillion 2019 USD</units>
+			</aux>
+			<aux name="initial TFP (ALinit)">
+				<eqn>5.84</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="initial industrial emissions (Eind0)">
+				<eqn>37.56</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="initial control rate (µ0)">
+				<eqn>0.05</eqn>
+			</aux>
+			<aux name="initial carbon intensity (σ0)">
+				<eqn>0.2771</eqn>
+				<units>GtCO2/trillion 2019 USD</units>
+			</aux>
+			<aux name="elasticity marginal utility (η)">
+				<eqn>0.95</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="pure time preference (ρ)">
+				<eqn>0.001</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="climate beta (βclim)">
+				<eqn>0.5</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="capital risk premium (π)">
+				<eqn>0.05</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="std dev consumption\ngrowth (Vc)">
+				<eqn>MIN(0.0001*TIME, 0.0235)</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="utility scaling factor 1 (κ1)">
+				<eqn>0.00891061</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="utility scaling factor 2 (κ2)">
+				<eqn>-6275.91</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="emissions control rate (μ)" access="output" isee:autocreated="true">
+				<eqn>0.05</eqn>
+			</aux>
+			<flow name="emissions accumulating">
+				<eqn>&quot;total_CO2_emissions_(ECo2)&quot;/3.666</eqn>
+				<non_negative/>
+				<units>GtC/Year</units>
+			</flow>
+			<stock name="cumulative carbon\nemissions (Ctot)" access="output" isee:autocreated="true">
+				<eqn>633.5</eqn>
+				<inflow>emissions_accumulating</inflow>
+				<non_negative/>
+				<units>GtC</units>
+			</stock>
+			<aux name="industrial emissions">
+				<eqn>(&quot;Carbon_Intensity_(σ)&quot;*&quot;gross_output_(Ygross)&quot;
+*(1-&quot;emissions_control_rate_(μ)&quot;))</eqn>
+			</aux>
+			<aux name="land emissions (Eland)">
+				<eqn>&quot;initial_land_emissions_(Eland0)&quot; * EXP(-&quot;land_emissions_decline_rate_(λland)&quot; * TIME)</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="total CO2 emissions (ECo2)" access="output" isee:autocreated="true">
+				<eqn>&quot;land_emissions_(Eland)&quot;+industrial_emissions</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="land emissions decline\nrate (λland)">
+				<eqn>0.02107</eqn>
+				<units>/year</units>
+			</aux>
+			<group name="Emissions" run="false">
+				<entity name='"cumulative_carbon_emissions_(Ctot)"'/>
+				<entity name='"emissions_control_rate_(μ)"'/>
+				<entity name='"initial_land_emissions_(Eland0)"'/>
+				<entity name='"land_emissions_(Eland)"'/>
+				<entity name='"land_emissions_decline_rate_(λland)"'/>
+				<entity name='"total_CO2_emissions_(ECo2)"'/>
+				<entity name="emissions_accumulating"/>
+				<entity name="industrial_emissions"/>
+			</group>
+			<aux name="initial land emissions (Eland0)">
+				<eqn>5.9</eqn>
+				<units>GtCO2/year</units>
+			</aux>
+			<aux name="emissions ratio 2020 (remiss0)">
+				<eqn>1.4</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="emissions ratio 2100 (remiss80)">
+				<eqn>1.21</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="total emissions intensity (σtot)">
+				<eqn>&quot;Carbon_Intensity_(σ)&quot;*&quot;emissions_ratio_(remiss)&quot;</eqn>
+			</aux>
+			<aux name="emissions ratio (remiss)">
+				<eqn>IF TIME &lt;= 80 THEN 
+                &quot;emissions_ratio_2020_(remiss0)&quot; + (&quot;emissions_ratio_2100_(remiss80)&quot; - &quot;emissions_ratio_2020_(remiss0)&quot;)/80 * TIME 
+             ELSE 
+       &quot;emissions_ratio_2100_(remiss80)&quot;</eqn>
+			</aux>
+			<aux name="pback2050">
+				<eqn>515 * EXP(-0.005 * (TIME - 30))</eqn>
+			</aux>
+			<aux name="consumption (C)">
+				<eqn>&quot;Output_(Y)&quot;-&quot;Investment_(I)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="Output (Y)">
+				<eqn>&quot;net_output_(Ynet)&quot;-&quot;cost_of_emissions_abatement_(Cabate)&quot;</eqn>
+				<units>trillion 2019 USD/Year</units>
+			</aux>
+			<aux name="per capital consumption (c)">
+				<eqn>1000*&quot;consumption_(C)&quot;/&quot;Population_(L)&quot;</eqn>
+				<units>thousand 2019 USD/ capita/ year</units>
+			</aux>
+			<aux name="instantaneous utility (u(c))">
+				<eqn>((&quot;per_capital_consumption_(c)&quot;^(1-&quot;elasticity_marginal_utility_(η)&quot;)-1)/(1-&quot;elasticity_marginal_utility_(η)&quot;))-1</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="period utility (U)">
+				<eqn>&quot;instantaneous_utility_(u(c))&quot;*&quot;Population_(L)&quot;*&quot;Discount_factor_(R)&quot;</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="Discount factor (R)">
+				<eqn>&quot;base_discount_factor_(R1)&quot;*(2.72^(TIME*&quot;precautionary_adjustment_(rpre)&quot;))</eqn>
+			</aux>
+			<aux name="total welfare (W)">
+				<eqn>&quot;utility_scaling_factor_1_(κ1)&quot; * &quot;Accumulated_Utility_(Uacc)&quot; + &quot;utility_scaling_factor_2_(κ2)&quot;</eqn>
+			</aux>
+			<stock name="Accumulated Utility (Uacc)">
+				<eqn>0</eqn>
+				<inflow>accumulation_of_utility</inflow>
+				<non_negative/>
+				<units>unitless</units>
+			</stock>
+			<flow name="accumulation of utility">
+				<eqn>&quot;period_utility_(U)&quot;</eqn>
+				<units>Per Year</units>
+			</flow>
+			<aux name="risk-adjusted pure time\npreference (ρa)">
+				<eqn> 0.02628</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="base discount factor (R1)">
+				<eqn>1/(1.02628^TIME)</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="precautionary adjustment (rpre)">
+				<eqn>-0.5*&quot;std_dev_consumption_growth_(Vc)&quot;* 0.9025</eqn>
+			</aux>
+			<aux name="Long run discount factor (RFlong)">
+				<eqn>1e6*(&quot;per_capital_consumption_(c)&quot;/&quot;initial_per_capiita_consumption_(c0)&quot;)^-0.95*&quot;Discount_factor_(R)&quot;</eqn>
+				<units>unitless</units>
+			</aux>
+			<aux name="long run interest rate (rlong)">
+				<eqn>(LN(&quot;Long_run_discount_factor_(RFlong)&quot;/1e6))/TIME</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="short run interest rate (rshort)">
+				<eqn>-LN(&quot;Long_run_discount_factor_(RFlong)&quot; / DELAY(&quot;Long_run_discount_factor_(RFlong)&quot;, DT)) / DT</eqn>
+				<units>/year</units>
+			</aux>
+			<aux name="initial per capiita\nconsumption (c0)">
+				<eqn>12.46</eqn>
+				<units>thousand 2019 USD/ capita/ year</units>
+			</aux>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#0075FF" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<isee:dropdown_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="1" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="2" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</flow>
+					<isee:placeholder color="#228B22" background="white" font_color="#228B22" font_size="9pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="red" background="white" font_color="red" font_size="9pt"/>
+					<connector color="#FF007F" background="white" font_color="#FF007F" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<stock x="572.355" y="80.9536" name="Population (L)"/>
+				<stock x="248.868" y="81.2857" name="TFP (AL)"/>
+				<stock x="359.563" y="558.686" name="Carbon Intensity (σ)"/>
+				<stock x="752.45" y="83.8672" name="Capital (K)"/>
+				<aux x="893.643" y="110.367" name="Investment (I)"/>
+				<aux x="985.874" y="98.7617" name="Depreciation rate of capital (δK)"/>
+				<aux x="449.805" y="145.544" name="asymtotic population"/>
+				<aux x="438.187" y="35.2933" name="population growth adjustment"/>
+				<flow x="487.715" y="87.9457" name="Population growth">
+					<pts>
+						<pt x="425.575" y="87.9457"/>
+						<pt x="549.855" y="87.9457"/>
+					</pts>
+				</flow>
+				<connector uid="1" angle="66.9435">
+					<from>asymtotic_population</from>
+					<to>Population_growth</to>
+				</connector>
+				<connector uid="2" angle="313.249">
+					<from>population_growth_adjustment</from>
+					<to>Population_growth</to>
+				</connector>
+				<connector uid="3" angle="155.259">
+					<from>&quot;Population_(L)&quot;</from>
+					<to>Population_growth</to>
+				</connector>
+				<aux x="171.348" y="135.458" name="TFP growth rate (gA, t)"/>
+				<aux x="112.057" y="163.153" name="initial TFP growth rate (gA,0)"/>
+				<flow x="167.698" y="81.2857" name="Change in TFP">
+					<pts>
+						<pt x="109.027" y="81.2857"/>
+						<pt x="226.368" y="81.2857"/>
+					</pts>
+				</flow>
+				<connector uid="4" angle="25.0378">
+					<from>&quot;initial_TFP_growth_rate_(gA,0)&quot;</from>
+					<to>&quot;TFP_growth_rate_(gA,_t)&quot;</to>
+				</connector>
+				<aux x="218.027" y="205.364" name="decline rate of TFP growth (δA)"/>
+				<connector uid="5" angle="111.536">
+					<from>&quot;decline_rate_of_TFP_growth_(δA)&quot;</from>
+					<to>&quot;TFP_growth_rate_(gA,_t)&quot;</to>
+				</connector>
+				<connector uid="6" angle="74.535">
+					<from>&quot;TFP_growth_rate_(gA,_t)&quot;</from>
+					<to>Change_in_TFP</to>
+				</connector>
+				<connector uid="7" angle="161.137">
+					<from>&quot;TFP_(AL)&quot;</from>
+					<to>Change_in_TFP</to>
+				</connector>
+				<flow x="283.732" y="561.147" name="Flow 3">
+					<pts>
+						<pt x="218.402" y="561.147"/>
+						<pt x="337.063" y="561.147"/>
+					</pts>
+				</flow>
+				<connector uid="8" angle="150.026">
+					<from>&quot;Carbon_Intensity_(σ)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<aux x="295.733" y="614.319" name="carbon intensity\ndecline rate (gσ,t)"/>
+				<connector uid="9" angle="102.718">
+					<from>&quot;carbon_intensity_decline_rate_(gσ,t)&quot;</from>
+					<to>Flow_3</to>
+				</connector>
+				<aux x="355.239" y="681.983" name="initial carbon\nintensity decline rate (gσ,1)"/>
+				<connector uid="10" angle="134.39">
+					<from>&quot;initial_carbon_intensity_decline_rate_(gσ,1)&quot;</from>
+					<to>&quot;carbon_intensity_decline_rate_(gσ,t)&quot;</to>
+				</connector>
+				<aux x="428.129" y="734.131" name="decline rate of carbon\nintensity decline rate (δgσ)"/>
+				<connector uid="11" angle="92.3556">
+					<from>&quot;decline_rate_of_carbon_intensity_decline_rate_(δgσ)&quot;</from>
+					<to>&quot;carbon_intensity_decline_rate_(gσ,t)&quot;</to>
+				</connector>
+				<aux x="446.129" y="649.268" name="carbon intensity\ndecline asymtote (gσ,asym)"/>
+				<connector uid="12" angle="146.11">
+					<from>&quot;carbon_intensity_decline_asymtote_(gσ,asym)&quot;</from>
+					<to>&quot;carbon_intensity_decline_rate_(gσ,t)&quot;</to>
+				</connector>
+				<aux x="86.984" y="629.057" name="2020 industrial emissions"/>
+				<aux x="80.16" y="562.405" name="2020 world output"/>
+				<aux x="161.625" y="725.182" name="2020 emissions control rate"/>
+				<aux x="202.816" y="614.311" name="initial carbon intensity"/>
+				<connector uid="13" angle="28.0597">
+					<from>&quot;2020_world_output&quot;</from>
+					<to>initial_carbon_intensity</to>
+				</connector>
+				<connector uid="14" angle="30.0706">
+					<from>&quot;2020_industrial_emissions&quot;</from>
+					<to>initial_carbon_intensity</to>
+				</connector>
+				<connector uid="15" angle="63.5243">
+					<from>&quot;2020_emissions_control_rate&quot;</from>
+					<to>initial_carbon_intensity</to>
+				</connector>
+				<flow x="851.948" y="45.4688" name="Change in capital">
+					<pts>
+						<pt x="975.446" y="45.4688"/>
+						<pt x="752.45" y="45.4688"/>
+						<pt x="752.45" y="66.3672"/>
+					</pts>
+				</flow>
+				<connector uid="16" angle="73.099">
+					<from>&quot;Investment_(I)&quot;</from>
+					<to>Change_in_capital</to>
+				</connector>
+				<connector uid="17" angle="131.498">
+					<from>&quot;Depreciation_rate_of_capital_(δK)&quot;</from>
+					<to>Change_in_capital</to>
+				</connector>
+				<connector uid="18" angle="350.558">
+					<from>&quot;Capital_(K)&quot;</from>
+					<to>Change_in_capital</to>
+				</connector>
+				<aux x="982.42" y="167.602" name="savings rate (s)"/>
+				<connector uid="19" angle="136.27">
+					<from>&quot;savings_rate_(s)&quot;</from>
+					<to>&quot;Investment_(I)&quot;</to>
+				</connector>
+				<aux x="249.147" y="283.133" width="57.1719" height="57.1719" name="gross output (Ygross)"/>
+				<aux x="882.071" y="293.719" name="damages as fraction\nof gross output (Dfrac)"/>
+				<connector uid="29" angle="258.766">
+					<from>&quot;TFP_(AL)&quot;</from>
+					<to>&quot;gross_output_(Ygross)&quot;</to>
+				</connector>
+				<aux x="157.168" y="297.043" name="capital elasticity (γ)"/>
+				<connector uid="32" angle="13.974">
+					<from>&quot;capital_elasticity_(γ)&quot;</from>
+					<to>&quot;gross_output_(Ygross)&quot;</to>
+				</connector>
+				<connector uid="33" angle="218.07">
+					<from>&quot;Population_(L)&quot;</from>
+					<to>&quot;gross_output_(Ygross)&quot;</to>
+				</connector>
+				<aux x="957.423" y="267.953" name="a1"/>
+				<aux x="978.366" y="311.719" name="a2"/>
+				<connector uid="35" angle="178.639">
+					<from>a1</from>
+					<to>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</to>
+				</connector>
+				<connector uid="36" angle="154.035">
+					<from>a2</from>
+					<to>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</to>
+				</connector>
+				<aux x="996.366" y="388.352" name="a3"/>
+				<connector uid="37" angle="120.019">
+					<from>a3</from>
+					<to>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</to>
+				</connector>
+				<aux font_style="italic" font_weight="bold" x="960.366" y="440.388" name="Atmospheric temperature anomaly (TATM)"/>
+				<connector uid="38" angle="139.875">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</to>
+				</connector>
+				<aux x="763.281" y="267.953" name="Economic damages (D)"/>
+				<connector uid="39" angle="128.448">
+					<from>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</from>
+					<to>&quot;Economic_damages_(D)&quot;</to>
+				</connector>
+				<group locked="true" x="22.0781" y="522.658" width="491.641" height="266.664" name="Carbon Intensity"/>
+				<group locked="false" x="30.168" y="45.0547" width="282.215" height="208.473" name="TFP"/>
+				<group locked="true" x="365.996" y="22.3984" width="300" height="184" name="Population"/>
+				<group locked="true" x="702.413" y="26.3672" width="337.723" height="184" name="Capital"/>
+				<connector uid="42" angle="225.929">
+					<from>&quot;Capital_(K)&quot;</from>
+					<to>&quot;gross_output_(Ygross)&quot;</to>
+				</connector>
+				<group locked="true" x="704.598" y="243.555" width="333.352" height="250.418" name="Damages to Econ"/>
+				<connector uid="43" angle="16.7859">
+					<from>&quot;gross_output_(Ygross)&quot;</from>
+					<to>&quot;Economic_damages_(D)&quot;</to>
+				</connector>
+				<aux x="770.106" y="428.684" name="net output (Ynet)"/>
+				<connector uid="44" angle="5.53437">
+					<from>&quot;gross_output_(Ygross)&quot;</from>
+					<to>&quot;net_output_(Ynet)&quot;</to>
+				</connector>
+				<connector uid="45" angle="230.321">
+					<from>&quot;damages_as_fraction_of_gross_output_(Dfrac)&quot;</from>
+					<to>&quot;net_output_(Ynet)&quot;</to>
+				</connector>
+				<aux x="475.598" y="329.719" name="cost of emissions abatement (Cabate)"/>
+				<aux x="449.805" y="413.961" name="total abatement\ncost factor (θ1)"/>
+				<connector uid="46" angle="61.1552">
+					<from>&quot;total_abatement_cost_factor_(θ1)&quot;</from>
+					<to>&quot;cost_of_emissions_abatement_(Cabate)&quot;</to>
+				</connector>
+				<aux x="603.855" y="376.43" name="cost function exponent (θ2)"/>
+				<connector uid="48" angle="141.858">
+					<from>&quot;cost_function_exponent_(θ2)&quot;</from>
+					<to>&quot;cost_of_emissions_abatement_(Cabate)&quot;</to>
+				</connector>
+				<connector uid="49" angle="354.802">
+					<from>&quot;gross_output_(Ygross)&quot;</from>
+					<to>&quot;cost_of_emissions_abatement_(Cabate)&quot;</to>
+				</connector>
+				<aux x="565.922" y="428.684" name="pback"/>
+				<aux x="510.906" y="470.227" name="pback2020"/>
+				<connector uid="51" angle="37.0574">
+					<from>pback2020</from>
+					<to>pback</to>
+				</connector>
+				<aux x="654.023" y="422.388" name="marginal cost of abatement (MCabate)"/>
+				<connector uid="52" angle="17.8941">
+					<from>pback</from>
+					<to>&quot;marginal_cost_of_abatement_(MCabate)&quot;</to>
+				</connector>
+				<connector uid="53" angle="345.441">
+					<from>&quot;cost_function_exponent_(θ2)&quot;</from>
+					<to>&quot;marginal_cost_of_abatement_(MCabate)&quot;</to>
+				</connector>
+				<aux x="1125.66" y="63.4688" name="initial Population (Linit)"/>
+				<aux x="1214.35" y="77.2266" name="initial output (Ygross0)"/>
+				<aux x="1153.63" y="116.762" name="initial TFP (ALinit)"/>
+				<aux x="1263.74" y="177.772" name="initial industrial emissions (Eind0)"/>
+				<aux x="1121.07" y="167.602" name="initial control rate (µ0)"/>
+				<aux x="1290.45" y="116.762" name="initial carbon intensity (σ0)"/>
+				<aux x="1207.62" y="431.961" name="elasticity marginal utility (η)"/>
+				<aux x="1741.69" y="110.367" name="pure time preference (ρ)"/>
+				<aux x="1532.46" y="149.602" name="climate beta (βclim)"/>
+				<aux x="1639.1" y="181.153" name="capital risk premium (π)"/>
+				<aux x="1412.25" y="870.891" name="std dev consumption\ngrowth (Vc)"/>
+				<aux x="1613.39" y="787.836" name="utility scaling factor 1 (κ1)"/>
+				<aux x="1460.57" y="793.649" name="utility scaling factor 2 (κ2)"/>
+				<aux x="747.149" y="571.654" name="emissions control rate (μ)"/>
+				<flow x="799.326" y="757.723" name="emissions accumulating">
+					<pts>
+						<pt x="745.334" y="757.723"/>
+						<pt x="853.319" y="757.723"/>
+					</pts>
+				</flow>
+				<stock x="875.819" y="755.875" name="cumulative carbon\nemissions (Ctot)"/>
+				<aux x="729.149" y="647.057" name="industrial emissions"/>
+				<aux x="593.254" y="752.131" name="land emissions (Eland)"/>
+				<aux x="617.286" y="652.099" name="total CO2 emissions (ECo2)"/>
+				<connector uid="55" angle="76.4912">
+					<from>&quot;land_emissions_(Eland)&quot;</from>
+					<to>&quot;total_CO2_emissions_(ECo2)&quot;</to>
+				</connector>
+				<connector uid="56" angle="329.877">
+					<from>&quot;total_CO2_emissions_(ECo2)&quot;</from>
+					<to>emissions_accumulating</to>
+				</connector>
+				<aux x="668.329" y="699.983" name="land emissions decline\nrate (λland)"/>
+				<group locked="true" x="533.399" y="549.168" width="411.738" height="259.551" name="Emissions"/>
+				<aux x="695.598" y="770.131" name="initial land emissions (Eland0)"/>
+				<connector uid="61" angle="159.62">
+					<from>&quot;initial_land_emissions_(Eland0)&quot;</from>
+					<to>&quot;land_emissions_(Eland)&quot;</to>
+				</connector>
+				<connector uid="62" angle="185.544">
+					<from>&quot;land_emissions_decline_rate_(λland)&quot;</from>
+					<to>&quot;land_emissions_(Eland)&quot;</to>
+				</connector>
+				<connector uid="63" angle="311.08">
+					<from>&quot;gross_output_(Ygross)&quot;</from>
+					<to>industrial_emissions</to>
+				</connector>
+				<connector uid="64" angle="199.324">
+					<from>&quot;emissions_control_rate_(μ)&quot;</from>
+					<to>industrial_emissions</to>
+				</connector>
+				<connector uid="65" angle="346.553">
+					<from>&quot;Carbon_Intensity_(σ)&quot;</from>
+					<to>industrial_emissions</to>
+				</connector>
+				<connector uid="66" angle="182.581">
+					<from>industrial_emissions</from>
+					<to>&quot;total_CO2_emissions_(ECo2)&quot;</to>
+				</connector>
+				<connector uid="67" angle="138.301">
+					<from>&quot;emissions_control_rate_(μ)&quot;</from>
+					<to>&quot;cost_of_emissions_abatement_(Cabate)&quot;</to>
+				</connector>
+				<aux x="76.4229" y="455.703" name="emissions ratio 2020 (remiss0)"/>
+				<aux x="76.4229" y="383.256" name="emissions ratio 2100 (remiss80)"/>
+				<aux x="295.732" y="445.02" name="total emissions intensity (σtot)"/>
+				<aux x="211.303" y="463.02" name="emissions ratio (remiss)"/>
+				<connector uid="69" angle="11.8226">
+					<from>&quot;emissions_ratio_2020_(remiss0)&quot;</from>
+					<to>&quot;emissions_ratio_(remiss)&quot;</to>
+				</connector>
+				<connector uid="70" angle="329.402">
+					<from>&quot;emissions_ratio_2100_(remiss80)&quot;</from>
+					<to>&quot;emissions_ratio_(remiss)&quot;</to>
+				</connector>
+				<connector uid="71" angle="12.0351">
+					<from>&quot;emissions_ratio_(remiss)&quot;</from>
+					<to>&quot;total_emissions_intensity_(σtot)&quot;</to>
+				</connector>
+				<connector uid="72" angle="88.0909">
+					<from>&quot;Carbon_Intensity_(σ)&quot;</from>
+					<to>&quot;total_emissions_intensity_(σtot)&quot;</to>
+				</connector>
+				<connector uid="73" angle="28.1654">
+					<from>&quot;total_emissions_intensity_(σtot)&quot;</from>
+					<to>&quot;total_abatement_cost_factor_(θ1)&quot;</to>
+				</connector>
+				<connector uid="74" angle="176.448">
+					<from>pback</from>
+					<to>&quot;total_abatement_cost_factor_(θ1)&quot;</to>
+				</connector>
+				<connector uid="75" angle="204.867">
+					<from>&quot;cost_function_exponent_(θ2)&quot;</from>
+					<to>&quot;total_abatement_cost_factor_(θ1)&quot;</to>
+				</connector>
+				<aux x="593.254" y="484.553" name="pback2050"/>
+				<connector uid="76" angle="116.069">
+					<from>pback2050</from>
+					<to>pback</to>
+				</connector>
+				<connector uid="77" angle="93.519">
+					<from>&quot;emissions_control_rate_(μ)&quot;</from>
+					<to>&quot;marginal_cost_of_abatement_(MCabate)&quot;</to>
+				</connector>
+				<aux x="817.326" y="128.367" name="consumption (C)"/>
+				<aux x="900.071" y="177.772" name="Output (Y)"/>
+				<connector uid="78" angle="81.62">
+					<from>&quot;net_output_(Ynet)&quot;</from>
+					<to>&quot;Output_(Y)&quot;</to>
+				</connector>
+				<connector uid="79" angle="39.5582">
+					<from>&quot;cost_of_emissions_abatement_(Cabate)&quot;</from>
+					<to>&quot;Output_(Y)&quot;</to>
+				</connector>
+				<connector uid="80" angle="95.4471">
+					<from>&quot;Output_(Y)&quot;</from>
+					<to>&quot;Investment_(I)&quot;</to>
+				</connector>
+				<connector uid="82" angle="207.271">
+					<from>&quot;Investment_(I)&quot;</from>
+					<to>&quot;consumption_(C)&quot;</to>
+				</connector>
+				<connector uid="83" angle="189.002">
+					<from>&quot;Output_(Y)&quot;</from>
+					<to>&quot;consumption_(C)&quot;</to>
+				</connector>
+				<aux x="759.043" y="153.458" name="per capital consumption (c)"/>
+				<connector uid="84" angle="182.239">
+					<from>&quot;consumption_(C)&quot;</from>
+					<to>&quot;per_capital_consumption_(c)&quot;</to>
+				</connector>
+				<connector uid="85" angle="6.56345">
+					<from>&quot;Population_(L)&quot;</from>
+					<to>&quot;per_capital_consumption_(c)&quot;</to>
+				</connector>
+				<aux x="1286.61" y="502.973" name="instantaneous utility (u(c))"/>
+				<connector uid="87" angle="255.616">
+					<from>
+						<alias uid="86"/>
+					</from>
+					<to>&quot;instantaneous_utility_(u(c))&quot;</to>
+				</connector>
+				<connector uid="88" angle="318.045">
+					<from>&quot;elasticity_marginal_utility_(η)&quot;</from>
+					<to>&quot;instantaneous_utility_(u(c))&quot;</to>
+				</connector>
+				<aux x="1412.25" y="542.168" name="period utility (U)"/>
+				<connector uid="89" angle="10.9898">
+					<from>&quot;instantaneous_utility_(u(c))&quot;</from>
+					<to>&quot;period_utility_(U)&quot;</to>
+				</connector>
+				<connector uid="90" angle="13.0487">
+					<from>
+						<alias uid="91"/>
+					</from>
+					<to>&quot;period_utility_(U)&quot;</to>
+				</connector>
+				<aux x="1320.07" y="688.099" name="Discount factor (R)"/>
+				<connector uid="92" angle="70.8399">
+					<from>&quot;Discount_factor_(R)&quot;</from>
+					<to>&quot;period_utility_(U)&quot;</to>
+				</connector>
+				<aux x="1562.46" y="670.099" name="total welfare (W)"/>
+				<connector uid="94" angle="50.4894">
+					<from>&quot;utility_scaling_factor_2_(κ2)&quot;</from>
+					<to>&quot;total_welfare_(W)&quot;</to>
+				</connector>
+				<connector uid="95" angle="96.2253">
+					<from>&quot;utility_scaling_factor_1_(κ1)&quot;</from>
+					<to>&quot;total_welfare_(W)&quot;</to>
+				</connector>
+				<stock x="1625.77" y="536.512" name="Accumulated Utility (Uacc)"/>
+				<flow x="1550.46" y="539.81" name="accumulation of utility">
+					<pts>
+						<pt x="1485.65" y="539.81"/>
+						<pt x="1603.27" y="539.81"/>
+					</pts>
+				</flow>
+				<connector uid="96" angle="44.8385">
+					<from>&quot;period_utility_(U)&quot;</from>
+					<to>accumulation_of_utility</to>
+				</connector>
+				<connector uid="97" angle="274.615">
+					<from>&quot;Accumulated_Utility_(Uacc)&quot;</from>
+					<to>&quot;total_welfare_(W)&quot;</to>
+				</connector>
+				<aux x="1600.73" y="83.8672" name="risk-adjusted pure time\npreference (ρa)"/>
+				<aux x="1207.62" y="865.684" name="base discount factor (R1)"/>
+				<aux x="1320.07" y="815.76" name="precautionary adjustment (rpre)"/>
+				<connector uid="98" angle="96.1952">
+					<from>&quot;std_dev_consumption_growth_(Vc)&quot;</from>
+					<to>&quot;precautionary_adjustment_(rpre)&quot;</to>
+				</connector>
+				<connector uid="99" angle="79.845">
+					<from>&quot;precautionary_adjustment_(rpre)&quot;</from>
+					<to>&quot;Discount_factor_(R)&quot;</to>
+				</connector>
+				<connector uid="100" angle="57.6574">
+					<from>&quot;base_discount_factor_(R1)&quot;</from>
+					<to>&quot;Discount_factor_(R)&quot;</to>
+				</connector>
+				<aux x="1171.63" y="748.879" name="Long run discount factor (RFlong)"/>
+				<connector uid="101" angle="202.267">
+					<from>&quot;Discount_factor_(R)&quot;</from>
+					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
+				</connector>
+				<aux x="1040.65" y="918.984" name="long run interest rate (rlong)"/>
+				<connector uid="102" angle="262.772">
+					<from>&quot;Long_run_discount_factor_(RFlong)&quot;</from>
+					<to>&quot;long_run_interest_rate_(rlong)&quot;</to>
+				</connector>
+				<aux x="1153.63" y="967.531" name="short run interest rate (rshort)"/>
+				<connector uid="104" angle="307.122">
+					<from>
+						<alias uid="105"/>
+					</from>
+					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
+				</connector>
+				<aux x="1185.09" y="632.319" name="initial per capiita\nconsumption (c0)"/>
+				<connector uid="106" angle="291.414">
+					<from>&quot;initial_per_capiita_consumption_(c0)&quot;</from>
+					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
+				</connector>
+				<stacked_container uid="107" x="1919.36" y="350.553">
+					<graph width="350" height="250" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
+							<entity name='"cumulative_carbon_emissions_(Ctot)"'/>
+						</plot>
+					</graph>
+				</stacked_container>
+				<connector uid="108" angle="293.849">
+					<from>&quot;Long_run_discount_factor_(RFlong)&quot;</from>
+					<to>&quot;short_run_interest_rate_(rshort)&quot;</to>
+				</connector>
+				<alias color="blue" background="white" font_style="italic" uid="86" x="1339.24" y="392.256" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>&quot;per_capital_consumption_(c)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="91" x="1225.25" y="599.113" width="45" height="35">
+					<of>&quot;Population_(L)&quot;</of>
+				</alias>
+				<alias color="blue" background="white" font_style="italic" uid="105" x="1108" y="667.712" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>&quot;per_capital_consumption_(c)&quot;</of>
+				</alias>
+			</view>
+		</views>
+	</model>
+</xmile>
+

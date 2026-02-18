@@ -36,7 +36,7 @@
 		</isee:sensi_specs>
 	</isee:sensi_specs_list>
 	<isee:optimizer_specs_list active_index="0">
-		<isee:optimizer_specs name="Calibration: H" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0" over_sensi_specs_name="SSP" want_worst_case_in_sensi="false" init_step="0.0001">
+		<isee:optimizer_specs name="Calibration: H" method="Powell" use_additional_starts_file="false" additional_starts="500" report_interval="1" confidence_range="0" init_step="0.0001">
 			<isee:parameter name='Lenton_Climate."relative_humidity_(H)"' min="0.48" max="0.7" scaling="0.001"/>
 			<isee:payoff name="Payoff" action="min"/>
 		</isee:optimizer_specs>
@@ -201,6 +201,7 @@ temp_ssp585+273.15</eqn>
 IF &quot;Which_SSP?&quot; = 2 THEN ssp245_total_PgC_equiv ELSE
 IF &quot;Which_SSP?&quot; = 3 THEN ssp370_total_PgC_equiv ELSE
 ssp585_total_PgC_equiv</eqn>
+				<units>PgC</units>
 			</aux>
 			<aux name="switch" access="input">
 				<eqn>0</eqn>
@@ -257,7 +258,7 @@ ssp585_total_PgC_equiv</eqn>
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" isee:scroll_y="283.75" zoom="240" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" zoom="240" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -336,7 +337,7 @@ ssp585_total_PgC_equiv</eqn>
 					<from>SSP_CO2</from>
 					<to>Lenton_Carbon</to>
 				</connector>
-				<stacked_container uid="48" x="564.486" y="200.708" visible_index="1">
+				<stacked_container uid="48" x="564.486" y="200.708">
 					<graph width="350" height="250" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="false" pen_width="1" index="0" show_y_axis="true">
 							<entity name='Lenton_Climate."surface_temperature_(Ts)"'/>
@@ -417,7 +418,7 @@ ssp585_total_PgC_equiv</eqn>
 					<from>A_CO2_ssp</from>
 					<to>Lenton_Climate</to>
 				</connector>
-				<stacked_container uid="69" x="191.361" y="424.488">
+				<stacked_container uid="69" x="191.361" y="424.488" visible_index="1">
 					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="false" pen_width="1" index="0" show_y_axis="true">
 							<entity name="SSP_TEMP"/>
@@ -840,7 +841,7 @@ ELSE
 			</group>
 			<aux name="Converter 1" access="input"/>
 			<aux name="temp switch" access="output" isee:autocreated="true">
-				<eqn>0</eqn>
+				<eqn>1</eqn>
 			</aux>
 			<aux name="SSP TEMP" access="input">
 				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
@@ -894,7 +895,7 @@ ELSE
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" isee:scroll_x="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" isee:scroll_x="2" isee:scroll_y="59" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1780,7 +1781,7 @@ ELSE
 				<units>Pa</units>
 			</aux>
 			<aux name="relative humidity (H)">
-				<eqn>0.496126</eqn>
+				<eqn>0.499</eqn>
 				<units>unitless</units>
 			</aux>
 			<aux name="exponential function (e)">
@@ -1856,6 +1857,7 @@ ELSE A_CO2_ssp/&quot;mole_volume_of_the_atmosphere_(ka)&quot;*&quot;pre-industri
 			</stock>
 			<aux name="A CO2 ssp" access="input">
 				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>PgC</units>
 			</aux>
 			<aux name="CO2 switch" access="output" isee:autocreated="true">
 				<eqn>0</eqn>
@@ -2113,8 +2115,5 @@ ELSE A_CO2_ssp/&quot;mole_volume_of_the_atmosphere_(ka)&quot;*&quot;pre-industri
 			</view>
 		</views>
 	</model>
-	<isee:controls>
-		<isee:control priority="interactive" name='Lenton_Climate."relative_humidity_(H)"' value="0.499765838878589"/>
-	</isee:controls>
 </xmile>
 
