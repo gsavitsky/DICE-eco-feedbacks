@@ -108,6 +108,14 @@ ssp585_total_PgC_equiv</eqn>
 				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
 				<units>°C from 1765</units>
 			</aux>
+			<group name="CMIP Atmo CO2equiv" run="false">
+				<entity name='"Which_SSP?"'/>
+				<entity name="A_CO2_ssp"/>
+				<entity name="ssp126_total_PgC_equiv"/>
+				<entity name="ssp245_total_PgC_equiv"/>
+				<entity name="ssp370_total_PgC_equiv"/>
+				<entity name="ssp585_total_PgC_equiv"/>
+			</group>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -157,7 +165,7 @@ ssp585_total_PgC_equiv</eqn>
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -196,53 +204,43 @@ ssp585_total_PgC_equiv</eqn>
 					</graph>
 					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 				</style>
-				<module x="309.726" y="143.344" name="DICE Climate"/>
+				<module x="323.88" y="228.992" name="DICE Climate"/>
 				<module x="231.122" y="68.3806" name="Lenton Climate"/>
-				<aux x="408.708" y="449.058" name="Which SSP?"/>
-				<stacked_container uid="19" x="608.582" y="212.533">
-					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
-						<plot color="red" pen_style="dot_dashed" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
-							<entity name='DICE_Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
-						</plot>
-						<plot color="fuchsia" pen_style="dotted" isee:keep_zero_visible="true" pen_width="1" index="1" show_y_axis="true">
-							<entity name="Lenton_Climate.Anomaly"/>
-						</plot>
-					</graph>
-				</stacked_container>
-				<aux x="139.887" y="225.344" name="ssp126 total PgC equiv"/>
-				<aux x="93.8011" y="313.452" name="ssp245 total PgC equiv"/>
-				<aux x="194.622" y="360.218" name="ssp370 total PgC equiv"/>
-				<aux x="267.622" y="320.118" name="ssp585 total PgC equiv"/>
-				<aux x="174.143" y="280.708" name="A CO2 ssp"/>
-				<connector uid="20" angle="301.747">
+				<aux x="198.935" y="338.975" name="Which SSP?"/>
+				<aux x="115.207" y="210.453" name="ssp126 total PgC equiv"/>
+				<aux x="71.1449" y="260.492" name="ssp245 total PgC equiv"/>
+				<aux x="78.1488" y="320.975" name="ssp370 total PgC equiv"/>
+				<aux x="118.928" y="382.331" name="ssp585 total PgC equiv"/>
+				<aux x="136.928" y="274.755" name="A CO2 ssp"/>
+				<connector uid="20" angle="288.665">
 					<from>ssp126_total_PgC_equiv</from>
 					<to>A_CO2_ssp</to>
 				</connector>
-				<connector uid="21" angle="22.174">
+				<connector uid="21" angle="347.767">
 					<from>ssp245_total_PgC_equiv</from>
 					<to>A_CO2_ssp</to>
 				</connector>
-				<connector uid="22" angle="104.444">
+				<connector uid="22" angle="38.1789">
 					<from>ssp370_total_PgC_equiv</from>
 					<to>A_CO2_ssp</to>
 				</connector>
-				<connector uid="23" angle="157.14">
+				<connector uid="23" angle="80.5011">
 					<from>ssp585_total_PgC_equiv</from>
 					<to>A_CO2_ssp</to>
 				</connector>
-				<connector uid="24" angle="94.9076">
+				<connector uid="24" angle="84.5705">
 					<from>&quot;Which_SSP?&quot;</from>
 					<to>A_CO2_ssp</to>
 				</connector>
-				<connector uid="25" angle="45.3737">
+				<connector uid="25" angle="13.7545">
 					<from>A_CO2_ssp</from>
 					<to>DICE_Climate</to>
 				</connector>
-				<connector uid="26" angle="90.1798">
+				<connector uid="26" angle="80.6684">
 					<from>A_CO2_ssp</from>
 					<to>Lenton_Climate</to>
 				</connector>
-				<stacked_container uid="27" x="819.402" y="87.2109" width="667.457" height="459.668" visible_index="1">
+				<stacked_container uid="27" x="577.269" y="5.42184" width="667.457" height="459.668" visible_index="1">
 					<graph width="667.457" height="459.668" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name='DICE_Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
@@ -256,26 +254,26 @@ ssp585_total_PgC_equiv</eqn>
 						</plot>
 					</graph>
 				</stacked_container>
-				<aux x="600.164" y="494.742" name="DICE-Lenton difference"/>
-				<aux font_style="italic" font_weight="bold" x="556.574" y="442.441" name="Anomaly"/>
-				<connector uid="28" angle="336.025" isee:autocreated="true">
+				<aux x="458.914" y="91.7733" name="DICE-Lenton difference"/>
+				<aux font_style="italic" font_weight="bold" x="346.933" y="46.7926" name="Anomaly"/>
+				<connector uid="28" angle="35.5592" isee:autocreated="true">
 					<from>Lenton_Climate</from>
 					<to>Anomaly</to>
 				</connector>
-				<aux font_style="italic" font_weight="bold" x="684.676" y="434.445" name="Atmospheric temperature anomaly (TATM)"/>
-				<connector uid="29" angle="347.175" isee:autocreated="true">
+				<aux font_style="italic" font_weight="bold" x="450.723" y="228.992" name="Atmospheric temperature anomaly (TATM)"/>
+				<connector uid="29" angle="1.21965" isee:autocreated="true">
 					<from>DICE_Climate</from>
 					<to>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</to>
 				</connector>
-				<connector uid="30" angle="313.194">
+				<connector uid="30" angle="338.116">
 					<from>Anomaly</from>
 					<to>&quot;DICE-Lenton_difference&quot;</to>
 				</connector>
-				<connector uid="31" angle="198.433">
+				<connector uid="31" angle="69.51">
 					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
 					<to>&quot;DICE-Lenton_difference&quot;</to>
 				</connector>
-				<stacked_container uid="32" x="1615.31" y="49.559" width="881.754" height="257.324">
+				<stacked_container uid="32" x="35.1821" y="605.114" width="881.754" height="257.324">
 					<table width="881.754" height="257.324" comparative="true">
 						<item type="time"/>
 						<item>
@@ -283,6 +281,7 @@ ssp585_total_PgC_equiv</eqn>
 						</item>
 					</table>
 				</stacked_container>
+				<group locked="true" x="17.8242" y="196.023" width="246.047" height="265.902" name="CMIP Atmo CO2equiv"/>
 			</view>
 		</views>
 	</model>
@@ -328,10 +327,6 @@ ssp585_total_PgC_equiv</eqn>
 				<eqn>4.07</eqn>
 				<units>Years</units>
 			</aux>
-			<aux name="pre-industrial equilibrium atosmpheric carbon (Meq)">
-				<eqn>588</eqn>
-				<units>GtC</units>
-			</aux>
 			<aux name="Atmospheric carbon concentration (MAT)" access="input">
 				<eqn>&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;+&quot;Carbon_Reservoir_3_(R3)&quot;+&quot;Carbon_Reservoir_2_(R2)&quot;+&quot;Carbon_Reservoir_1_(R1)&quot;+&quot;Carbon_Reservoir_0_(R0)&quot;</eqn>
 				<units>PgC</units>
@@ -339,10 +334,6 @@ ssp585_total_PgC_equiv</eqn>
 			<aux name="Atmospheric temperature anomaly (TATM)" access="output" isee:autocreated="true">
 				<eqn>&quot;Deep_ocean_temperature_anomaly_(T1)&quot;+&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</eqn>
 				<units>°C from 1765</units>
-			</aux>
-			<aux name="Forcing from CO2 doubling (F2CO2)">
-				<eqn>3.93</eqn>
-				<units>W/m^2</units>
 			</aux>
 			<aux name="Co2 forcing (FCO2)">
 				<eqn>3.93*(LN(&quot;Atmospheric_carbon_concentration_(MAT)&quot;/588))/LN(2)</eqn>
@@ -482,8 +473,7 @@ ssp585_total_PgC_equiv</eqn>
 					<from>&quot;radiative_forcing_(F)&quot;</from>
 					<to>Flow_6</to>
 				</connector>
-				<aux x="499.959" y="546.629" name="pre-industrial equilibrium atosmpheric carbon (Meq)"/>
-				<aux font_style="italic" font_weight="bold" x="357.866" y="721.898" name="Atmospheric carbon concentration (MAT)"/>
+				<aux font_style="italic" font_weight="bold" x="101.214" y="398.875" name="Atmospheric carbon concentration (MAT)"/>
 				<aux x="667.969" y="276.75" name="Atmospheric temperature anomaly (TATM)"/>
 				<connector uid="38" angle="21.0912">
 					<from>&quot;Deep_ocean_temperature_anomaly_(T1)&quot;</from>
@@ -493,17 +483,16 @@ ssp585_total_PgC_equiv</eqn>
 					<from>&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</from>
 					<to>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</to>
 				</connector>
-				<aux x="205.373" y="569.77" name="Forcing from CO2 doubling (F2CO2)"/>
 				<connector uid="65" angle="135.317">
 					<from>&quot;Upper_ocean_temperature_anomaly_(T2)&quot;</from>
 					<to>Flow_6</to>
 				</connector>
-				<aux x="149.035" y="414.551" name="Co2 forcing (FCO2)"/>
-				<connector uid="67" angle="124.195">
+				<aux x="177.84" y="294.75" name="Co2 forcing (FCO2)"/>
+				<connector uid="67" angle="53.6504">
 					<from>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</from>
 					<to>&quot;Co2_forcing_(FCO2)&quot;</to>
 				</connector>
-				<connector uid="71" angle="43.2838">
+				<connector uid="71" angle="14.0193">
 					<from>&quot;Co2_forcing_(FCO2)&quot;</from>
 					<to>&quot;radiative_forcing_(F)&quot;</to>
 				</connector>
