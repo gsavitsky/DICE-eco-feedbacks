@@ -2,18 +2,18 @@
 <xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
 	<header>
 		<smile version="1.0" namespace="std, isee" uses_arrays="1" uses_submodels=""/>
-		<name>DICE 2023 no opt</name>
+		<name>DICE 2023 opt WAS2</name>
 		<uuid>9777f8dd-b692-4ee2-8196-7b70e1548798</uuid>
 		<vendor>isee systems, inc.</vendor>
 		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
-		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1772569122" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="B+tCVNS0r7/+nTmtd1NBiyX7GL0PESDhYvcGk6Jikg2+PcRwAcnHL6TMC+Genyx8BT2hxPsywwbj5xgu/78PDw=="/>
+		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1772630374" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="uUcmUBdUM/K3ErxRxt4+3/YQBBUyw6R/Nebcs/SqvSOnim+0WbPsLUgUq2reyt7c3nA082SmVpgKfWukCMvWAQ=="/>
 	</ai_information>
-	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Year" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
 		<start>2020</start>
 		<stop>2420</stop>
-		<dt reciprocal="true">1</dt>
+		<dt reciprocal="true">10</dt>
 	</sim_specs>
 	<dimensions>
 		<dim name="TimePeriod" size="186"/>
@@ -26,21 +26,26 @@
 	<isee:number_format_extenders/>
 	<default_format/>
 	<data>
-		<export enabled="false" resource="/Users/gretasavitsky/Desktop/STELLA results.xlsx" type="Excel" worksheet="Sheet1" interval="5" precomputed="false" isee:format="numbers">
+		<export enabled="false" resource="r../STELLA results.xlsx" type="Excel" worksheet="Sheet1" interval="5" precomputed="false" isee:format="numbers">
 			<all/>
 		</export>
-		<import enabled="false" isee:overwrite="true" isee:interpolate="f" orientation="horizontal" resource="/Users/gretasavitsky/Desktop/emissions control rate.csv"/>
+		<import enabled="false" isee:overwrite="true" isee:interpolate="f" orientation="horizontal" resource="r../emissions control rate.csv"/>
 	</data>
 	<isee:sensi_specs_list active_index="0">
-		<isee:sensi_specs name="Sensitivity" method="grid">
-			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Economy.Emissions_control_rate" num_samples="5"/>
-		</isee:sensi_specs>
+		<isee:sensi_specs name="Sensitivity" method="grid"/>
 	</isee:sensi_specs_list>
 	<isee:optimizer_specs_list active_index="0">
-		<isee:optimizer_specs name="Optimization" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0"/>
+		<isee:optimizer_specs name="Optimization" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0" maxiter="0">
+			<isee:parameter name="Economy.optimal_miu[*]" min="0" max="1.1" scaling="10"/>
+			<isee:payoff name="Payoff" action="max"/>
+		</isee:optimizer_specs>
 	</isee:optimizer_specs_list>
 	<isee:payoff_specs_list>
-		<isee:payoff_specs name="Payoff"/>
+		<isee:payoff_specs name="Payoff">
+			<isee:payoff_element name='Economy."Accumulated_Utility_(Uacc)"' weight="1">
+				<isee:time_range type="terminal_value"/>
+			</isee:payoff_element>
+		</isee:payoff_specs>
 	</isee:payoff_specs_list>
 	<model_units/>
 	<model>
@@ -379,11 +384,6 @@
 			</aux>
 			<aux name="emissions control rate (μ)" access="input">
 				<eqn>TIME</eqn>
-				<gf>
-					<xscale min="2020" max="2419.99999999998"/>
-					<yscale min="0" max="100"/>
-					<ypts>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</ypts>
-				</gf>
 			</aux>
 			<aux name="Co2 forcing (FCO2)">
 				<eqn>3.93*(LN(&quot;Atmospheric_carbon_concentration_(MAT)&quot;/588))/LN(2)</eqn>
@@ -1252,12 +1252,7 @@
 				<units>unitless</units>
 			</aux>
 			<aux name="Emissions control rate" access="output" isee:autocreated="true">
-				<eqn>TIME</eqn>
-				<gf type="extrapolate">
-					<xscale min="2020" max="2420"/>
-					<yscale min="0" max="2"/>
-					<ypts>0.05,0.1,0.24,0.274689312,0.309920688,0.348902744,0.391944268,0.427147121,0.464499818,0.504017031,0.545701276,0.589543379,0.63552221,0.683604961,0.733748878,0.785906171,0.84003677,0.889296463,0.939909785,0.991942151,1.045556127,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</ypts>
-				</gf>
+				<eqn>miu</eqn>
 			</aux>
 			<flow name="emissions accumulating">
 				<eqn>&quot;total_CO2_emissions_(ECo2)&quot;/3.666</eqn>
@@ -1429,6 +1424,24 @@
 ELSE
   0.08328823 * EXP(-0.005 * (INT((TIME-2020)/5) - 27) * 5)</eqn>
 			</aux>
+			<aux name="optimal miu">
+				<doc>fraction of uncontrolled industrial and energy emissions mitigated
+
+in DICE, this is one of the choice variables in the optimization</doc>
+				<dimensions>
+					<dim name="TimePeriod"/>
+				</dimensions>
+				<eqn>0.2</eqn>
+				<units>fraction</units>
+			</aux>
+			<aux name="miu">
+				<doc>SUM(optimal_miu[*]*isthistimeperiod[*])</doc>
+				<eqn>IF TIME = STARTTIME THEN miu0 ELSE
+INTERPOLATE(optimal_miu, (TIME-STARTTIME)/(STOPTIME-STARTTIME))</eqn>
+			</aux>
+			<aux name="miu0">
+				<eqn>0.05</eqn>
+			</aux>
 		</variables>
 		<views>
 			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
@@ -1478,7 +1491,7 @@ ELSE
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_y="247.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="395" isee:scroll_y="156.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1943,6 +1956,21 @@ ELSE
 				<connector uid="118" angle="31.528">
 					<from>initial_carbon_intensity</from>
 					<to>carbon_intensity_1</to>
+				</connector>
+				<aux x="950.087" y="711.08" name="optimal miu"/>
+				<aux x="888.979" y="747.581" name="miu"/>
+				<connector uid="119" angle="184.164">
+					<from>optimal_miu</from>
+					<to>miu</to>
+				</connector>
+				<aux label_side="right" x="888.979" y="706.794" name="miu0"/>
+				<connector uid="120" angle="272.497">
+					<from>miu0</from>
+					<to>miu</to>
+				</connector>
+				<connector uid="121" angle="265.174">
+					<from>miu</from>
+					<to>Emissions_control_rate</to>
 				</connector>
 				<alias color="blue" background="white" font_style="italic" uid="86" x="1629.72" y="66.6066" width="18" height="18">
 					<shape type="circle" radius="18"/>

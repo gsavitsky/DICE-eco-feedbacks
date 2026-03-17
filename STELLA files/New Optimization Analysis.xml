@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<isee:optimizer_specs name="Optimization" method="Powell" use_additional_starts_file="false" additional_starts="5" report_interval="1" confidence_range="0" init_step="0.01" maxiter="0">
+	<isee:parameter name="Economy.optimal_s[*]" min="0" max="1" scaling="0.01"/>
+	<isee:parameter name="Economy.optimal_miu[*]" min="0" max="1.1" scaling="0.01"/>
+	<isee:payoff name="Payoff" action="max"/>
+</isee:optimizer_specs>
+

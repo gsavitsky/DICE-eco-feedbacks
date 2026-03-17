@@ -2,13 +2,13 @@
 <xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
 	<header>
 		<smile version="1.0" namespace="std, isee" uses_arrays="1" uses_submodels=""/>
-		<name>DICE 2023 no opt</name>
+		<name>DICE 2023 no opt + Lenton</name>
 		<uuid>9777f8dd-b692-4ee2-8196-7b70e1548798</uuid>
 		<vendor>isee systems, inc.</vendor>
 		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
-		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1772569122" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="B+tCVNS0r7/+nTmtd1NBiyX7GL0PESDhYvcGk6Jikg2+PcRwAcnHL6TMC+Genyx8BT2hxPsywwbj5xgu/78PDw=="/>
+		<status verified="false"/>
 	</ai_information>
 	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
 		<start>2020</start>
@@ -58,12 +58,18 @@
 			<module name="Climate" isee:label="">
 				<connect to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
 				<connect2 to='Economy."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect to='Lenton_Carbon."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to='Lenton_Carbon."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
 				<connect to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
 				<connect2 to='Climate."cumulative_carbon_emissions_(Ctot)"' from='Economy."cumulative_carbon_emissions_(Ctot)"'/>
 				<connect to='Climate."emissions_control_rate_(μ)"' from="Economy.Emissions_control_rate"/>
 				<connect2 to='Climate."emissions_control_rate_(μ)"' from="Economy.Emissions_control_rate"/>
 				<connect to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
 				<connect2 to='Climate."total_CO2_emissions_(ECo2)"' from='Economy."total_CO2_emissions_(ECo2)"'/>
+			</module>
+			<module name="Lenton Carbon" isee:label="">
+				<connect to='Lenton_Carbon."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to='Lenton_Carbon."Atmospheric_temperature_anomaly_(TATM)"' from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
 			</module>
 		</variables>
 		<views>
@@ -180,7 +186,7 @@
 						</item>
 					</table>
 				</stacked_container>
-				<stacked_container uid="33" x="196.469" y="312.902">
+				<stacked_container uid="33" x="186.719" y="425.84">
 					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
@@ -193,6 +199,15 @@
 						</plot>
 					</graph>
 				</stacked_container>
+				<module x="215.85" y="230.671" name="Lenton Carbon"/>
+				<connector uid="34" isee:thickness="2" angle="280.85">
+					<from>Economy</from>
+					<to>Lenton_Carbon</to>
+				</connector>
+				<connector uid="35" isee:thickness="2" angle="258.942" isee:autocreated="true">
+					<from>Climate</from>
+					<to>Lenton_Carbon</to>
+				</connector>
 			</view>
 		</views>
 	</model>
@@ -543,7 +558,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="652.5" isee:scroll_y="1.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_y="1.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1948,6 +1963,1276 @@ ELSE
 					<shape type="circle" radius="18"/>
 					<of>&quot;per_capital_consumption_(c)&quot;</of>
 				</alias>
+			</view>
+		</views>
+	</model>
+	<model name="Lenton_Carbon">
+		<variables>
+			<stock name="Atmospheric Carbon" access="output" isee:autocreated="true">
+				<eqn>Ca0</eqn>
+				<inflow>Plant_Respiration</inflow>
+				<inflow>Soil_Respiration</inflow>
+				<inflow>&quot;Air-Sea_Exchange_(LL)&quot;</inflow>
+				<inflow>&quot;Air-Sea_Exchange_(HL)&quot;</inflow>
+				<inflow>GHG_emissions</inflow>
+				<inflow>Permafrost_melt</inflow>
+				<outflow>Photosynthesis</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<stock name="Vegetation Carbon">
+				<eqn>Cv0</eqn>
+				<inflow>Photosynthesis</inflow>
+				<outflow>Plant_Respiration</outflow>
+				<outflow>Turnover</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<stock name="Soil Carbon">
+				<eqn>Cs0</eqn>
+				<inflow>Turnover</inflow>
+				<outflow>Soil_Respiration</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<flow name="Photosynthesis">
+				<eqn> (&quot;photosynthesis_rate_(kp)&quot;*&quot;Cv(s)&quot;*&quot;photosynthesis_normalizing_constant_(kMM)&quot;)*
+
+((pCO2_ppmv-&quot;compensation_point_(kc)&quot;)/(&quot;Half_saturation_point_(KM)&quot;+(pCO2_ppmv-&quot;compensation_point_(kc)&quot;)))*
+
+((15+&quot;Atmospheric_temperature_anomaly_(TATM)&quot;)^2)*(25-&quot;Atmospheric_temperature_anomaly_(TATM)&quot;)/5625</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="Plant Respiration">
+				<eqn>&quot;plant_respiration_rate_(kr)&quot; * Vegetation_Carbon * &quot;plant_respiration_normalizing_constant_(kA)&quot; * EXP(-&quot;Plant_respiration_activation_energy_(Ea)&quot; / (R * &quot;surface_temperature_(Ts)&quot;))</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="Turnover">
+				<eqn>&quot;turnover_rate_(kt)&quot;*Vegetation_Carbon</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="Soil Respiration">
+				<eqn>&quot;soil_respiration_rate_(ksr)&quot;*Soil_Carbon*&quot;soil_respiration_normalizing_constant_(kB)&quot;* 2.7^(-1*(308.56/(&quot;surface_temperature_(Ts)&quot; -227.13)))</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<stock name="Low Latitude Ocean Carbon">
+				<eqn>Col0</eqn>
+				<inflow>&quot;intermediate-warm_exchange&quot;</inflow>
+				<outflow>&quot;Air-Sea_Exchange_(LL)&quot;</outflow>
+				<outflow>&quot;Warm-intermediate_Ocean_exchange&quot;</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<stock name="High Latitude Surface Ocean Carbon">
+				<eqn>Coh0</eqn>
+				<outflow>&quot;Air-Sea_Exchange_(HL)&quot;</outflow>
+				<outflow>&quot;cold-intermediate_ocean_exchange&quot;</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<stock name="Intermediate Ocean Carbon">
+				<eqn>Coi0</eqn>
+				<inflow>&quot;Warm-intermediate_Ocean_exchange&quot;</inflow>
+				<inflow>&quot;cold-intermediate_ocean_exchange&quot;</inflow>
+				<inflow>&quot;deep-intermediate_exchange&quot;</inflow>
+				<outflow>&quot;Intermediate-deep_Ocean_exchange&quot;</outflow>
+				<outflow>&quot;intermediate-warm_exchange&quot;</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<stock name="Deep Ocean Carbon">
+				<eqn>Cod0</eqn>
+				<inflow>&quot;Intermediate-deep_Ocean_exchange&quot;</inflow>
+				<outflow>&quot;deep-intermediate_exchange&quot;</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<flow name="Air-Sea Exchange (LL)">
+				<eqn>-Faw</eqn>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="Air-Sea Exchange (HL)">
+				<eqn>-Fac</eqn>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="photosynthesis rate (kp)">
+				<eqn>0.184</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="plant respiration rate (kr)">
+				<eqn>0.092</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="turnover rate (kt)">
+				<eqn>0.092</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="soil respiration rate (ksr)">
+				<eqn>0.0337</eqn>
+				<units>1/year</units>
+			</aux>
+			<aux name="Half saturation point (KM)">
+				<eqn>120</eqn>
+				<units>ppmv</units>
+			</aux>
+			<aux name="Plant respiration activation energy (Ea)">
+				<eqn>54830</eqn>
+				<units>J/mol</units>
+			</aux>
+			<aux name="photosynthesis normalizing constant (kMM)">
+				<eqn>1.478</eqn>
+				<units>Dimensionless</units>
+			</aux>
+			<aux name="plant respiration\nnormalizing constant (kA)">
+				<eqn>8.7039e9</eqn>
+				<units>Dimensionless</units>
+			</aux>
+			<aux name="thermohaline overturning (kT)">
+				<eqn>6.5e7</eqn>
+				<units>m^3/s</units>
+			</aux>
+			<aux name="high latitude overturning (kU)">
+				<eqn>4.87e7</eqn>
+				<units>m^3/s</units>
+			</aux>
+			<aux name="warm-intermediate exchange (kwi)">
+				<eqn>1.25e7</eqn>
+				<units>m^3/s</units>
+			</aux>
+			<aux name="intermediate-deep exchange (kid)">
+				<eqn>2e8</eqn>
+				<units>m^3/s</units>
+			</aux>
+			<aux name="piston velocity (ks)">
+				<eqn>1752</eqn>
+				<units>m/year</units>
+			</aux>
+			<aux name="compensation point (kc)">
+				<eqn>29</eqn>
+				<units>ppmv</units>
+			</aux>
+			<aux name="soil respiration normalizing constant (kB)">
+				<eqn>157.072</eqn>
+				<units>Dimensionless</units>
+			</aux>
+			<aux name="Cs0">
+				<eqn>1500</eqn>
+			</aux>
+			<aux name="Ca0">
+				<eqn>850</eqn>
+				<units>pgC</units>
+			</aux>
+			<aux name="Cv0">
+				<eqn>550</eqn>
+				<units>pgC</units>
+			</aux>
+			<aux name="kD">
+				<eqn>0.27</eqn>
+				<units>Dimensionless</units>
+			</aux>
+			<aux name="Cv(s)">
+				<eqn>Cv0-(cumulative_deforestation*kD)</eqn>
+			</aux>
+			<stock name="cumulative deforestation">
+				<eqn>0</eqn>
+				<inflow>&quot;Deforestation_(D)&quot;</inflow>
+				<non_negative/>
+				<units>PgC</units>
+			</stock>
+			<flow name="Deforestation (D)">
+				<eqn>eland/2.12</eqn>
+				<non_negative/>
+				<units>PgC/Year</units>
+			</flow>
+			<group name="Land Use Change" run="false">
+				<entity name='"Cv(s)"'/>
+				<entity name='"Deforestation_(D)"'/>
+				<entity name="cumulative_deforestation"/>
+				<entity name="deland"/>
+				<entity name="eland"/>
+				<entity name="eland0"/>
+				<entity name="kD"/>
+			</group>
+			<aux name="R">
+				<eqn>8.314</eqn>
+				<units>J/mol*K</units>
+			</aux>
+			<group name="Initialization" run="false">
+				<entity name="Ca0"/>
+				<entity name="Cod0"/>
+				<entity name="Coh0"/>
+				<entity name="Coi0"/>
+				<entity name="Col0"/>
+				<entity name="Cs0"/>
+				<entity name="Cv0"/>
+			</group>
+			<aux name="Th">
+				<eqn>275.15</eqn>
+				<units>K</units>
+			</aux>
+			<aux name="Tl">
+				<eqn>295.15</eqn>
+				<units>K</units>
+			</aux>
+			<aux name="Faw">
+				<eqn>&quot;piston_velocity_(ks)&quot;*aO*Al*bw*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(w)&quot;)*12e-15*rho</eqn>
+			</aux>
+			<aux name="Al">
+				<eqn>0.85</eqn>
+			</aux>
+			<aux name="Ah">
+				<eqn>0.15</eqn>
+			</aux>
+			<aux name="pCO2(w)">
+				<eqn>&quot;pCO2(w)0&quot; * (Low_Latitude_Ocean_Carbon / Col0)^&quot;beta_(revelle_factor)&quot;</eqn>
+			</aux>
+			<aux name="pCO2(c)">
+				<eqn>&quot;pCO2(c)0&quot; * (High_Latitude_Surface_Ocean_Carbon / Coh0)^&quot;beta_(revelle_factor)&quot;</eqn>
+			</aux>
+			<aux name="bw">
+				<eqn>EXP(-60.2409 + 93.4517*(100/Tl) + 23.3585*LN(Tl/100) 
+         + 34.7*(0.023517 - 0.023656*(Tl/100) + 0.0047036*(Tl/100)^2))</eqn>
+				<units>mol/kg atm</units>
+			</aux>
+			<aux name="aO">
+				<eqn>3.6e14</eqn>
+				<units>m^2</units>
+			</aux>
+			<aux name="Fac">
+				<eqn>&quot;piston_velocity_(ks)&quot;*aO*Ah*bc*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(c)&quot;)*12e-15*rho</eqn>
+			</aux>
+			<aux name="bc">
+				<eqn>EXP(-60.2409 + 93.4517*(100/Th) + 23.3585*LN(Th/100) 
+         + 34.7*(0.023517 - 0.023656*(Th/100) + 0.0047036*(Th/100)^2))</eqn>
+				<units>mol/kg atm</units>
+			</aux>
+			<flow name="Warm-intermediate Ocean exchange">
+				<eqn>&quot;warm-intermediate_exchange_(kwi)&quot; * (Low_Latitude_Ocean_Carbon / Vl) * 3.15576e7 *12e-15</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="Intermediate-deep Ocean exchange">
+				<eqn>&quot;intermediate-deep_exchange_(kid)&quot; * (Intermediate_Ocean_Carbon / Vi) * 3.15576e7 * 12e-15</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="beta (revelle factor)">
+				<eqn>11</eqn>
+			</aux>
+			<aux name="pCO2(w)0">
+				<eqn>286e-6</eqn>
+			</aux>
+			<aux name="pCO2(c)0">
+				<eqn>270e-6</eqn>
+			</aux>
+			<aux name="Col0">
+				<eqn>730</eqn>
+				<units>pgC</units>
+			</aux>
+			<aux name="Coh0">
+				<eqn>140</eqn>
+				<units>pgC</units>
+			</aux>
+			<aux name="rho">
+				<eqn>1027</eqn>
+				<units>kg/m^2</units>
+			</aux>
+			<aux name="Coi0">
+				<eqn>10040</eqn>
+			</aux>
+			<aux name="Cod0">
+				<eqn>23860</eqn>
+				<units>pgC</units>
+			</aux>
+			<flow name="cold-intermediate ocean exchange">
+				<eqn>&quot;high_latitude_overturning_(kU)&quot; * (High_Latitude_Surface_Ocean_Carbon / Vh) * 3.15576e7 *12e-15</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="Vl">
+				<eqn>3.06e16</eqn>
+				<units>m^3</units>
+			</aux>
+			<aux name="Vh">
+				<eqn>5.4e15</eqn>
+				<units>m^3</units>
+			</aux>
+			<aux name="Vi">
+				<eqn>3.6e17</eqn>
+				<units>m^3</units>
+			</aux>
+			<aux name="Vd">
+				<eqn>9.7e17</eqn>
+				<units>m^3</units>
+			</aux>
+			<flow name="deep-intermediate exchange">
+				<eqn>&quot;intermediate-deep_exchange_(kid)&quot; * (Deep_Ocean_Carbon / Vd) * 3.15576e7 * 12e-15</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<flow name="intermediate-warm exchange">
+				<eqn>(&quot;thermohaline_overturning_(kT)&quot; + &quot;warm-intermediate_exchange_(kwi)&quot;) * (Intermediate_Ocean_Carbon / Vi) * 3.15576e7 * 12e-15</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="pCO2 ppmv">
+				<eqn>&quot;partial_pressure_of_CO2_(pCO2)&quot;*1e6</eqn>
+			</aux>
+			<flow name="GHG emissions">
+				<eqn>IF &quot;DICE_on/off&quot; = 1 THEN EIND*0.2727 ELSE 0</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="EIND" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>GtCO2/Year</units>
+			</aux>
+			<aux name="DICE on/off">
+				<eqn>1</eqn>
+			</aux>
+			<flow name="Permafrost melt" access="input">
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<module name="Permafrost dynamics" isee:label="">
+				<connect to="Lenton_Carbon.Permafrost_melt" from="Permafrost_dynamics.Fthawedatmo"/>
+				<connect2 to="Permafrost_melt" from="Permafrost_dynamics.Fthawedatmo"/>
+				<connect to='Permafrost_dynamics."Atmospheric_temperature_anomaly_(TATM)"' from='Lenton_Carbon."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to='Permafrost_dynamics."Atmospheric_temperature_anomaly_(TATM)"' from='"Atmospheric_temperature_anomaly_(TATM)"'/>
+			</module>
+			<aux name="eland0">
+				<doc>Carbon emissions from land in 2015 (GtCO2 per year)</doc>
+				<eqn>2.6</eqn>
+				<units>GtCO2/Year</units>
+			</aux>
+			<aux name="deland">
+				<doc>Rate of decline land emissions per year</doc>
+				<eqn>0.022009596</eqn>
+				<units>1/Year</units>
+			</aux>
+			<aux name="eland">
+				<eqn>eland0 * (1-deland)^(TIME-2015)</eqn>
+			</aux>
+			<group name="Ocean Chem" run="false">
+				<entity name='"beta_(revelle_factor)"'/>
+				<entity name='"pCO2(c)"'/>
+				<entity name='"pCO2(c)0"'/>
+				<entity name='"pCO2(w)"'/>
+				<entity name='"pCO2(w)0"'/>
+				<entity name='"piston_velocity_(ks)"'/>
+				<entity name="Ah"/>
+				<entity name="Al"/>
+				<entity name="aO"/>
+				<entity name="bc"/>
+				<entity name="bw"/>
+				<entity name="Fac"/>
+				<entity name="Faw"/>
+				<entity name="rho"/>
+				<entity name="Th"/>
+				<entity name="Tl"/>
+			</group>
+			<group name="Permafrost" run="false">
+				<entity name="Permafrost_dynamics"/>
+			</group>
+			<aux name="Atmospheric temperature anomaly (TATM)" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>°C from 1765</units>
+			</aux>
+			<aux name="partial pressure of CO2 (pCO2)"/>
+			<aux name="surface temperature (Ts)"/>
+			<aux name="Faw 1"/>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#0075FF" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<isee:dropdown_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="1" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:page_rows="2" isee:scroll_x="114" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</flow>
+					<isee:placeholder color="#228B22" background="white" font_color="#228B22" font_size="9pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="red" background="white" font_color="red" font_size="9pt"/>
+					<connector color="#FF007F" background="white" font_color="#FF007F" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<stock x="523.902" y="165.02" width="108.477" height="106.957" name="Atmospheric Carbon"/>
+				<stock x="80.082" y="156.828" width="51.3164" height="110.777" name="Vegetation Carbon"/>
+				<stock x="96.5676" y="494.094" width="46.0898" height="111.129" name="Soil Carbon"/>
+				<flow x="333.65" y="180.25" name="Photosynthesis">
+					<pts>
+						<pt x="523.902" y="180.25"/>
+						<pt x="131.398" y="180.25"/>
+					</pts>
+				</flow>
+				<flow x="321.65" y="249.773" name="Plant Respiration">
+					<pts>
+						<pt x="131.398" y="249.773"/>
+						<pt x="523.902" y="249.773"/>
+					</pts>
+				</flow>
+				<flow x="118.332" y="374.85" name="Turnover">
+					<pts>
+						<pt x="118.332" y="267.605"/>
+						<pt x="118.332" y="494.094"/>
+					</pts>
+				</flow>
+				<flow x="335.069" y="511.594" name="Soil Respiration">
+					<pts>
+						<pt x="142.657" y="511.594"/>
+						<pt x="527.48" y="511.594"/>
+						<pt x="527.48" y="271.977"/>
+					</pts>
+				</flow>
+				<stock x="864.11" y="27.2303" width="71.6289" height="166.777" name="Low Latitude Ocean Carbon"/>
+				<stock x="861.043" y="242.613" width="74.6953" height="169.863" name="High Latitude Surface Ocean Carbon"/>
+				<stock x="1122.93" y="74.216" width="61.2734" height="228.848" name="Intermediate Ocean Carbon"/>
+				<stock x="1314.27" y="153.455" width="44.3398" height="147.586" name="Deep Ocean Carbon"/>
+				<flow x="748.245" y="176.797" name="Air-Sea Exchange (LL)">
+					<pts>
+						<pt x="864.11" y="176.797"/>
+						<pt x="632.379" y="176.797"/>
+					</pts>
+				</flow>
+				<flow x="746.711" y="266.539" name="Air-Sea Exchange (HL)">
+					<pts>
+						<pt x="861.043" y="266.539"/>
+						<pt x="632.379" y="266.539"/>
+					</pts>
+				</flow>
+				<aux x="214.578" y="21.5781" name="photosynthesis rate (kp)"/>
+				<aux x="210.164" y="333.613" name="plant respiration rate (kr)"/>
+				<aux x="64.332" y="473.98" name="turnover rate (kt)"/>
+				<aux x="263.429" y="567.968" name="soil respiration rate (ksr)"/>
+				<aux x="324.52" y="27.4237" name="Half saturation point (KM)"/>
+				<aux x="327.965" y="333.613" name="Plant respiration activation energy (Ea)"/>
+				<aux x="82.332" y="39.5781" name="photosynthesis normalizing constant (kMM)"/>
+				<aux x="446.867" y="326.519" name="plant respiration\nnormalizing constant (kA)"/>
+				<aux label_side="bottom" x="1063.78" y="283.688" name="thermohaline overturning (kT)"/>
+				<aux x="1127.34" y="345.544" name="high latitude overturning (kU)"/>
+				<aux x="944.739" y="129.947" name="warm-intermediate exchange (kwi)"/>
+				<aux x="1233.11" y="227.248" name="intermediate-deep exchange (kid)"/>
+				<aux x="1153.56" y="539.898" name="piston velocity (ks)"/>
+				<aux x="411.027" y="128.008" name="compensation point (kc)"/>
+				<aux x="407.569" y="575.945" name="soil respiration normalizing constant (kB)"/>
+				<connector uid="1" angle="258.608">
+					<from>Vegetation_Carbon</from>
+					<to>Turnover</to>
+				</connector>
+				<connector uid="2" angle="10.019">
+					<from>Soil_Carbon</from>
+					<to>Soil_Respiration</to>
+				</connector>
+				<connector uid="3" angle="24.3469">
+					<from>&quot;soil_respiration_rate_(ksr)&quot;</from>
+					<to>Soil_Respiration</to>
+				</connector>
+				<connector uid="4" angle="138.408">
+					<from>&quot;soil_respiration_normalizing_constant_(kB)&quot;</from>
+					<to>Soil_Respiration</to>
+				</connector>
+				<connector uid="5" angle="0.83492">
+					<from>&quot;photosynthesis_normalizing_constant_(kMM)&quot;</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<connector uid="6" angle="323.943">
+					<from>&quot;photosynthesis_rate_(kp)&quot;</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<connector uid="7" angle="214.026">
+					<from>&quot;compensation_point_(kc)&quot;</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<connector uid="8" angle="273.419">
+					<from>&quot;Half_saturation_point_(KM)&quot;</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<aux x="687.132" y="679.048" name="Cs0"/>
+				<aux x="644.979" y="679.048" name="Ca0"/>
+				<aux x="477.761" y="679.048" name="Cv0"/>
+				<aux x="339.85" y="671.853" name="kD"/>
+				<aux x="283.159" y="696.103" name="Cv(s)"/>
+				<stock x="299.712" y="766.251" name="cumulative deforestation"/>
+				<flow x="192.566" y="766.251" name="Deforestation (D)">
+					<pts>
+						<pt x="107.92" y="766.251"/>
+						<pt x="277.212" y="766.251"/>
+					</pts>
+				</flow>
+				<connector uid="9" angle="103.277">
+					<from>cumulative_deforestation</from>
+					<to>&quot;Cv(s)&quot;</to>
+				</connector>
+				<connector uid="10" angle="236.052">
+					<from>kD</from>
+					<to>&quot;Cv(s)&quot;</to>
+				</connector>
+				<group locked="true" x="73.332" y="636.647" width="314.985" height="171.362" name="Land Use Change">
+					<item uid="11"/>
+				</group>
+				<connector uid="12" angle="340.908">
+					<from>
+						<alias uid="13"/>
+					</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<connector uid="14" angle="71.0984">
+					<from>&quot;plant_respiration_rate_(kr)&quot;</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<connector uid="15" angle="65.2626">
+					<from>&quot;Plant_respiration_activation_energy_(Ea)&quot;</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<connector uid="16" angle="131.97">
+					<from>&quot;plant_respiration_normalizing_constant_(kA)&quot;</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<connector uid="17" angle="350.132">
+					<from>Vegetation_Carbon</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<aux x="253.711" y="418.66" name="R"/>
+				<connector uid="18" angle="68.0863">
+					<from>R</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<connector uid="19" angle="61.4213">
+					<from>&quot;turnover_rate_(kt)&quot;</from>
+					<to>Turnover</to>
+				</connector>
+				<connector uid="20" angle="358.369">
+					<from>
+						<alias uid="11"/>
+					</from>
+					<to>&quot;Cv(s)&quot;</to>
+				</connector>
+				<group locked="true" x="440.961" y="652.184" width="324.658" height="68.2129" name="Initialization"/>
+				<aux x="1330.56" y="491.93" name="Th"/>
+				<aux x="911.324" y="478.359" name="Tl"/>
+				<aux x="1003" y="591.457" name="Faw"/>
+				<connector uid="21" angle="198.904">
+					<from>&quot;piston_velocity_(ks)&quot;</from>
+					<to>Faw</to>
+				</connector>
+				<aux x="1058.67" y="519.953" name="Al"/>
+				<aux x="1222.75" y="505.57" name="Ah"/>
+				<connector uid="22" angle="251.624">
+					<from>Al</from>
+					<to>Faw</to>
+				</connector>
+				<aux x="1104.52" y="728.139" name="pCO2(w)"/>
+				<aux x="1208.17" y="728.139" name="pCO2(c)"/>
+				<aux x="925.164" y="591.457" name="bw"/>
+				<connector uid="23" angle="276.981">
+					<from>Tl</from>
+					<to>bw</to>
+				</connector>
+				<connector uid="24" angle="0">
+					<from>bw</from>
+					<to>Faw</to>
+				</connector>
+				<aux x="1147.15" y="491.93" name="aO"/>
+				<connector uid="25" angle="231.501">
+					<from>aO</from>
+					<to>Faw</to>
+				</connector>
+				<aux x="1295.86" y="599.605" name="Fac"/>
+				<connector uid="26" angle="324.094">
+					<from>aO</from>
+					<to>Fac</to>
+				</connector>
+				<connector uid="27" angle="307.865">
+					<from>Ah</from>
+					<to>Fac</to>
+				</connector>
+				<connector uid="28" angle="352.588">
+					<from>&quot;piston_velocity_(ks)&quot;</from>
+					<to>Fac</to>
+				</connector>
+				<aux x="1333.02" y="581.605" name="bc"/>
+				<connector uid="29" angle="223.222">
+					<from>bc</from>
+					<to>Fac</to>
+				</connector>
+				<connector uid="30" angle="297.894">
+					<from>Th</from>
+					<to>bc</to>
+				</connector>
+				<connector uid="33" angle="131.603">
+					<from>
+						<alias uid="34"/>
+					</from>
+					<to>&quot;Air-Sea_Exchange_(HL)&quot;</to>
+				</connector>
+				<flow x="1023.33" y="105.032" name="Warm-intermediate Ocean exchange">
+					<pts>
+						<pt x="935.739" y="105.032"/>
+						<pt x="1122.93" y="105.032"/>
+					</pts>
+				</flow>
+				<connector uid="35" angle="332.02">
+					<from>&quot;warm-intermediate_exchange_(kwi)&quot;</from>
+					<to>&quot;Warm-intermediate_Ocean_exchange&quot;</to>
+				</connector>
+				<flow x="1243.24" y="167.418" name="Intermediate-deep Ocean exchange">
+					<pts>
+						<pt x="1184.2" y="167.418"/>
+						<pt x="1314.27" y="167.418"/>
+					</pts>
+				</flow>
+				<connector uid="36" angle="37.7532">
+					<from>&quot;intermediate-deep_exchange_(kid)&quot;</from>
+					<to>&quot;Intermediate-deep_Ocean_exchange&quot;</to>
+				</connector>
+				<aux x="1153.89" y="684.506" name="beta (revelle factor)"/>
+				<aux x="946.549" y="695.13" name="pCO2(w)0"/>
+				<aux x="1300.56" y="666.506" name="pCO2(c)0"/>
+				<aux x="514.259" y="679.048" name="Col0"/>
+				<connector uid="37" angle="287.541">
+					<from>
+						<alias uid="38"/>
+					</from>
+					<to>Faw</to>
+				</connector>
+				<connector uid="39" angle="343.851">
+					<from>
+						<alias uid="40"/>
+					</from>
+					<to>&quot;pCO2(w)&quot;</to>
+				</connector>
+				<connector uid="41" angle="17.978">
+					<from>&quot;pCO2(w)0&quot;</from>
+					<to>&quot;pCO2(w)&quot;</to>
+				</connector>
+				<connector uid="42" angle="245.938">
+					<from>&quot;beta_(revelle_factor)&quot;</from>
+					<to>&quot;pCO2(w)&quot;</to>
+				</connector>
+				<connector uid="43" angle="22.4678">
+					<from>
+						<alias uid="44"/>
+					</from>
+					<to>&quot;pCO2(w)&quot;</to>
+				</connector>
+				<aux x="609.008" y="679.048" name="Coh0"/>
+				<connector uid="45" angle="321.203">
+					<from>&quot;beta_(revelle_factor)&quot;</from>
+					<to>&quot;pCO2(c)&quot;</to>
+				</connector>
+				<connector uid="46" angle="264.323">
+					<from>
+						<alias uid="47"/>
+					</from>
+					<to>&quot;pCO2(c)&quot;</to>
+				</connector>
+				<connector uid="48" angle="236.323">
+					<from>&quot;pCO2(c)0&quot;</from>
+					<to>&quot;pCO2(c)&quot;</to>
+				</connector>
+				<connector uid="49" angle="155.164">
+					<from>
+						<alias uid="50"/>
+					</from>
+					<to>&quot;pCO2(c)&quot;</to>
+				</connector>
+				<connector uid="51" angle="303.092">
+					<from>
+						<alias uid="52"/>
+					</from>
+					<to>Fac</to>
+				</connector>
+				<aux x="1160.23" y="636.285" name="rho"/>
+				<connector uid="53" angle="164.086">
+					<from>rho</from>
+					<to>Faw</to>
+				</connector>
+				<connector uid="54" angle="1.37889">
+					<from>rho</from>
+					<to>Fac</to>
+				</connector>
+				<aux x="734.023" y="679.048" name="Coi0"/>
+				<aux x="564.942" y="679.048" name="Cod0"/>
+				<flow x="1040.58" y="398.531" name="cold-intermediate ocean exchange">
+					<pts>
+						<pt x="935.738" y="398.531"/>
+						<pt x="1145.43" y="398.531"/>
+						<pt x="1145.43" y="303.064"/>
+					</pts>
+				</flow>
+				<connector uid="55" angle="211.415">
+					<from>&quot;high_latitude_overturning_(kU)&quot;</from>
+					<to>&quot;cold-intermediate_ocean_exchange&quot;</to>
+				</connector>
+				<aux x="1071.48" y="31.2342" name="Vl"/>
+				<aux x="1008.43" y="351.323" name="Vh"/>
+				<aux x="1251.11" y="87.032" name="Vi"/>
+				<aux x="1233.11" y="380.531" name="Vd"/>
+				<connector uid="56" angle="291.07">
+					<from>Vh</from>
+					<to>&quot;cold-intermediate_ocean_exchange&quot;</to>
+				</connector>
+				<connector uid="57" angle="333.47">
+					<from>High_Latitude_Surface_Ocean_Carbon</from>
+					<to>&quot;cold-intermediate_ocean_exchange&quot;</to>
+				</connector>
+				<connector uid="58" angle="35.1802">
+					<from>Low_Latitude_Ocean_Carbon</from>
+					<to>&quot;Warm-intermediate_Ocean_exchange&quot;</to>
+				</connector>
+				<connector uid="59" angle="236.88">
+					<from>Vl</from>
+					<to>&quot;Warm-intermediate_Ocean_exchange&quot;</to>
+				</connector>
+				<connector uid="60" angle="43.8951">
+					<from>Intermediate_Ocean_Carbon</from>
+					<to>&quot;Intermediate-deep_Ocean_exchange&quot;</to>
+				</connector>
+				<connector uid="61" angle="230.148">
+					<from>Vi</from>
+					<to>&quot;Intermediate-deep_Ocean_exchange&quot;</to>
+				</connector>
+				<flow x="1255.24" y="297.01" name="deep-intermediate exchange">
+					<pts>
+						<pt x="1314.27" y="297.01"/>
+						<pt x="1184.2" y="297.01"/>
+					</pts>
+				</flow>
+				<connector uid="62" angle="304.332">
+					<from>&quot;intermediate-deep_exchange_(kid)&quot;</from>
+					<to>&quot;deep-intermediate_exchange&quot;</to>
+				</connector>
+				<connector uid="63" angle="270.636">
+					<from>Deep_Ocean_Carbon</from>
+					<to>&quot;deep-intermediate_exchange&quot;</to>
+				</connector>
+				<connector uid="64" angle="61.4802">
+					<from>Vd</from>
+					<to>&quot;deep-intermediate_exchange&quot;</to>
+				</connector>
+				<flow x="1035.33" y="188.64" name="intermediate-warm exchange">
+					<pts>
+						<pt x="1122.93" y="188.64"/>
+						<pt x="935.739" y="188.64"/>
+					</pts>
+				</flow>
+				<connector uid="65" angle="306.332">
+					<from>&quot;warm-intermediate_exchange_(kwi)&quot;</from>
+					<to>&quot;intermediate-warm_exchange&quot;</to>
+				</connector>
+				<connector uid="66" angle="94.5405">
+					<from>&quot;thermohaline_overturning_(kT)&quot;</from>
+					<to>&quot;intermediate-warm_exchange&quot;</to>
+				</connector>
+				<connector uid="67" angle="208.565">
+					<from>Intermediate_Ocean_Carbon</from>
+					<to>&quot;intermediate-warm_exchange&quot;</to>
+				</connector>
+				<connector uid="68" angle="45.6343">
+					<from>
+						<alias uid="69"/>
+					</from>
+					<to>&quot;intermediate-warm_exchange&quot;</to>
+				</connector>
+				<aux x="532.944" y="87.032" name="pCO2 ppmv"/>
+				<connector uid="70" angle="205.067">
+					<from>pCO2_ppmv</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<flow x="630.129" y="351.323" name="GHG emissions">
+					<pts>
+						<pt x="630.129" y="430.669"/>
+						<pt x="630.129" y="271.977"/>
+					</pts>
+				</flow>
+				<aux font_style="italic" font_weight="bold" x="737.036" y="421.476" name="EIND"/>
+				<connector uid="73" angle="121.895">
+					<from>EIND</from>
+					<to>GHG_emissions</to>
+				</connector>
+				<aux x="728.711" y="356.849" name="DICE on/off"/>
+				<connector uid="74" angle="150.241">
+					<from>&quot;DICE_on/off&quot;</from>
+					<to>GHG_emissions</to>
+				</connector>
+				<flow font_style="italic" font_weight="bold" x="579.985" y="370.652" name="Permafrost melt">
+					<pts>
+						<pt x="579.985" y="469.326"/>
+						<pt x="579.985" y="271.977"/>
+					</pts>
+				</flow>
+				<module x="618.574" y="565.372" name="Permafrost dynamics"/>
+				<connector uid="75" angle="101.209">
+					<from>Permafrost_dynamics</from>
+					<to>Permafrost_melt</to>
+				</connector>
+				<aux x="99.5648" y="685.751" name="eland0"/>
+				<aux x="128.315" y="652.878" name="deland"/>
+				<aux x="156.44" y="709.881" name="eland"/>
+				<connector uid="76" angle="358.515">
+					<from>eland0</from>
+					<to>eland</to>
+				</connector>
+				<connector uid="77" angle="296.263">
+					<from>deland</from>
+					<to>eland</to>
+				</connector>
+				<connector uid="78" angle="329.774">
+					<from>eland</from>
+					<to>&quot;Deforestation_(D)&quot;</to>
+				</connector>
+				<group locked="true" x="795.851" y="466.02" width="571.271" height="343.578" name="Ocean Chem">
+					<item uid="38"/>
+					<item uid="40"/>
+					<item uid="44"/>
+					<item uid="47"/>
+					<item uid="50"/>
+					<item uid="52"/>
+					<item uid="87"/>
+				</group>
+				<group locked="true" x="541.944" y="514.96" width="153.73" height="101.969" name="Permafrost"/>
+				<aux font_style="italic" font_weight="bold" x="452.34" y="21.5781" name="Atmospheric temperature anomaly (TATM)"/>
+				<connector uid="79" angle="221.721">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<aux x="687.132" y="39.5781" name="partial pressure of CO2 (pCO2)"/>
+				<connector uid="80" angle="162.212">
+					<from>&quot;partial_pressure_of_CO2_(pCO2)&quot;</from>
+					<to>pCO2_ppmv</to>
+				</connector>
+				<connector uid="81" angle="51.3605">
+					<from>Atmospheric_Carbon</from>
+					<to>&quot;partial_pressure_of_CO2_(pCO2)&quot;</to>
+				</connector>
+				<connector uid="82" angle="311.998" isee:autocreated="true">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>Permafrost_dynamics</to>
+				</connector>
+				<aux x="452.34" y="441.02" name="surface temperature (Ts)"/>
+				<connector uid="84" angle="36.2361">
+					<from>
+						<alias uid="83"/>
+					</from>
+					<to>&quot;surface_temperature_(Ts)&quot;</to>
+				</connector>
+				<connector uid="85" angle="87.9559">
+					<from>&quot;surface_temperature_(Ts)&quot;</from>
+					<to>Plant_Respiration</to>
+				</connector>
+				<connector uid="86" angle="221.486">
+					<from>&quot;surface_temperature_(Ts)&quot;</from>
+					<to>Soil_Respiration</to>
+				</connector>
+				<aux x="764.711" y="123.032" name="Faw 1"/>
+				<connector uid="88" angle="185.285">
+					<from>
+						<alias uid="87"/>
+					</from>
+					<to>Faw</to>
+				</connector>
+				<connector uid="89" angle="12.0298">
+					<from>
+						<alias uid="87"/>
+					</from>
+					<to>Fac</to>
+				</connector>
+				<alias font_style="italic" uid="13" x="91.332" y="90.4922" width="18" height="18">
+					<of>&quot;Cv(s)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="11" x="220.24" y="669.103" width="18" height="18">
+					<of>Cv0</of>
+				</alias>
+				<alias font_style="italic" uid="34" x="791.879" y="318.544" width="18" height="18">
+					<of>Fac</of>
+				</alias>
+				<alias font_style="italic" uid="40" x="1038.59" y="657.506" width="18" height="18">
+					<of>Col0</of>
+				</alias>
+				<alias font_style="italic" uid="38" x="1003.1" y="482.93" width="18" height="18">
+					<of>&quot;pCO2(w)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="44" x="896.155" y="752.855" width="45" height="35">
+					<of>Low_Latitude_Ocean_Carbon</of>
+				</alias>
+				<alias font_style="italic" uid="50" x="1264.56" y="747.151" width="45" height="35">
+					<of>High_Latitude_Surface_Ocean_Carbon</of>
+				</alias>
+				<alias font_style="italic" uid="47" x="1251.45" y="653.234" width="18" height="18">
+					<of>Coh0</of>
+				</alias>
+				<alias font_style="italic" uid="52" x="1286.86" y="500.93" width="18" height="18">
+					<of>&quot;pCO2(c)&quot;</of>
+				</alias>
+				<alias font_style="italic" uid="69" x="992.193" y="258.773" width="18" height="18">
+					<of>Vi</of>
+				</alias>
+				<alias font_style="italic" font_weight="bold" uid="83" x="331.707" y="433.277" width="18" height="18">
+					<of>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</of>
+				</alias>
+				<alias color="blue" background="white" font_style="italic" uid="87" x="1156.15" y="576.968" width="18" height="18">
+					<shape type="circle" radius="18"/>
+					<of>&quot;partial_pressure_of_CO2_(pCO2)&quot;</of>
+				</alias>
+			</view>
+		</views>
+	</model>
+	<model name="Permafrost_dynamics">
+		<variables>
+			<stock name="Cperm">
+				<eqn>1035</eqn>
+				<outflow>delta_Cperm</outflow>
+				<outflow>abrupt_thaw</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<flow name="delta Cperm" access="output">
+				<eqn>-1*(frozen_fraction - DELAY(frozen_fraction, DT)) * DELAY(Cperm,  DT)</eqn>
+				<units>pgC/Years</units>
+			</flow>
+			<stock name="thawed C">
+				<eqn>0</eqn>
+				<inflow>delta_Cperm</inflow>
+				<inflow>abrupt_thaw</inflow>
+				<outflow>Fthawedatmo</outflow>
+				<non_negative/>
+				<units>pgC</units>
+			</stock>
+			<flow name="Fthawedatmo" access="output">
+				<eqn>IF permafrost_switch = 1 THEN RH_pf+(RH_CH4) ELSE 0</eqn>
+				<non_negative/>
+				<units>pgC/Year</units>
+			</flow>
+			<aux name="RH pf">
+				<eqn>(1 - F_CH4) * labile_thawed * Q10^(T200 / 10)</eqn>
+			</aux>
+			<aux name="Q10">
+				<eqn>2</eqn>
+			</aux>
+			<aux name="F CH4">
+				<eqn>0.023</eqn>
+			</aux>
+			<aux name="labile thawed">
+				<eqn>thawed_C - static_c_in_thawed</eqn>
+			</aux>
+			<aux name="T200">
+				<eqn>DELAY1(&quot;Atmospheric_temperature_anomaly_(TATM)&quot;, 200)</eqn>
+			</aux>
+			<aux name="RH CH4">
+				<eqn>F_CH4 * labile_thawed * Q10^(T200 / 10)</eqn>
+			</aux>
+			<aux name="T HL">
+				<eqn>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;*2</eqn>
+			</aux>
+			<aux name="frozen fraction">
+				<eqn>NORMALCDF(LN(1+T_HL), 1e6, 1.67, 0.99)</eqn>
+			</aux>
+			<aux name="permafrost switch" access="output" isee:autocreated="true">
+				<eqn>1</eqn>
+				<format precision="1"/>
+				<scale min="0" max="1"/>
+			</aux>
+			<aux name="fstatic">
+				<eqn>0.74</eqn>
+			</aux>
+			<flow name="abrupt thaw" access="output">
+				<eqn>IF &quot;Atmospheric_temperature_anomaly_(TATM)&quot; &gt; 2 THEN delta_Cperm*0.4 ELSE 0</eqn>
+				<non_negative/>
+				<units>pgC/Years</units>
+			</flow>
+			<aux name="static c in thawed">
+				<eqn>fstatic*thawed_C</eqn>
+			</aux>
+			<aux name="Atmospheric temperature anomaly (TATM)" access="input">
+				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
+				<units>°C from 1765</units>
+			</aux>
+		</variables>
+		<views>
+			<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+				<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+				<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+				<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+					<isee:series_styles>
+						<isee:series_style color="blue" thickness="1"/>
+						<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF7F00" thickness="1"/>
+						<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#FF007F" thickness="1"/>
+						<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+						<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+						<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+						<isee:series_style color="#C8C8C8" thickness="1"/>
+					</isee:series_styles>
+				</graph>
+				<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				<button color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595"/>
+				<isee:annotation color="black" background="#E0E0E0" font_size="12pt" border_width="thin" border_style="solid" transparent="false" corner_radius="0" isee:flat="false" icon_side="top" isee:highlight_on_hover="false" isee:highlight_color="#959595" popup_corner_radius="0" popup_background_color="#FFFECF"/>
+				<slider color="#0075FF" background="#E0E0E0" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" vertical="false" isee:fancy_appearance="false" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:stacked_container color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="0" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:dual_slider color="#66CC66" background="silver" font_size="12pt" num_ticks="3" label_side="top" wrap_title="true" isee:show_hover_tip="when_deciding" input_expands="true" input_width="100"/>
+				<isee:sim_speed_slider color="black" background="white"/>
+				<isee:time_slider color="#E95F74" background="silver"/>
+				<isee:pie_input color="black" background="white" font_size="12pt" legend_position="bottom" isee:transparent="false"/>
+				<knob color="#66CC66" background="#E0E0E0" font_size="12pt" label_side="bottom" wrap_title="true"/>
+				<numeric_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<isee:dropdown_input color="black" background="#E0E0E0" font_size="12pt" label_side="left" wrap_title="true" input_expands="false" input_width="100"/>
+				<switch color="black" background="#E0E0E0" font_size="12pt" label_side="top" wrap_title="true" isee:appearance="switch" isee:on_color="green"/>
+				<options color="black" background="white" appearance="radio-buttons" arrangement="vertical"/>
+				<graphical_input color="black" background="#E0E0E0" font_size="12pt" isee:show_hover_tip="true"/>
+				<group_input color="black" background="#E0E0E0" font_size="12pt"/>
+				<lamp color="black" background="white" font_size="9pt"/>
+				<gauge color="black" background="white" font_size="9pt" needle_color="#F09F72" bar_color="#EEEEEE" bar_progress_color="black" appearance="radial" num_major_ticks="11" num_minor_ticks="1" show_numeric_value="true"/>
+				<isee:spatial_map color="black" background="white" font_size="12pt"/>
+				<isee:animation_object color="black" background="white" font_size="12pt"/>
+				<isee:navigation_widget color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" padding="6 8" border_color="#999999" border_width="thin" border_style="solid" item_spacing="6" appearance="tabs" corner_radius="4" selected_item_color="black" selected_item_background="white" item_background="#DDDDDD" transparent_bg="false"/>
+				<isee:shape color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid" opacity="1" transparent_background="true" corner_radius="1"/>
+				<isee:selector color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
+				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+			</style>
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
+					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="45" height="35"/>
+					</stock>
+					<flow color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</flow>
+					<isee:placeholder color="#228B22" background="white" font_color="#228B22" font_size="9pt" label_side="bottom"/>
+					<module color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
+						<shape type="rectangle" width="55" height="45"/>
+					</module>
+					<aux color="blue" background="white" font_color="blue" font_size="9pt" label_side="bottom">
+						<shape type="circle" radius="18"/>
+					</aux>
+					<group color="red" background="white" font_color="red" font_size="9pt"/>
+					<connector color="#FF007F" background="white" font_color="#FF007F" font_size="9pt" isee:thickness="1"/>
+					<text_box color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt"/>
+					<isee:loop_indicator color="black" background="white" vertical_text_align="top" font_size="12pt"/>
+					<numeric_display color="white" background="white" font_size="12pt" border_width="thin" border_style="solid" isee:transparent="false" isee:show_divider="true" isee:show_bounding_box="true" label_side="left"/>
+					<graph color="black" background="white" font_size="12pt" axis_color="#666666" grid_color="#C8C8C8" isee:graph_area_color="white" legend_position="bottom" isee:transparent="false" isee:hide_border="false" axis_title_font_style="normal" axis_title_font_weight="normal" axis_title_text_decoration="none" axis_title_text_align="center" axis_title_vertical_text_align="center" axis_title_font_color="black" axis_title_font_family="Arial" axis_title_font_size="12pt" axis_title_text_padding="2" axis_title_text_border_color="black" axis_title_text_border_width="thin" axis_title_text_border_style="none" axis_label_font_style="normal" axis_label_font_weight="normal" axis_label_text_decoration="none" axis_label_text_align="center" axis_label_vertical_text_align="center" axis_label_font_color="black" axis_label_font_family="Arial" axis_label_font_size="9pt" axis_label_text_padding="2" axis_label_text_border_color="black" axis_label_text_border_width="thin" axis_label_text_border_style="none">
+						<isee:series_styles>
+							<isee:series_style color="blue" thickness="1"/>
+							<isee:series_style color="red" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="fuchsia" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="#008F44" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF7F00" thickness="1"/>
+							<isee:series_style color="#7F00FF" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#0CA0FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="lime" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#FF007F" thickness="1"/>
+							<isee:series_style color="aqua" thickness="1" pen_style="dot_dashed"/>
+							<isee:series_style color="#F586FF" thickness="1" pen_style="dotted"/>
+							<isee:series_style color="black" thickness="1" pen_style="dashed"/>
+							<isee:series_style color="#C8C8C8" thickness="1"/>
+						</isee:series_styles>
+					</graph>
+					<table color="black" background="#E0E0E0" text_align="right" font_size="12pt" orientation="vertical" wrap_text="false" isee:auto_fit="true" isee:use_alternate_row_colors="false" isee:unlimited_table_length="false" blank_column_width="80" column_width="160" interval="1" report_balances="beginning" report_flows="instantaneous" header_font_style="normal" header_font_weight="normal" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="12pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
+				</style>
+				<stock x="409.688" y="132.885" width="89.9089" height="23.0794" name="Cperm"/>
+				<flow x="433.548" y="233.577" name="delta Cperm">
+					<pts>
+						<pt x="433.548" y="155.964"/>
+						<pt x="433.548" y="311.19"/>
+					</pts>
+				</flow>
+				<text_box uid="1" x="720.179" y="121.475" width="260" height="58">1-2.3 threshold</text_box>
+				<stock x="409.225" y="311.19" width="101.465" height="39.7884" name="thawed C"/>
+				<flow x="454.642" y="404.292" name="Fthawedatmo">
+					<pts>
+						<pt x="454.642" y="350.978"/>
+						<pt x="454.642" y="478.606"/>
+					</pts>
+				</flow>
+				<aux x="218.937" y="245.302" name="RH pf"/>
+				<aux x="136.018" y="203.959" name="Q10"/>
+				<aux x="68.2416" y="74.9785" name="F CH4"/>
+				<aux x="50.2416" y="285.512" name="labile thawed"/>
+				<connector uid="2" angle="311.501">
+					<from>F_CH4</from>
+					<to>RH_pf</to>
+				</connector>
+				<connector uid="3" angle="33.0866">
+					<from>labile_thawed</from>
+					<to>RH_pf</to>
+				</connector>
+				<connector uid="4" angle="317.739">
+					<from>Q10</from>
+					<to>RH_pf</to>
+				</connector>
+				<connector uid="5" angle="173.653">
+					<from>thawed_C</from>
+					<to>labile_thawed</to>
+				</connector>
+				<aux x="200.937" y="67.528" name="T200"/>
+				<aux x="45.4461" y="178.716" name="RH CH4"/>
+				<connector uid="6" angle="287.926">
+					<from>T200</from>
+					<to>RH_pf</to>
+				</connector>
+				<connector uid="7" angle="234.79">
+					<from>T200</from>
+					<to>RH_CH4</to>
+				</connector>
+				<connector uid="8" angle="285.661">
+					<from>F_CH4</from>
+					<to>RH_CH4</to>
+				</connector>
+				<connector uid="9" angle="135.767">
+					<from>Q10</from>
+					<to>RH_CH4</to>
+				</connector>
+				<connector uid="10" angle="92.571">
+					<from>labile_thawed</from>
+					<to>RH_CH4</to>
+				</connector>
+				<aux x="335.901" y="128.144" name="T HL"/>
+				<aux x="346.954" y="203.959" name="frozen fraction"/>
+				<connector uid="12" angle="5.47474">
+					<from>frozen_fraction</from>
+					<to>delta_Cperm</to>
+				</connector>
+				<connector uid="13" angle="281.355">
+					<from>Cperm</from>
+					<to>delta_Cperm</to>
+				</connector>
+				<connector uid="14" angle="325.999">
+					<from>RH_pf</from>
+					<to>Fthawedatmo</to>
+				</connector>
+				<connector uid="15" angle="310.559">
+					<from>RH_CH4</from>
+					<to>Fthawedatmo</to>
+				</connector>
+				<aux x="563.183" y="345.008" name="permafrost switch"/>
+				<connector uid="17" angle="244.228">
+					<from>permafrost_switch</from>
+					<to>Fthawedatmo</to>
+				</connector>
+				<aux x="174.844" y="359.978" name="fstatic"/>
+				<connector uid="18" angle="260.971">
+					<from>T_HL</from>
+					<to>frozen_fraction</to>
+				</connector>
+				<flow x="495.042" y="227.577" name="abrupt thaw">
+					<pts>
+						<pt x="495.042" y="155.964"/>
+						<pt x="495.042" y="311.19"/>
+					</pts>
+				</flow>
+				<connector uid="19" angle="25.567">
+					<from>delta_Cperm</from>
+					<to>abrupt_thaw</to>
+				</connector>
+				<aux x="45.4461" y="383.029" name="static c in thawed"/>
+				<connector uid="20" angle="176.019">
+					<from>thawed_C</from>
+					<to>static_c_in_thawed</to>
+				</connector>
+				<connector uid="21" angle="190.1">
+					<from>fstatic</from>
+					<to>static_c_in_thawed</to>
+				</connector>
+				<connector uid="22" angle="53.3817">
+					<from>static_c_in_thawed</from>
+					<to>labile_thawed</to>
+				</connector>
+				<aux font_style="italic" font_weight="bold" x="317.901" y="67.528" name="Atmospheric temperature anomaly (TATM)"/>
+				<connector uid="24" angle="132.464">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>T200</to>
+				</connector>
+				<connector uid="25" angle="304.415">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>T_HL</to>
+				</connector>
+				<connector uid="26" angle="36.4532">
+					<from>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;</from>
+					<to>abrupt_thaw</to>
+				</connector>
 			</view>
 		</views>
 	</model>

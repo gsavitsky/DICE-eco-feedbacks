@@ -2,21 +2,21 @@
 <xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
 	<header>
 		<smile version="1.0" namespace="std, isee" uses_arrays="1" uses_submodels=""/>
-		<name>DICE 2023 no opt</name>
+		<name>DICE 2023 no opt copy 3_12</name>
 		<uuid>9777f8dd-b692-4ee2-8196-7b70e1548798</uuid>
 		<vendor>isee systems, inc.</vendor>
 		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
-		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1772569122" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="B+tCVNS0r7/+nTmtd1NBiyX7GL0PESDhYvcGk6Jikg2+PcRwAcnHL6TMC+Genyx8BT2hxPsywwbj5xgu/78PDw=="/>
+		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1773347275" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="xbCUjLA6QMp6amveyAPlC8LEKBfBZR9qw/Ut4sl9xbfO5k+Vx3sov8qBpCYd0S5ToS0AA7edoKH6oo1io1dvBQ=="/>
 	</ai_information>
-	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="RK4" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
 		<start>2020</start>
 		<stop>2420</stop>
-		<dt reciprocal="true">1</dt>
+		<dt>1</dt>
 	</sim_specs>
 	<dimensions>
-		<dim name="TimePeriod" size="186"/>
+		<dim name="TimePeriod" size="81"/>
 	</dimensions>
 	<isee:prefs saved_runs="5" keep="false" show_module_prefix="true" live_update_on_drag="true" show_restore_buttons="false" layer="model" isee:design="Deluxe Prev-Next Blue Green Pastel" isee:design_custom="false" interface_scale_ui="true" interface_max_page_width="10000" interface_max_page_height="10000" interface_min_page_width="0" interface_min_page_height="0" rifp="true"/>
 	<isee:multiplayer_settings include_chat="true" allow_observers="false" advance_time_increment="1" max_advance_time_in_ms="0" model_stops_when_players_drop="false" observer_start_page="home_page" enabled="false"/>
@@ -26,21 +26,31 @@
 	<isee:number_format_extenders/>
 	<default_format/>
 	<data>
-		<export enabled="false" resource="/Users/gretasavitsky/Desktop/STELLA results.xlsx" type="Excel" worksheet="Sheet1" interval="5" precomputed="false" isee:format="numbers">
+		<export enabled="false" resource="r../STELLA results.xlsx" type="Excel" worksheet="Sheet1" interval="5" precomputed="false" isee:format="numbers">
 			<all/>
 		</export>
-		<import enabled="false" isee:overwrite="true" isee:interpolate="f" orientation="horizontal" resource="/Users/gretasavitsky/Desktop/emissions control rate.csv"/>
+		<import enabled="false" isee:overwrite="true" isee:interpolate="f" orientation="horizontal" resource="r../emissions control rate.csv"/>
 	</data>
 	<isee:sensi_specs_list active_index="0">
-		<isee:sensi_specs name="Sensitivity" method="grid">
-			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Economy.Emissions_control_rate" num_samples="5"/>
-		</isee:sensi_specs>
+		<isee:sensi_specs name="Sensitivity" method="grid"/>
 	</isee:sensi_specs_list>
-	<isee:optimizer_specs_list active_index="0">
-		<isee:optimizer_specs name="Optimization" method="Powell" use_additional_starts_file="false" additional_starts="0" report_interval="1" confidence_range="0"/>
+	<isee:optimizer_specs_list active_index="1">
+		<isee:optimizer_specs name="Just miu" method="Powell" use_additional_starts_file="false" additional_starts="5" report_interval="1" confidence_range="0">
+			<isee:parameter name="Economy.optimal_miu[*]" min="0" max="1.1"/>
+			<isee:payoff name="Payoff" action="max"/>
+		</isee:optimizer_specs>
+		<isee:optimizer_specs name="Miu + s" method="Powell" use_additional_starts_file="false" additional_starts="5" report_interval="1" confidence_range="0" maxiter="0">
+			<isee:parameter name="Economy.optimal_miu[*]" min="0" max="1.1"/>
+			<isee:parameter name="Economy.optimal_s[*]" min="0" max="1"/>
+			<isee:payoff name="Payoff" action="max"/>
+		</isee:optimizer_specs>
 	</isee:optimizer_specs_list>
 	<isee:payoff_specs_list>
-		<isee:payoff_specs name="Payoff"/>
+		<isee:payoff_specs name="Payoff">
+			<isee:payoff_element name='Economy."Accumulated_Utility_(Uacc)"' weight="1">
+				<isee:time_range type="terminal_value"/>
+			</isee:payoff_element>
+		</isee:payoff_specs>
 	</isee:payoff_specs_list>
 	<model_units/>
 	<model>
@@ -175,21 +185,30 @@
 						<item>
 							<entity name="Economy.Emissions_control_rate"/>
 						</item>
-						<item>
-							<entity name='Economy."savings_rate_(s)"'/>
-						</item>
 					</table>
 				</stacked_container>
-				<stacked_container uid="33" x="196.469" y="312.902">
+				<stacked_container uid="33" x="196.469" y="312.902" visible_index="2">
 					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+							<scale max="4"/>
 						</plot>
 					</graph>
 					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="false" pen_width="1" index="0" show_y_axis="true">
 							<entity name="Economy.Emissions_control_rate"/>
 							<scale min="0" max="1.1"/>
+						</plot>
+						<plot color="red" pen_style="dot_dashed" isee:keep_zero_visible="true" pen_width="1" index="1" show_y_axis="true">
+							<entity name="Economy.target_miu"/>
+						</plot>
+					</graph>
+					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
+							<entity name="Economy.op_s"/>
+						</plot>
+						<plot color="red" pen_style="dot_dashed" isee:keep_zero_visible="true" pen_width="1" index="1" show_y_axis="true">
+							<entity name='Economy."savings_rate_(s)"'/>
 						</plot>
 					</graph>
 				</stacked_container>
@@ -379,11 +398,6 @@
 			</aux>
 			<aux name="emissions control rate (μ)" access="input">
 				<eqn>TIME</eqn>
-				<gf>
-					<xscale min="2020" max="2419.99999999998"/>
-					<yscale min="0" max="100"/>
-					<ypts>0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0</ypts>
-				</gf>
 			</aux>
 			<aux name="Co2 forcing (FCO2)">
 				<eqn>3.93*(LN(&quot;Atmospheric_carbon_concentration_(MAT)&quot;/588))/LN(2)</eqn>
@@ -1023,7 +1037,7 @@
 				<units>trillion 2019 USD</units>
 			</stock>
 			<aux name="Investment (I)">
-				<eqn>&quot;savings_rate_(s)&quot;*&quot;Output_(Y)&quot;</eqn>
+				<eqn>IF &quot;s_op_on?&quot; = 0 THEN &quot;savings_rate_(s)&quot;*&quot;Output_(Y)&quot; ELSE op_s*&quot;Output_(Y)&quot;</eqn>
 				<units>trillion 2019 USD/Year</units>
 			</aux>
 			<aux name="Depreciation rate of capital (δK)">
@@ -1094,15 +1108,6 @@
 				<eqn>&quot;Investment_(I)&quot; - 0.081902 * &quot;Capital_(K)&quot;</eqn>
 				<units>trillion 2019 USD/Year</units>
 			</flow>
-			<aux name="savings rate (s)">
-				<eqn>TIME</eqn>
-				<gf>
-					<xscale min="2020" max="2419.99999999998"/>
-					<yscale min="0" max="100"/>
-					<ypts>0.256368777,0.253733125,0.251146506,0.249568137,0.248421591,0.247606134,0.247041,0.246782461,0.246768273,0.246980392,0.247404323,0.248028024,0.248840588,0.249830035,0.250979223,0.252257865,0.253606509,0.255146991,0.256739447,0.258267977,0.259497772,0.259993132,0.261562706,0.262945302,0.264238068,0.265493949,0.266739516,0.267986183,0.269236956,0.270497126,0.27176082,0.273018102,0.274251325,0.275427992,0.276487073,0.277313053,0.27768706,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28</ypts>
-				</gf>
-				<units>fraction</units>
-			</aux>
 			<aux name="gross output (Ygross)">
 				<eqn>&quot;TFP_(AL)&quot;*(&quot;Population_(L)&quot;/1000)^(1-&quot;capital_elasticity_(γ)&quot;)*&quot;Capital_(K)&quot;^&quot;capital_elasticity_(γ)&quot;</eqn>
 				<units>trillion 2019 USD/Year</units>
@@ -1167,6 +1172,9 @@
 				<entity name='"per_capital_consumption_(c)"'/>
 				<entity name='"savings_rate_(s)"'/>
 				<entity name="Change_in_capital"/>
+				<entity name="op_s"/>
+				<entity name="optimal_s"/>
+				<entity name="sterm"/>
 			</group>
 			<group name="Damages to Econ" run="false">
 				<entity name='"Atmospheric_temperature_anomaly_(TATM)"'/>
@@ -1252,12 +1260,14 @@
 				<units>unitless</units>
 			</aux>
 			<aux name="Emissions control rate" access="output" isee:autocreated="true">
-				<eqn>TIME</eqn>
-				<gf type="extrapolate">
-					<xscale min="2020" max="2420"/>
-					<yscale min="0" max="2"/>
-					<ypts>0.05,0.1,0.24,0.274689312,0.309920688,0.348902744,0.391944268,0.427147121,0.464499818,0.504017031,0.545701276,0.589543379,0.63552221,0.683604961,0.733748878,0.785906171,0.84003677,0.889296463,0.939909785,0.991942151,1.045556127,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.1,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1.05,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1</ypts>
-				</gf>
+				<eqn>IF TIME = STARTTIME THEN miu0 
+ELSE 
+IF TIME MOD 5 = 0 THEN
+IF (target_miu - PREVIOUS(SELF, miu0 )) &gt; 0.12 THEN PREVIOUS(SELF,  miu0) + 0.12
+ELSE IF (target_miu - PREVIOUS(SELF,  miu0)) &lt; -0.12 THEN PREVIOUS(SELF,  miu0) - 0.12
+ELSE target_miu
+
+ELSE PREVIOUS(SELF, miu0)</eqn>
 			</aux>
 			<flow name="emissions accumulating">
 				<eqn>&quot;total_CO2_emissions_(ECo2)&quot;/3.666</eqn>
@@ -1293,6 +1303,9 @@
 				<entity name="emissions_accumulating"/>
 				<entity name="Emissions_control_rate"/>
 				<entity name="industrial_emissions"/>
+				<entity name="miu0"/>
+				<entity name="optimal_miu"/>
+				<entity name="target_miu"/>
 			</group>
 			<aux name="initial land emissions (Eland0)">
 				<eqn>5.9</eqn>
@@ -1369,14 +1382,6 @@
 				<eqn>1e6*(&quot;per_capital_consumption_(c)&quot;/&quot;initial_per_capiita_consumption_(c0)&quot;)^-0.95*&quot;Discount_factor_(R)&quot;</eqn>
 				<units>unitless</units>
 			</aux>
-			<aux name="long run interest rate (rlong)">
-				<eqn>(LN(&quot;Long_run_discount_factor_(RFlong)&quot;/1e6))/(TIME-2015)</eqn>
-				<units>/year</units>
-			</aux>
-			<aux name="short run interest rate (rshort)">
-				<eqn>-LN(&quot;Long_run_discount_factor_(RFlong)&quot; / DELAY(&quot;Long_run_discount_factor_(RFlong)&quot;, DT)) / DT</eqn>
-				<units>/year</units>
-			</aux>
 			<aux name="initial per capiita\nconsumption (c0)">
 				<eqn>12.46</eqn>
 				<units>thousand 2019 USD/ capita/ year</units>
@@ -1390,11 +1395,9 @@
 				<entity name='"initial_per_capiita_consumption_(c0)"'/>
 				<entity name='"instantaneous_utility_(u(c))"'/>
 				<entity name='"Long_run_discount_factor_(RFlong)"'/>
-				<entity name='"long_run_interest_rate_(rlong)"'/>
 				<entity name='"period_utility_(U)"'/>
 				<entity name='"precautionary_adjustment_(rpre)"'/>
 				<entity name='"risk-adjusted_pure_time_preference_(ρa)"'/>
-				<entity name='"short_run_interest_rate_(rshort)"'/>
 				<entity name='"std_dev_consumption_growth_(Vc)"'/>
 				<entity name="accumulation_of_utility"/>
 			</group>
@@ -1428,6 +1431,56 @@
  initial_carbon_intensity * EXP(5 * &quot;initial_carbon_intensity_decline_rate_(gσ,1)&quot; * (1 - &quot;decline_rate_of_carbon_intensity_decline_rate_(δgσ)&quot;^INT((TIME-2020)/5)) / (1 - &quot;decline_rate_of_carbon_intensity_decline_rate_(δgσ)&quot;))
 ELSE
   0.08328823 * EXP(-0.005 * (INT((TIME-2020)/5) - 27) * 5)</eqn>
+			</aux>
+			<aux name="optimal miu">
+				<doc>fraction of uncontrolled industrial and energy emissions mitigated
+
+in DICE, this is one of the choice variables in the optimization</doc>
+				<dimensions>
+					<dim name="TimePeriod"/>
+				</dimensions>
+				<eqn>0.2</eqn>
+				<units>fraction</units>
+			</aux>
+			<aux name="miu0">
+				<eqn>0.05</eqn>
+			</aux>
+			<aux name="target miu">
+				<eqn>optimal_miu[INT((TIME-STARTTIME)/5)+1]</eqn>
+			</aux>
+			<aux name="savings rate (s)">
+				<eqn>TIME</eqn>
+				<gf>
+					<xscale min="2020" max="2419.99999999998"/>
+					<yscale min="0" max="1"/>
+					<ypts>0.256368777,0.253733125,0.251146506,0.249568137,0.248421591,0.247606134,0.247041,0.246782461,0.246768273,0.246980392,0.247404323,0.248028024,0.248840588,0.249830035,0.250979223,0.252257865,0.253606509,0.255146991,0.256739447,0.258267977,0.259497772,0.259993132,0.261562706,0.262945302,0.264238068,0.265493949,0.266739516,0.267986183,0.269236956,0.270497126,0.27176082,0.273018102,0.274251325,0.275427992,0.276487073,0.277313053,0.27768706,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28,0.28</ypts>
+				</gf>
+				<units>fraction</units>
+			</aux>
+			<aux name="optimal s">
+				<doc>fraction of uncontrolled industrial and energy emissions mitigated
+
+in DICE, this is one of the choice variables in the optimization</doc>
+				<dimensions>
+					<dim name="TimePeriod"/>
+				</dimensions>
+				<eqn>0.2</eqn>
+				<units>fraction</units>
+			</aux>
+			<aux name="sterm">
+				<eqn>0.28</eqn>
+			</aux>
+			<aux name="op s">
+				<eqn>IF TIME = STARTTIME THEN 0.2
+ELSE 
+IF (TIME-STARTTIME)/5 &gt;= 37 THEN sterm ELSE
+IF TIME MOD 5 = 0 THEN optimal_s[INT((TIME-STARTTIME)/5)+1]
+ELSE PREVIOUS(SELF,  0.2)</eqn>
+			</aux>
+			<aux name="s op on?">
+				<eqn>1</eqn>
+				<format precision="1"/>
+				<scale min="0" max="1"/>
 			</aux>
 		</variables>
 		<views>
@@ -1478,7 +1531,7 @@ ELSE
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_y="247.5" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="358.75" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1606,11 +1659,6 @@ ELSE
 					<from>&quot;Capital_(K)&quot;</from>
 					<to>Change_in_capital</to>
 				</connector>
-				<aux x="964.364" y="154.534" name="savings rate (s)"/>
-				<connector uid="19" angle="148.503">
-					<from>&quot;savings_rate_(s)&quot;</from>
-					<to>&quot;Investment_(I)&quot;</to>
-				</connector>
 				<aux x="1078.95" y="530.635" width="57.1719" height="57.1719" name="gross output (Ygross)"/>
 				<aux x="508.233" y="81.8131" name="damages as fraction\nof gross output (Dfrac)"/>
 				<connector uid="29" angle="163.475">
@@ -1654,8 +1702,8 @@ ELSE
 				<group locked="true" x="68.3818" y="839.22" width="491.641" height="266.664" name="Carbon Intensity"/>
 				<group locked="true" x="1349.73" y="647.862" width="279.984" height="189.992" name="TFP"/>
 				<group locked="true" x="1029.27" y="31.3881" width="300" height="184" name="Population"/>
-				<group locked="true" x="668.863" y="31.3881" width="337.723" height="184" name="Capital"/>
-				<connector uid="42" angle="309.567">
+				<group locked="true" x="668.863" y="31.3881" width="337.723" height="256.393" name="Capital"/>
+				<connector uid="42" angle="281.658">
 					<from>&quot;Capital_(K)&quot;</from>
 					<to>&quot;gross_output_(Ygross)&quot;</to>
 				</connector>
@@ -1735,7 +1783,7 @@ ELSE
 					<to>emissions_accumulating</to>
 				</connector>
 				<aux x="809.514" y="964.552" name="land emissions decline\nrate (λland)"/>
-				<group locked="true" x="749.659" y="838.519" width="411.738" height="259.551" name="Emissions"/>
+				<group locked="true" x="669.024" y="838.519" width="492.373" height="259.551" name="Emissions"/>
 				<aux x="898.376" y="998.545" name="initial land emissions (Eland0)"/>
 				<connector uid="61" angle="195.384">
 					<from>&quot;initial_land_emissions_(Eland0)&quot;</from>
@@ -1799,16 +1847,16 @@ ELSE
 					<to>&quot;marginal_cost_of_abatement_(MCabate)&quot;</to>
 				</connector>
 				<aux x="842.093" y="164.793" name="consumption (C)"/>
-				<aux x="744.453" y="176.479" name="Output (Y)"/>
-				<connector uid="78" angle="18.9898">
+				<aux x="711.382" y="175.094" name="Output (Y)"/>
+				<connector uid="78" angle="19.6953">
 					<from>&quot;net_output_(Ynet)&quot;</from>
 					<to>&quot;Output_(Y)&quot;</to>
 				</connector>
-				<connector uid="79" angle="71.6158">
+				<connector uid="79" angle="78.2389">
 					<from>&quot;cost_of_emissions_abatement_(Cabate)&quot;</from>
 					<to>&quot;Output_(Y)&quot;</to>
 				</connector>
-				<connector uid="80" angle="27.8469">
+				<connector uid="80" angle="21.875">
 					<from>&quot;Output_(Y)&quot;</from>
 					<to>&quot;Investment_(I)&quot;</to>
 				</connector>
@@ -1816,16 +1864,16 @@ ELSE
 					<from>&quot;Investment_(I)&quot;</from>
 					<to>&quot;consumption_(C)&quot;</to>
 				</connector>
-				<connector uid="83" angle="6.82496">
+				<connector uid="83" angle="4.50603">
 					<from>&quot;Output_(Y)&quot;</from>
 					<to>&quot;consumption_(C)&quot;</to>
 				</connector>
-				<aux x="908.662" y="182.793" name="per capital consumption (c)"/>
-				<connector uid="84" angle="323.816">
+				<aux x="849.673" y="252.796" name="per capital consumption (c)"/>
+				<connector uid="84" angle="253.87">
 					<from>&quot;consumption_(C)&quot;</from>
 					<to>&quot;per_capital_consumption_(c)&quot;</to>
 				</connector>
-				<connector uid="85" angle="223.641">
+				<connector uid="85" angle="230.665">
 					<from>&quot;Population_(L)&quot;</from>
 					<to>&quot;per_capital_consumption_(c)&quot;</to>
 				</connector>
@@ -1894,13 +1942,7 @@ ELSE
 					<from>&quot;Discount_factor_(R)&quot;</from>
 					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
 				</connector>
-				<aux x="1411.55" y="408.482" name="long run interest rate (rlong)"/>
-				<connector uid="102" angle="271.06">
-					<from>&quot;Long_run_discount_factor_(RFlong)&quot;</from>
-					<to>&quot;long_run_interest_rate_(rlong)&quot;</to>
-				</connector>
-				<aux x="1519.28" y="480.187" name="short run interest rate (rshort)"/>
-				<connector uid="104" angle="290.868">
+				<connector uid="104" angle="298.876">
 					<from>&quot;per_capital_consumption_(c)&quot;</from>
 					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
 				</connector>
@@ -1908,10 +1950,6 @@ ELSE
 				<connector uid="106" angle="308.172">
 					<from>&quot;initial_per_capiita_consumption_(c0)&quot;</from>
 					<to>&quot;Long_run_discount_factor_(RFlong)&quot;</to>
-				</connector>
-				<connector uid="108" angle="327.163">
-					<from>&quot;Long_run_discount_factor_(RFlong)&quot;</from>
-					<to>&quot;short_run_interest_rate_(rshort)&quot;</to>
 				</connector>
 				<group locked="true" x="1344.38" y="31.5366" width="627.578" height="522.008" name="Utility">
 					<item uid="86"/>
@@ -1944,6 +1982,49 @@ ELSE
 					<from>initial_carbon_intensity</from>
 					<to>carbon_intensity_1</to>
 				</connector>
+				<aux x="729.382" y="960.295" name="optimal miu"/>
+				<aux label_side="right" x="781.081" y="930.881" name="miu0"/>
+				<aux x="781.081" y="860.967" name="target miu"/>
+				<connector uid="122" angle="121.128">
+					<from>optimal_miu</from>
+					<to>target_miu</to>
+				</connector>
+				<connector uid="123" angle="344.693">
+					<from>target_miu</from>
+					<to>Emissions_control_rate</to>
+				</connector>
+				<connector uid="124" angle="64.187">
+					<from>miu0</from>
+					<to>Emissions_control_rate</to>
+				</connector>
+				<aux x="974.57" y="148.858" name="savings rate (s)"/>
+				<aux x="936.856" y="263.945" name="optimal s"/>
+				<aux x="978.499" y="224.388" name="sterm"/>
+				<connector uid="127" angle="150.99">
+					<from>&quot;savings_rate_(s)&quot;</from>
+					<to>&quot;Investment_(I)&quot;</to>
+				</connector>
+				<text_box uid="128" x="886.255" y="306.171" width="260" height="58">IF TIME = STARTTIME THEN 0.2
+
+ELSE optimal_s[INT((TIME-STARTTIME)/5)+1]</text_box>
+				<aux x="925.852" y="206.388" name="op s"/>
+				<connector uid="129" angle="100.824">
+					<from>optimal_s</from>
+					<to>op_s</to>
+				</connector>
+				<connector uid="130" angle="161.124">
+					<from>sterm</from>
+					<to>op_s</to>
+				</connector>
+				<aux x="1069.95" y="263.945" name="s op on?"/>
+				<connector uid="131" angle="130.68">
+					<from>&quot;s_op_on?&quot;</from>
+					<to>&quot;Investment_(I)&quot;</to>
+				</connector>
+				<connector uid="132" angle="73.4349">
+					<from>op_s</from>
+					<to>&quot;Investment_(I)&quot;</to>
+				</connector>
 				<alias color="blue" background="white" font_style="italic" uid="86" x="1629.72" y="66.6066" width="18" height="18">
 					<shape type="circle" radius="18"/>
 					<of>&quot;per_capital_consumption_(c)&quot;</of>
@@ -1951,5 +2032,169 @@ ELSE
 			</view>
 		</views>
 	</model>
+	<isee:controls>
+		<isee:control priority="interactive" name="Economy.optimal_miu[10]" value="0.718108423835911"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[11]" value="0.699074969953415"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[12]" value="0.753095416759092"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[13]" value="0.74952291570055"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[14]" value="0.702466497874645"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[15]" value="0.720599607971851"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[16]" value="0.689349484632603"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[17]" value="0.747405892226637"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[18]" value="0.716966085541408"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[19]" value="0.769511283854755"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[1]" value="0.566020805864233"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[20]" value="0.816086616286233"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[21]" value="0.728220702690427"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[22]" value="0.781209073186122"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[23]" value="0.765922022359535"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[24]" value="0.823497717530182"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[25]" value="0.945269981013735"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[26]" value="0.737565749941322"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[27]" value="0.834394199656795"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[28]" value="0.777340748602299"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[29]" value="0.898384662117272"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[2]" value="0.587277391554428"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[30]" value="0.8543175016716"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[31]" value="0.90752272294156"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[32]" value="0.833560224767378"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[33]" value="0.886771928834447"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[34]" value="0.955075978621071"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[35]" value="1.01120424539576"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[36]" value="0.968504274875987"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[37]" value="1.00079113770525"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[38]" value="1.01670126179899"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[39]" value="1.00563136227192"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[3]" value="0.566794734512788"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[40]" value="1.01821454589176"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[41]" value="1.09967122166843"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[42]" value="1.02024554035583"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[43]" value="1.00497028127236"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[44]" value="1.08439696359275"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[45]" value="1.09877462763801"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[46]" value="1.0681841636843"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[47]" value="1.06901860548311"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[48]" value="1.06289158210224"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[49]" value="1.09296876313605"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[4]" value="0.547923421865738"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[50]" value="1.09338429224462"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[51]" value="1.09982898256504"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[52]" value="1.09788135518071"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[53]" value="1.0995584430156"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[54]" value="1.09979635430682"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[55]" value="1.1"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[56]" value="1.09544093619885"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[57]" value="1.1"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[58]" value="1.09980220955777"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[59]" value="1.0986634382732"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[5]" value="0.502523446267757"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[60]" value="1.09963882378022"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[61]" value="1.09997626173318"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[62]" value="1.09859978716204"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[63]" value="1.09171281787135"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[64]" value="1.09859400854486"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[65]" value="1.09974515258413"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[66]" value="1.07539438901292"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[67]" value="1.09993511377573"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[68]" value="1.09995791474351"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[69]" value="1.07256935419599"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[6]" value="0.610207150776992"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[70]" value="1.0732293992457"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[71]" value="1.00259819671492"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[72]" value="0.953588057665237"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[73]" value="1.06913515374201"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[74]" value="0.703809496323974"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[75]" value="1.09255271696346"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[76]" value="0.98894697907083"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[77]" value="1.0425821482645"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[78]" value="1.02710216291151"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[79]" value="0.696911982121159"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[7]" value="0.654023364271742"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[80]" value="0.524413341541445"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[81]" value="0.553873660045855"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[8]" value="0.722781592950974"/>
+		<isee:control priority="interactive" name="Economy.optimal_miu[9]" value="0.707448308357543"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[10]" value="0.419969516339607"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[11]" value="0.419413335472433"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[12]" value="0.468398840619368"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[13]" value="0.449788007366524"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[14]" value="0.43347125256885"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[15]" value="0.364712003260619"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[16]" value="0.358042438808377"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[17]" value="0.489365748825971"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[18]" value="0.425298275800433"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[19]" value="0.467154378311575"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[1]" value="0.505198015653586"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[20]" value="0.384503586562341"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[21]" value="0.39083427432308"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[22]" value="0.374059514498915"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[23]" value="0.403216142652235"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[24]" value="0.40537345074463"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[25]" value="0.407644609824419"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[26]" value="0.377760711954692"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[27]" value="0.397244472757886"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[28]" value="0.398369064979253"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[29]" value="0.343915330087075"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[2]" value="0.423852463605631"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[30]" value="0.36928727011942"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[31]" value="0.341810609502053"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[32]" value="0.342671571777344"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[33]" value="0.40171033441552"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[34]" value="0.367552082260248"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[35]" value="0.331313988082443"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[36]" value="0.325142148661169"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[37]" value="0.367637787687563"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[38]" value="0.464674645248555"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[39]" value="0.476633047899324"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[3]" value="0.444928253490964"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[40]" value="0.458732272919881"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[41]" value="0.424299343257458"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[42]" value="0.462821551935022"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[43]" value="0.480914277438688"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[44]" value="0.486521804980702"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[45]" value="0.552913567560518"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[46]" value="0.50141722040788"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[47]" value="0.494944706569678"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[48]" value="0.471228197643085"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[49]" value="0.633724392482518"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[4]" value="0.455238365870515"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[50]" value="0.555093536401477"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[51]" value="0.474571053474577"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[52]" value="0.452462503760754"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[53]" value="0.514350465163069"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[54]" value="0.457850127867425"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[55]" value="0.449406542046438"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[56]" value="0.486166276679772"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[57]" value="0.48808326359648"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[58]" value="0.59802663178125"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[59]" value="0.562201565216445"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[5]" value="0.465326555166031"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[60]" value="0.51810633531597"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[61]" value="0.55499454657734"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[62]" value="0.491428038088761"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[63]" value="0.543842199379974"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[64]" value="0.513319800561247"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[65]" value="0.509603101201106"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[66]" value="0.506393182758752"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[67]" value="0.488899874451785"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[68]" value="0.520695332857935"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[69]" value="0.518831730454293"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[6]" value="0.43971736845515"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[70]" value="0.510857827515119"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[71]" value="0.464713191030613"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[72]" value="0.51580282997591"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[73]" value="0.489429588375781"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[74]" value="0.548411945913301"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[75]" value="0.471514988495593"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[76]" value="0.512334089726678"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[77]" value="0.498721390336181"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[78]" value="0.469524198299421"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[79]" value="0.449128537560015"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[7]" value="0.444942933240061"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[80]" value="0.589376436426731"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[81]" value="0.528788529386293"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[8]" value="0.401458922042152"/>
+		<isee:control priority="interactive" name="Economy.optimal_s[9]" value="0.464551441306711"/>
+	</isee:controls>
 </xmile>
 
