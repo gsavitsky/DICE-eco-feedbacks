@@ -2,10 +2,10 @@
 <xmile version="1.0" xmlns="http://docs.oasis-open.org/xmile/ns/XMILE/v1.0" xmlns:isee="http://iseesystems.com/XMILE">
 	<header>
 		<smile version="1.0" namespace="std, isee" uses_arrays="1" uses_submodels=""/>
-		<name>Lenton+DICE_12_18</name>
+		<name>Lenton+DICE_1_12_26</name>
 		<uuid>d41a60a2-183b-4701-abe4-6622abd782a5</uuid>
 		<vendor>isee systems, inc.</vendor>
-		<product version="4.0" isee:build_number="3710" isee:saved_by_v1="true" lang="en">Stella Professional</product>
+		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
 		<status verified="false"/>
@@ -2573,13 +2573,13 @@ in DICE, this is one of the choice variables in the optimization</doc>
 					<from>&quot;surface_temperature_(Ts)&quot;</from>
 					<to>outgoing_radiation</to>
 				</connector>
-				<aux color="#008F00" font_color="#008F00" x="482.762" y="303.64" name="mole volume of the atmosphere (ka)"/>
-				<connector uid="28" angle="192.747">
+				<aux color="#008F00" font_color="#008F00" x="475.981" y="481.218" name="mole volume of the atmosphere (ka)"/>
+				<connector uid="28" angle="129.135">
 					<from>&quot;mole_volume_of_the_atmosphere_(ka)&quot;</from>
 					<to>&quot;partial_pressure_of_CO2_(pCO2)&quot;</to>
 				</connector>
-				<aux color="#008F00" font_color="#008F00" x="469.651" y="239.5" name="pre-industrial\nmoles of molecules in\nthe atmosphere (fgtm)"/>
-				<connector uid="29" angle="187.888">
+				<aux color="#008F00" font_color="#008F00" x="469.651" y="358.613" name="pre-industrial\nmoles of molecules in\nthe atmosphere (fgtm)"/>
+				<connector uid="29" angle="136.015">
 					<from>&quot;pre-industrial_moles_of_molecules_in_the_atmosphere_(fgtm)&quot;</from>
 					<to>&quot;partial_pressure_of_CO2_(pCO2)&quot;</to>
 				</connector>
