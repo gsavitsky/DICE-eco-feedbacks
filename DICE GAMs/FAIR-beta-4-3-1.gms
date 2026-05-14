@@ -30,7 +30,7 @@ PARAMETERS
        mat0   Initial concentration in atmosphere in 2020 (GtC)       /886.5128014/
 
        res00  Initial concentration in Reservoir 0 in 2020 (GtC)      /150.093 /
-       res10  Initial concentration in Reservior 1 in 2020 (GtC)      /102.698 /
+       res10  Initial concentration in Reservoir 1 in 2020 (GtC)      /102.698 /
        res20  Initial concentration in Reservoir 2 in 2020 (GtC)      /39.534  /
        res30  Initial concentration in Reservoir 3 in 2020 (GtC)      / 6.1865 /
 

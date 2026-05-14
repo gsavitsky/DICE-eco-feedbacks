@@ -8,12 +8,12 @@
 		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
-		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1774551831" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="upp5mDZ1FS3QBdmly/nZyP4qoEe32Dzl9GGW1sM4eTfeq80Skn2uYDcaDEozKVG5oTdAVbzoXptrNej8vv5LCQ=="/>
+		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1775504562" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="eZyMAUJKzl2YBQpDgtf1rZ0bv3ICkTnO0Awm/OFA2tWkzPqK1+f4xX7gsb2TT5hwygOXsFM9mZOrcShC01x2Cg=="/>
 	</ai_information>
 	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
 		<start>2020</start>
 		<stop>2420</stop>
-		<dt reciprocal="true">1</dt>
+		<dt reciprocal="true">10</dt>
 	</sim_specs>
 	<dimensions>
 		<dim name="TimePeriod" size="400"/>
@@ -33,7 +33,7 @@
 	</data>
 	<isee:sensi_specs_list active_index="0">
 		<isee:sensi_specs name="Sensitivity" method="grid">
-			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Economy.Emissions_control_rate" num_samples="5"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Climate.switch_blahhh" num_samples="2"/>
 		</isee:sensi_specs>
 	</isee:sensi_specs_list>
 	<isee:optimizer_specs_list active_index="0">
@@ -325,7 +325,7 @@
 				<units>GtCO2/year</units>
 			</aux>
 			<flow name="Flow 1">
-				<eqn>(&quot;Emission_share_into_reservoir_0_(ϵ0)&quot;*&quot;total_CO2_emissions_(ECo2)&quot;/3.667)-(&quot;Carbon_Reservoir_0_(R0)&quot;/(&quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;*alpha))</eqn>
+				<eqn>(&quot;Emission_share_into_reservoir_0_(ϵ0)&quot;*(&quot;total_CO2_emissions_(ECo2)&quot;/3.667))-(&quot;Carbon_Reservoir_0_(R0)&quot;/(&quot;Decay_time_constant_for_reservoir_0_(τ0)&quot;*alpha))</eqn>
 				<units>GtC/Year</units>
 			</flow>
 			<flow name="Flow 2">
@@ -357,7 +357,11 @@
 				<units>°C from 1765/Year</units>
 			</flow>
 			<aux name="radiative forcing (F)">
-				<eqn>fco22x * (LN(exo_MAT/&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;) / LN(2)) + &quot;Miscellaneous_forcing_(Fmisc)&quot; + FGHGexo</eqn>
+				<eqn>IF switch_blahhh = 0 THEN fco22x * (LN(exo_MAT/&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;) / LN(2)) + &quot;Miscellaneous_forcing_(Fmisc)&quot; + FGHGexo
+
+ELSE
+fco22x *
+(LN(&quot;Atmospheric_carbon_concentration_(MAT)&quot;/&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;) / LN(2)) + &quot;Miscellaneous_forcing_(Fmisc)&quot; + FGHGexo</eqn>
 				<units>W/m^2</units>
 			</aux>
 			<aux name="thermal response time for box 1 (d1)">
@@ -419,11 +423,10 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<entity name='"Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)"'/>
 				<entity name='"Sensitivity_of_IRF_to_temperature_(irT)"'/>
 				<entity name="alpha"/>
-				<entity name="alpha0"/>
-				<entity name="alpha_1"/>
+				<entity name="Converter_1"/>
+				<entity name="Converter_2"/>
 				<entity name="IRF0"/>
 				<entity name="IRF100"/>
-				<entity name="optimal_alpha"/>
 			</group>
 			<group name="Atmospheric Carbon" run="false">
 				<entity name='"Atmospheric_carbon_concentration_(MAT)"'/>
@@ -446,6 +449,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<entity name='"Upper_ocean_temperature_anomaly_(T2)"'/>
 				<entity name="Flow_5"/>
 				<entity name="Flow_6"/>
+				<entity name="switch_blahhh"/>
 			</group>
 			<group name="Ocean + Terrestrial Carbon" run="false">
 				<entity name='"Carbon_Reservoir_0_(R0)"'/>
@@ -481,26 +485,6 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 			<aux name="fco22x">
 				<eqn>3.93</eqn>
 			</aux>
-			<aux name="optimal alpha">
-				<doc>fraction of uncontrolled industrial and energy emissions mitigated
-
-in DICE, this is one of the choice variables in the optimization</doc>
-				<dimensions>
-					<dim name="TimePeriod"/>
-				</dimensions>
-				<eqn>0.2</eqn>
-				<units>fraction</units>
-			</aux>
-			<aux name="alpha0">
-				<eqn>0.28</eqn>
-			</aux>
-			<aux name="alpha 1">
-				<eqn>IF TIME = STARTTIME THEN 0.2
-ELSE 
-IF (TIME-STARTTIME)/5 &gt;= 37 THEN alpha0 ELSE
-IF TIME MOD 5 = 0 THEN optimal_alpha[INT((TIME-STARTTIME)/5)+1]
-ELSE PREVIOUS(SELF,  0.2)</eqn>
-			</aux>
 			<aux name="FGHGexo">
 				<eqn>TIME</eqn>
 				<gf>
@@ -516,6 +500,17 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 					<yscale min="0" max="3000"/>
 					<ypts>886.512801,915.718548,939.764112,964.666602,989.779729,1014.69061,1039.00318,1063.15946,1086.81608,1109.65347,1131.32935,1151.46523,1169.63953,1185.38216,1198.16958,1207.4198,1212.48658,1213.49777,1209.74566,1200.48963,1184.91712,1162.28737,1141.22492,1120.90121,1100.85246,1080.80714,1060.59616,1040.10526,1019.25206,997.993685,976.296654,954.134817,931.488667,908.345453,884.699919,860.555741,835.927945,829.78753,820.481854,809.646967,797.895109,785.454903,772.417384,758.826544,744.711735,730.099082,715.015585,699.49075,683.557387,667.252095,650.615539,633.692518,616.531712,599.185037,581.706561,564.151087,546.572854,567.900727,579.841251,588.165158,594.191333,598.717285,602.255539,605.136156,607.571919,609.700202,611.609879,613.358637,614.984113,616.511065,617.955982,619.330041,620.641008,621.894457,623.094547,624.244521,625.34702,626.40429,627.418309,628.390866,629.323621</ypts>
 				</gf>
+			</aux>
+			<aux name="switch blahhh">
+				<eqn>1</eqn>
+				<format precision="1"/>
+				<scale min="0" max="1"/>
+			</aux>
+			<aux name="Converter 1">
+				<eqn>&quot;Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)&quot;*&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</eqn>
+			</aux>
+			<aux name="Converter 2">
+				<eqn>&quot;Atmospheric_temperature_anomaly_(TATM)&quot;*&quot;Sensitivity_of_IRF_to_temperature_(irT)&quot;</eqn>
 			</aux>
 		</variables>
 		<views>
@@ -566,7 +561,7 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="467.5" isee:scroll_y="1.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -796,7 +791,7 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 				<aux x="151.792" y="69.8448" name="Miscellaneous forcing 2020 (Fmisc0)"/>
 				<aux x="1570.29" y="54.8642" name="IRF100"/>
 				<aux x="1679" y="72.8642" name="IRF0"/>
-				<aux x="1661" y="135.06" name="Sensitivity of IRF to\ncumulative carbon uptake (irC)"/>
+				<aux x="1768.57" y="124.492" name="Sensitivity of IRF to\ncumulative carbon uptake (irC)"/>
 				<aux x="1516.38" y="142.492" name="Sensitivity of IRF\nto temperature (irT)"/>
 				<connector uid="67" angle="12.1315">
 					<from>
@@ -804,15 +799,15 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 					</from>
 					<to>IRF100</to>
 				</connector>
-				<connector uid="68" angle="138.522">
+				<connector uid="68" angle="160.651">
 					<from>&quot;Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)&quot;</from>
 					<to>IRF100</to>
 				</connector>
-				<connector uid="69" angle="58.3983">
+				<connector uid="69" angle="58.3995">
 					<from>&quot;Sensitivity_of_IRF_to_temperature_(irT)&quot;</from>
 					<to>IRF100</to>
 				</connector>
-				<connector uid="70" angle="39.58">
+				<connector uid="70" angle="150.145">
 					<from>
 						<alias uid="55"/>
 					</from>
@@ -875,8 +870,8 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 					<from>fco22x</from>
 					<to>&quot;radiative_forcing_(F)&quot;</to>
 				</connector>
-				<stacked_container uid="143" x="1051.04" y="249.691">
-					<table interval="5" report_balances="beginning" report_flows="instantaneous" width="350" height="250">
+				<stacked_container uid="143" x="1142.33" y="155.731">
+					<table interval="5" report_balances="beginning" report_flows="instantaneous" width="350" height="250" comparative="true">
 						<item type="time"/>
 						<item>
 							<entity name='"Deep_ocean_temperature_anomaly_(T1)"'/>
@@ -887,22 +882,23 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 						<item>
 							<entity name="alpha"/>
 						</item>
+						<item>
+							<entity name='"Atmospheric_carbon_concentration_(MAT)"'/>
+						</item>
+						<item>
+							<entity name='"carbon_accumulated_in_ocean_and_land_sinks_(Cacc)"'/>
+						</item>
+						<item>
+							<entity name="switch_blahhh"/>
+						</item>
+						<item>
+							<entity name="IRF100"/>
+						</item>
 					</table>
 				</stacked_container>
 				<connector uid="66" angle="151.808">
 					<from>IRF0</from>
 					<to>IRF100</to>
-				</connector>
-				<aux x="1796.97" y="193.235" name="optimal alpha"/>
-				<aux x="1834.17" y="150.898" name="alpha0"/>
-				<aux x="1766.4" y="146.348" name="alpha 1"/>
-				<connector uid="153" angle="123.104">
-					<from>optimal_alpha</from>
-					<to>alpha_1</to>
-				</connector>
-				<connector uid="154" angle="176.159">
-					<from>alpha0</from>
-					<to>alpha_1</to>
 				</connector>
 				<connector uid="155" angle="299.401">
 					<from>IRF100</from>
@@ -944,11 +940,7 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 						</plot>
 					</graph>
 				</stacked_container>
-				<aux x="445.366" y="836.815" name="exo MAT"/>
-				<connector uid="160" angle="56.4603">
-					<from>exo_MAT</from>
-					<to>&quot;radiative_forcing_(F)&quot;</to>
-				</connector>
+				<aux x="330.744" y="856.092" name="exo MAT"/>
 				<stacked_container uid="161" x="1994.92" y="1245.47">
 					<graph width="350" height="250" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
@@ -964,7 +956,64 @@ ELSE PREVIOUS(SELF,  0.2)</eqn>
 						</item>
 					</table>
 				</stacked_container>
-				<alias color="blue" background="white" font_style="italic" uid="55" x="1409.07" y="115.492" width="18" height="18">
+				<connector uid="164" angle="61.9615">
+					<from>exo_MAT</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<aux x="89.789" y="315.005" name="switch blahhh"/>
+				<connector uid="165" angle="31.1869">
+					<from>switch_blahhh</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<connector uid="166" angle="169.483">
+					<from>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</from>
+					<to>&quot;radiative_forcing_(F)&quot;</to>
+				</connector>
+				<stacked_container uid="167" x="809.116" y="338.833" width="526.499" height="250">
+					<table width="526.499" height="250">
+						<item type="time"/>
+						<item>
+							<entity name='"carbon_accumulated_in_ocean_and_land_sinks_(Cacc)"'/>
+						</item>
+						<item>
+							<entity name='"Atmospheric_temperature_anomaly_(TATM)"'/>
+						</item>
+					</table>
+				</stacked_container>
+				<aux x="1887.12" y="222.075" name="Converter 1"/>
+				<connector uid="168" angle="22.5009">
+					<from>&quot;Sensitivity_of_IRF_to_cumulative_carbon_uptake_(irC)&quot;</from>
+					<to>Converter_1</to>
+				</connector>
+				<connector uid="169" angle="41.521">
+					<from>
+						<alias uid="55"/>
+					</from>
+					<to>Converter_1</to>
+				</connector>
+				<aux x="1427.65" y="179.661" name="Converter 2"/>
+				<connector uid="170" angle="35.8916">
+					<from>
+						<alias uid="56"/>
+					</from>
+					<to>Converter_2</to>
+				</connector>
+				<connector uid="171" angle="171.2">
+					<from>&quot;Sensitivity_of_IRF_to_temperature_(irT)&quot;</from>
+					<to>Converter_2</to>
+				</connector>
+				<stacked_container uid="172" x="2266.43" y="299.155">
+					<table width="350" height="250">
+						<item type="time"/>
+						<item>
+							<entity name="Converter_1"/>
+						</item>
+						<item>
+							<entity name="Converter_2"/>
+						</item>
+					</table>
+				</stacked_container>
+				<alias color="blue" background="white" font_style="italic" uid="55" x="1704.81" y="188.661" width="18" height="18">
 					<shape type="circle" radius="18"/>
 					<of>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</of>
 				</alias>
@@ -1476,7 +1525,7 @@ optimal_s[INT((TIME-STARTTIME)/5)+1]</eqn>
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="513.75" isee:scroll_y="711.25" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="357.5" isee:scroll_y="740" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -1984,6 +2033,12 @@ optimal_s[INT((TIME-STARTTIME)/5)+1]</eqn>
 						<item type="time"/>
 						<item>
 							<entity name='"Non-CO2_GHG_forcing_(FGHG)"'/>
+						</item>
+						<item>
+							<entity name='"total_CO2_emissions_(ECo2)"'/>
+						</item>
+						<item>
+							<entity name='"cumulative_carbon_emissions_(Ctot)"'/>
 						</item>
 					</table>
 				</stacked_container>
