@@ -1,4 +1,5 @@
 # Import all cleaned sensitivity analysis data for visualization
+# Data output from STELLA and cleaned in F file STELLA output processing.R
 
 library(readr)
 library(purrr)
@@ -390,6 +391,67 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakTemp, fill = State)) +
 
 ggsave("vis/feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
 
+# Figure: Isolated and conditional contributions of individual Lenton carbon
+# cycle feedbacks to atmospheric carbon concentration, 2020-2420
+# Conditional on Lenton dynamics being active (Climate.Lenton? = 1), boxplots
+# of peak atmospheric carbon per run, split by each feedback's on/off state.
+# Assumes fs_params / fs_vars are already loaded (see import_data.R)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# ---- Peak atmospheric carbon per run ----
+
+carbon_data <- fs_vars[[grep("Atmospheric_Carbon", names(fs_vars), value = TRUE, ignore.case = TRUE)]]
+run_cols    <- setdiff(names(carbon_data), "Years")
+
+peak_carbon <- tibble(
+  Run = as.integer(sub("Run_", "", run_cols)),
+  PeakCarbon = sapply(carbon_data[run_cols], max, na.rm = TRUE)
+)
+
+# ---- Restrict to runs where Lenton dynamics are active, reshape to long ----
+
+switch_labels <- c(
+  "Lenton Carbon.Ocean CO2 switch"       = "Ocean CO2\nfeedback",
+  "Lenton Carbon.Terr CO2 switch"        = "Terrestrial CO2\nfeedback",
+  "Lenton Carbon.photo temp switch"      = "Photosynthesis\ntemp feedback",
+  "Lenton Carbon.temp-resp switch soil"  = "Soil temp-\nresponse feedback",
+  "Lenton Carbon.temp-resp switch veg"   = "Vegetation temp-\nresponse feedback",
+  "Permafrost dynamics.permafrost switch" = "Permafrost\ndynamics"
+)
+
+long_df <- fs_params %>%
+  filter(`Climate.Lenton?` == 1) %>%
+  left_join(peak_carbon, by = "Run") %>%
+  select(Run, PeakCarbon, all_of(names(switch_labels))) %>%
+  pivot_longer(-c(Run, PeakCarbon), names_to = "switch_col", values_to = "state") %>%
+  mutate(
+    Feedback = factor(switch_labels[switch_col], levels = unname(switch_labels)),
+    State = factor(ifelse(state == 1, "On", "Off"), levels = c("Off", "On"))
+  )
+
+# ---- Plot ----
+
+p <- ggplot(long_df, aes(x = Feedback, y = PeakCarbon, fill = State)) +
+  geom_boxplot(position = position_dodge(width = 0.75), width = 0.6, color = "black") +
+  scale_fill_manual(values = c("Off" = "#5b7c99", "On" = "#e07a5f"), name = NULL) +
+  labs(x = NULL, y = "Peak atmospheric carbon\n(GtC)") +
+  theme_bw(base_size = 16) +
+  theme(
+    text = element_text(color = "black"),
+    axis.title = element_text(color = "black", size = 19, face = "bold"),
+    axis.text = element_text(color = "black", size = 15, face = "bold"),
+    axis.text.x = element_text(size = 13),
+    legend.text = element_text(color = "black", size = 17),
+    legend.key.width = unit(1.1, "cm"),
+    legend.key.height = unit(1.1, "cm"),
+    plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
+  )
+
+ggsave("fig4_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
+
 # Figure: Climate damage fraction under three model configurations, 2020-2420
 # Structurally matches fig_temp_co2.R, but for a single variable (damage
 # fraction) rather than two, so there are two panels instead of four:
@@ -637,6 +699,170 @@ p <- ggplot(delta_df, aes(Year, Delta, color = Config, linetype = Config)) +
   theme(legend.position = c(0.15, 0.15), legend.background = element_blank())
 
 ggsave("vis/fig_output_delta.png", p, width = 10, height = 7, dpi = 300)
+
+# Figure: Climate damage fraction under three model configurations, 2020-2420
+# Structurally matches fig_temp_co2.R, but for a single variable (damage
+# fraction) rather than two, so there are two panels instead of four:
+#   (a) time series with GAMS benchmark + peak-year vlines
+#   (b) phase plot (DICE 2023 vs. DICE-C/DICE-CP) with 1:1 reference + arrows
+# Data source: welfare sensitivity results (ws_params / ws_vars / ws_gams),
+# using the DICE 2023 / DICE-C / DICE-CP runs under default welfare and
+# discounting settings (Economy.altdam = 0, Economy.altdisc = 0)
+# Assumes ws_params / ws_vars / ws_gams are already loaded (see import_data.R)
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+library(patchwork)
+
+# ---- Shared theme: larger, darker text throughout ----
+
+base_theme <- theme_bw(base_size = 15) +
+  theme(
+    text = element_text(color = "black"),
+    axis.title = element_text(color = "black", size = 17, face = "bold"),
+    axis.text = element_text(color = "black", size = 16, face = "bold"),
+    legend.text = element_text(color = "black", size = 16),
+    legend.title = element_text(color = "black", size = 17),
+    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
+  )
+
+# ---- Identify the three configuration runs within ws_params ----
+# (default welfare/discounting settings: Economy.altdam = 0, Economy.altdisc = 0)
+
+find_run <- function(params, switch_values) {
+  out <- params
+  for (col in names(switch_values)) out <- out[out[[col]] == switch_values[[col]], ]
+  if (nrow(out) != 1) stop("Expected exactly one matching run, found ", nrow(out))
+  out$Run
+}
+
+default_welfare <- c("Economy.altdam" = 0, "Economy.altdisc" = 0)
+
+run_dice2023 <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 0,
+                                      "Permafrost dynamics.permafrost switch" = 0))
+run_dicec    <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
+                                      "Permafrost dynamics.permafrost switch" = 0))
+run_dicecp   <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
+                                      "Permafrost dynamics.permafrost switch" = 1))
+
+# ---- Pull damage fraction series for those three runs ----
+
+find_var <- function(vars_list, pattern) {
+  m <- grep(pattern, names(vars_list), value = TRUE, ignore.case = TRUE)
+  if (length(m) != 1) stop("Expected exactly one variable matching '", pattern, "', found ", length(m))
+  vars_list[[m]]
+}
+
+dfrac_data <- find_var(ws_vars, "damages_as_fraction")
+
+extract_config <- function(run, label) {
+  tibble(
+    Year   = dfrac_data$Years,
+    Config = label,
+    Dfrac  = dfrac_data[[paste0("Run_", run)]]
+  )
+}
+
+configs_df <- bind_rows(
+  extract_config(run_dice2023, "DICE 2023"),
+  extract_config(run_dicec,    "DICE-C"),
+  extract_config(run_dicecp,   "DICE-CP")
+) %>%
+  mutate(Config = factor(Config, levels = c("DICE 2023", "DICE-C", "DICE-CP")))
+
+# ---- Styling shared across panels ----
+
+series_colors <- c(
+  "DICE 2023" = "#1f77b4", "DICE-C" = "#ff7f0e",
+  "DICE-CP" = "#d62728", "GAMS benchmark" = "black"
+)
+series_linetypes <- c(
+  "DICE 2023" = "solid", "DICE-C" = "dashed",
+  "DICE-CP" = "dotted", "GAMS benchmark" = "blank"
+)
+series_shapes <- c(
+  "DICE 2023" = NA, "DICE-C" = NA,
+  "DICE-CP" = NA, "GAMS benchmark" = 21
+)
+
+# ---- Panel (a): time series with GAMS benchmark + peak-year vlines ----
+
+main <- configs_df %>% transmute(Year, Config, Value = Dfrac)
+gams <- ws_gams %>% transmute(Year = Years, Config = "GAMS benchmark",
+                              Value = damages_as_fraction_of_gross_output)
+combined <- bind_rows(main, gams) %>%
+  mutate(Config = factor(Config, levels = names(series_colors)))
+
+peak_years <- main %>%
+  group_by(Config) %>%
+  slice_max(Value, n = 1, with_ties = FALSE) %>%
+  ungroup()
+
+p_a <- ggplot(combined, aes(Year, Value, color = Config, linetype = Config, shape = Config)) +
+  geom_vline(data = peak_years, aes(xintercept = Year, color = Config),
+             linewidth = 0.4, linetype = "dashed", alpha = 0.6, show.legend = FALSE) +
+  geom_line(data = filter(combined, Config != "GAMS benchmark"), linewidth = 1) +
+  geom_point(data = filter(combined, Config == "GAMS benchmark"), size = 1.2) +
+  scale_color_manual(values = series_colors, name = NULL) +
+  scale_linetype_manual(values = series_linetypes, name = NULL) +
+  scale_shape_manual(values = series_shapes, name = NULL) +
+  labs(x = "Year", y = "Climate damage fraction\n(fraction of gross output)", tag = "(a)") +
+  base_theme +
+  theme(legend.position = c(0.78, 0.75), legend.background = element_blank())
+
+# ---- Panel (b): phase plot with directional arrows ----
+
+phase_df <- configs_df %>%
+  mutate(ConfigKey = recode(Config, "DICE 2023" = "D23", "DICE-C" = "DC", "DICE-CP" = "DCP")) %>%
+  select(Year, ConfigKey, Dfrac) %>%
+  pivot_wider(names_from = ConfigKey, values_from = Dfrac) %>%
+  arrange(Year)
+
+# Build a few arrowhead segments spaced evenly along the path's arc length
+# (not evenly by index), so arrows don't bunch up where the curve moves slowly
+make_arrows <- function(px, py, n_arrows = 6) {
+  d <- sqrt(diff(px)^2 + diff(py)^2)
+  cum_d <- c(0, cumsum(d))
+  total <- cum_d[length(cum_d)]
+  targets <- seq(0, total, length.out = n_arrows + 2)[2:(n_arrows + 1)]
+  idx <- vapply(targets, function(t) which.min(abs(cum_d - t)), integer(1))
+  idx <- unique(pmin(pmax(idx, 1), length(px) - 1))
+  tibble(x = px[idx], y = py[idx], xend = px[idx + 1], yend = py[idx + 1])
+}
+
+rng <- range(c(phase_df$D23, phase_df$DC, phase_df$DCP), na.rm = TRUE)
+
+arrows_dc  <- make_arrows(phase_df$D23, phase_df$DC)
+arrows_dcp <- make_arrows(phase_df$D23, phase_df$DCP)
+
+p_b <- ggplot(phase_df, aes(x = D23)) +
+  geom_abline(slope = 1, intercept = 0, color = "grey60") +
+  geom_path(aes(y = DC, color = "DICE-C"), linewidth = 1, linetype = "dashed") +
+  geom_path(aes(y = DCP, color = "DICE-CP"), linewidth = 1, linetype = "dotted") +
+  geom_segment(data = arrows_dc, aes(x = x, y = y, xend = xend, yend = yend),
+               color = series_colors[["DICE-C"]], linewidth = 1,
+               arrow = arrow(length = unit(0.28, "cm"), type = "closed")) +
+  geom_segment(data = arrows_dcp, aes(x = x, y = y, xend = xend, yend = yend),
+               color = series_colors[["DICE-CP"]], linewidth = 1,
+               arrow = arrow(length = unit(0.28, "cm"), type = "closed")) +
+  scale_color_manual(values = series_colors, name = NULL,
+                     breaks = c("DICE-C", "DICE-CP")) +
+  coord_cartesian(xlim = rng, ylim = rng) +
+  labs(
+    x = "DICE 2023 climate damage fraction",
+    y = "Feedback model climate damage fraction",
+    tag = "(b)"
+  ) +
+  base_theme +
+  theme(legend.position = c(0.8, 0.15), legend.background = element_blank())
+
+# ---- Combine and save ----
+
+fig <- p_a | p_b
+
+ggsave("fig_damage_fraction.png", fig, width = 15, height = 7, dpi = 300)
 
 
 # Figure: Welfare loss vs. DICE 2023 standard-damage baseline, across damage
