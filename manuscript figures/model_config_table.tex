@@ -1,0 +1,40 @@
+% Model configuration comparison table
+% Follows Wiley/SDR guidelines: no vertical lines, minimal horizontal rules
+% Requires \usepackage{booktabs} and \usepackage{amsmath}
+
+\begin{table}[htbp]
+\centering
+\caption{Model configurations used in this study. All configurations share
+the DICE~2023 economic module \citep{barrage_nordhaus_2024} and are run
+under both the standard DICE~2023 damage function \citep{barrage_nordhaus_2024}
+and the Howard--Sterner damage function \citep{howard_sterner_2017}.
+Checkmarks indicate components present in each configuration;
+dashes indicate components absent.}
+\label{tab:model_configs}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{DICE~2023} & \textbf{DICE-C} & \textbf{DICE-CP} \\
+\midrule
+\textit{Climate module} & & & \\
+\quad DFAIR carbon cycle \citep{barrage_nordhaus_2024}
+    & \checkmark & --- & --- \\
+\quad Lenton simple carbon model \citep{lenton_2000}
+    & --- & \checkmark & \checkmark \\[4pt]
+\textit{Carbon-climate feedbacks} & & & \\
+\quad Carbon fertilization (B2)
+    & --- & \checkmark & \checkmark \\
+\quad Terrestrial/oceanic sink degradation (R3)
+    & --- & \checkmark & \checkmark \\[4pt]
+\textit{Permafrost dynamics} & & & \\
+\quad Gradual permafrost thaw \citep{woodard_2021}
+    & --- & --- & \checkmark \\
+\quad Abrupt permafrost tipping point \citep{armstrong_mckay_2022}
+    & --- & --- & \checkmark \\[4pt]
+\textit{Damage function} & & & \\
+\quad Standard DICE~2023 ($a_2 = 0.0035$) \citep{barrage_nordhaus_2024}
+    & \checkmark & \checkmark & \checkmark \\
+\quad Howard--Sterner ($a_2 = 0.01$) \citep{howard_sterner_2017}
+    & \checkmark & \checkmark & \checkmark \\
+\bottomrule
+\end{tabular}
+\end{table}

@@ -8,12 +8,12 @@
 		<product version="4.1" isee:build_number="3751" isee:saved_by_v1="true" lang="en">Stella Professional</product>
 	</header>
 	<ai_information>
-		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1778767921" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="SUHsB672JsM7DdkqpoIebO/9FNVDxby4FDIJ4Gb+HRIfqQXaRWIoqOxMBk4vOe1911Lo7RuT4oNs9bBfjJEhBQ=="/>
+		<status verified="true" trusted="true" tampered="false" uses="false" analyzed="false" log_truncated="false" timestamp="1784553563" algorithm="ed25519" keyurl="https://iseesystems.com/keys/stella01.txt" want_var_info="true" want_var_status="false" want_log="false" sampling="1" signature="mLuIUP70hTKdKKftjtxtauad8s+WE6iVTautDnr9aFj2U0+QB9Zm3Q5fg4H1xvF6yD3F6nHxiLr7vJHsiHLGDA=="/>
 	</ai_information>
-	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="Euler" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
+	<sim_specs isee:sim_duration="1.5" isee:run_prefix="Run" isee:simulation_delay="0.00375" isee:restore_on_start="false" method="RK4" time_units="Years" isee:instantaneous_flows="false" isee:ignore_module_errors="false" isee:strict_units="true" isee:loop_scores="true" isee:loop_exhaustive_allowed="1000">
 		<start>2020</start>
 		<stop>2420</stop>
-		<dt reciprocal="true">1</dt>
+		<dt reciprocal="true">100</dt>
 	</sim_specs>
 	<dimensions>
 		<dim name="TimePeriod" size="400"/>
@@ -26,20 +26,41 @@
 	<isee:number_format_extenders/>
 	<default_format/>
 	<data>
-		<export resource="/Users/gretasavitsky/Desktop/Updating-DICE_RSB/DICE/DICE2023/FINALresults.xlsx" type="Excel" worksheet="Results" interval="1" precomputed="false" isee:format="numbers">
+		<export frequency="on_demand" resource="/Users/gretasavitsky/Desktop/Updating-DICE_RSB/DICE/DICE2023/FINALresults.xlsx" type="Excel" worksheet="Results" interval="1" precomputed="false" isee:format="numbers">
 			<table name="Results"/>
 		</export>
-		<export resource="/Users/gretasavitsky/Desktop/Updating-DICE_RSB/DICE/DICE2023/FINALresults.xlsx" type="Excel" worksheet="Params" isee:format="numbers">
-			<parameter_values/>
+		<export frequency="on_demand" resource="/Users/gretasavitsky/Desktop/Updating-DICE_RSB/DICE/DICE2023/FINALresults.xlsx" type="Excel" worksheet="Params" interval="1" precomputed="false" isee:format="numbers">
+			<table name="Parameters"/>
+		</export>
+		<export frequency="on_demand" resource="/Users/gretasavitsky/Desktop/feedbacksensi.xlsx" type="Excel" worksheet="Sheet1" precomputed="false" isee:format="numbers">
+			<table name="Feedback Parameter Table" use_settings="true"/>
+		</export>
+		<export frequency="on_demand" resource="/Users/gretasavitsky/Desktop/feedbacksensi.xlsx" type="Excel" worksheet="Sheet2" precomputed="false" isee:format="numbers">
+			<table name="Feedback results Table" use_settings="true"/>
 		</export>
 		<import enabled="false" isee:overwrite="true" isee:interpolate="f" orientation="horizontal" resource="/Users/gretasavitsky/Desktop/emissions control rate.csv"/>
 	</data>
-	<isee:sensi_specs_list active_index="0">
+	<isee:sensi_specs_list active_index="1">
 		<isee:sensi_specs name="Sensitivity" method="grid">
 			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Climate."Lenton?"' num_samples="2"/>
 			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Permafrost_dynamics.permafrost_switch" num_samples="2"/>
 			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Economy.altdam" num_samples="2"/>
 			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Economy.altdisc" num_samples="2"/>
+		</isee:sensi_specs>
+		<isee:sensi_specs name="Sensitivity 2" method="grid">
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Climate."Lenton?"' num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.photo_temp_switch" num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Lenton_Carbon."temp-resp_switch_soil"' num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Lenton_Carbon."temp-resp_switch_veg"' num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.Terr_CO2_switch" num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Permafrost_dynamics.permafrost_switch" num_samples="2"/>
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.Ocean_CO2_switch" num_samples="2"/>
+		</isee:sensi_specs>
+		<isee:sensi_specs name="Sensitivity 3" method="grid">
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Climate."Lenton?"' num_samples="2"/>
+		</isee:sensi_specs>
+		<isee:sensi_specs name="Sensitivity 4" method="sobol_sequence" runs="2">
+			<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Permafrost_dynamics.permafrost_switch" num_samples="2"/>
 		</isee:sensi_specs>
 	</isee:sensi_specs_list>
 	<isee:optimizer_specs_list active_index="0">
@@ -124,7 +145,7 @@
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" zoom="140" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="3" isee:scroll_x="7.14286" isee:scroll_y="238.571" zoom="140" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -173,11 +194,16 @@
 					<from>Economy</from>
 					<to>Climate</to>
 				</connector>
-				<stacked_container uid="33" x="20.4768" y="122.757" width="666.75" height="1076.68" visible_index="1">
-					<graph width="666.75" height="1076.68" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+				<stacked_container uid="33" x="20.4768" y="122.757" width="666.75" height="1076.68">
+					<graph isee:transparent="false" width="666.75" height="1076.68" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
 							<scale min="-1"/>
+						</plot>
+					</graph>
+					<graph width="666.75" height="1076.68" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
+							<entity name='Economy."Accumulated_Utility_(Uacc)"'/>
 						</plot>
 					</graph>
 					<graph width="666.75" height="1076.68" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
@@ -191,7 +217,7 @@
 						</plot>
 					</graph>
 				</stacked_container>
-				<stacked_container uid="35" x="692.191" y="123.668" width="1216.75" height="628.05">
+				<stacked_container uid="35" x="692.015" y="126.176" width="1216.75" height="628.05">
 					<table width="1216.75" height="628.05" comparative="true" isee:export_name="Results" isee:mark_for_export="true" title="Results">
 						<item type="time"/>
 						<item>
@@ -341,8 +367,8 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 			<module name="Lenton Carbon" isee:label="">
 				<connect to="Climate.atmospheric_carbon_1" from="Lenton_Carbon.Atmospheric_Carbon"/>
 				<connect2 to="atmospheric_carbon_1" from="Lenton_Carbon.Atmospheric_Carbon"/>
-				<connect to="Lenton_Carbon.Anomaly" from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
-				<connect2 to="Lenton_Carbon.Anomaly" from='"Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect to="Lenton_Carbon.anomaly_1" from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
+				<connect2 to="Lenton_Carbon.anomaly_1" from='"Atmospheric_temperature_anomaly_(TATM)"'/>
 				<connect to="Lenton_Carbon.EIND" from='Economy."total_CO2_emissions_(ECo2)"'/>
 				<connect2 to="Lenton_Carbon.EIND" from='Economy."total_CO2_emissions_(ECo2)"'/>
 				<connect to="Permafrost_dynamics.Anomaly" from='Climate."Atmospheric_temperature_anomaly_(TATM)"'/>
@@ -571,7 +597,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<to>DICE_CARBON</to>
 				</connector>
 				<aux x="154.405" y="741.403" name="Lenton?"/>
-				<stacked_container uid="179" x="345.518" y="464.932" width="938.94" height="563.452" visible_index="1">
+				<stacked_container uid="179" x="345.518" y="464.932" width="938.94" height="563.452" visible_index="2">
 					<graph width="938.94" height="563.452" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name='"Atmospheric_temperature_anomaly_(TATM)"'/>
@@ -608,6 +634,41 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>exo_MAT</from>
 					<to>atmospheric_carbon</to>
 				</connector>
+				<stacked_container uid="184" x="1438.52" y="272.075" visible_index="1">
+					<table width="350" height="250" comparative="true" isee:export_name="Feedback results Table" isee:mark_for_export="true" title="Feedback results Table">
+						<item type="time"/>
+						<item>
+							<entity name="Lenton_Carbon.Atmospheric_Carbon"/>
+						</item>
+						<item>
+							<entity name='"Atmospheric_temperature_anomaly_(TATM)"'/>
+						</item>
+					</table>
+					<table width="350" height="250" comparative="true" isee:export_name="Feedback Parameter Table" isee:mark_for_export="true" title="Feedback Parameter Table">
+						<item type="time"/>
+						<item>
+							<entity name='"Lenton?"'/>
+						</item>
+						<item>
+							<entity name="Lenton_Carbon.Ocean_CO2_switch"/>
+						</item>
+						<item>
+							<entity name="Lenton_Carbon.photo_temp_switch"/>
+						</item>
+						<item>
+							<entity name='Lenton_Carbon."temp-resp_switch_soil"'/>
+						</item>
+						<item>
+							<entity name='Lenton_Carbon."temp-resp_switch_veg"'/>
+						</item>
+						<item>
+							<entity name="Lenton_Carbon.Terr_CO2_switch"/>
+						</item>
+						<item>
+							<entity name="Permafrost_dynamics.permafrost_switch"/>
+						</item>
+					</table>
+				</stacked_container>
 			</view>
 		</views>
 	</model>
@@ -817,7 +878,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="2" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="3" isee:page_rows="2" isee:scroll_y="133.75" zoom="80" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -957,7 +1018,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>&quot;Carbon_Reservoir_3_(R3)&quot;</from>
 					<to>Flow_4</to>
 				</connector>
-				<aux x="256.847" y="875.616" name="carbon accumulated in ocean and land sinks (Cacc)"/>
+				<aux x="230.767" y="921.969" name="carbon accumulated in ocean and land sinks (Cacc)"/>
 				<aux x="362.937" y="1027.11" name="Atmospheric carbon concentration (MAT)"/>
 				<connector uid="17" angle="301.461">
 					<from>&quot;Carbon_Reservoir_0_(R0)&quot;</from>
@@ -975,7 +1036,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>&quot;Carbon_Reservoir_3_(R3)&quot;</from>
 					<to>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</to>
 				</connector>
-				<connector uid="23" angle="90.0941">
+				<connector uid="23" angle="106.589">
 					<from>&quot;Atmospheric_carbon_concentration_(MAT)&quot;</from>
 					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
 				</connector>
@@ -1002,7 +1063,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<to>IRF100</to>
 				</connector>
 				<stock font_style="italic" font_weight="bold" x="158.107" y="866.937" name="cumulative carbon\nemissions (Ctot)"/>
-				<connector uid="29" angle="354.977">
+				<connector uid="29" angle="322.86">
 					<from>&quot;cumulative_carbon_emissions_(Ctot)&quot;</from>
 					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
 				</connector>
@@ -1040,7 +1101,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<shape type="circle" radius="18"/>
 				</aux>
 				<aux font_style="italic" font_weight="bold" x="180.908" y="1007.89" name="pre-industrial equilibrium\natosmpheric carbon (Meq)"/>
-				<connector uid="36" angle="49.0457">
+				<connector uid="36" angle="48.78">
 					<from>&quot;pre-industrial_equilibrium_atosmpheric_carbon_(Meq)&quot;</from>
 					<to>&quot;carbon_accumulated_in_ocean_and_land_sinks_(Cacc)&quot;</to>
 				</connector>
@@ -1085,16 +1146,19 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>pgC</units>
 			</stock>
 			<flow name="Photosynthesis">
-				<eqn> (&quot;photosynthesis_rate_(kp)&quot;*&quot;Cv(s)&quot;*&quot;photosynthesis_normalizing_constant_(kMM)&quot;)*
+				<eqn>(&quot;photosynthesis_rate_(kp)&quot;*&quot;Cv(s)&quot;*&quot;photosynthesis_normalizing_constant_(kMM)&quot;)*
 
 ((pCO2_ppmv-&quot;compensation_point_(kc)&quot;)/(&quot;Half_saturation_point_(KM)&quot;+(pCO2_ppmv-&quot;compensation_point_(kc)&quot;)))*
 
-((15+Anomaly)^2)*(25-Anomaly)/5625</eqn>
+((15+anomaly)^2)*(25-anomaly)/5625</eqn>
 				<non_negative/>
 				<units>pgC/Years</units>
 			</flow>
 			<flow name="Plant Respiration">
-				<eqn>&quot;plant_respiration_rate_(kr)&quot; * Vegetation_Carbon * &quot;plant_respiration_normalizing_constant_(kA)&quot; * EXP(-&quot;Plant_respiration_activation_energy_(Ea)&quot; / (R * surface_temp))</eqn>
+				<eqn>IF &quot;temp-resp_switch_veg&quot; = 1 THEN &quot;plant_respiration_rate_(kr)&quot; * Vegetation_Carbon * &quot;plant_respiration_normalizing_constant_(kA)&quot; * EXP(-&quot;Plant_respiration_activation_energy_(Ea)&quot; / (R * surface_temp))
+
+ELSE
+&quot;plant_respiration_rate_(kr)&quot; * Vegetation_Carbon * &quot;plant_respiration_normalizing_constant_(kA)&quot; * EXP(-&quot;Plant_respiration_activation_energy_(Ea)&quot; / (R * 288))</eqn>
 				<non_negative/>
 				<units>pgC/Years</units>
 			</flow>
@@ -1104,7 +1168,10 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>pgC/Years</units>
 			</flow>
 			<flow name="Soil Respiration">
-				<eqn>&quot;soil_respiration_rate_(ksr)&quot;*Soil_Carbon*&quot;soil_respiration_normalizing_constant_(kB)&quot;* 2.7^(-1*(308.56/(surface_temp -227.13)))</eqn>
+				<eqn>IF &quot;temp-resp_switch_soil&quot; = 1 THEN &quot;soil_respiration_rate_(ksr)&quot;*Soil_Carbon*&quot;soil_respiration_normalizing_constant_(kB)&quot;* 2.7^(-1*(308.56/(surface_temp -227.13)))
+
+ELSE
+&quot;soil_respiration_rate_(ksr)&quot;*Soil_Carbon*&quot;soil_respiration_normalizing_constant_(kB)&quot;* 2.7^(-1*(308.56/(288 -227.13)))</eqn>
 				<non_negative/>
 				<units>pgC/Years</units>
 			</flow>
@@ -1208,7 +1275,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<eqn>157.072</eqn>
 				<units>Dimensionless</units>
 			</aux>
-			<aux name="Anomaly" access="input">
+			<aux name="anomaly 1" access="input">
 				<eqn>{Enter equation for use when not hooked up to other models}</eqn>
 				<units>°C from 1765</units>
 			</aux>
@@ -1272,7 +1339,10 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>K</units>
 			</aux>
 			<aux name="Faw">
-				<eqn>&quot;piston_velocity_(ks)&quot;*aO*Al*bw*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(w)&quot;)*12e-15*rho</eqn>
+				<eqn>IF Ocean_CO2_switch = 1 THEN &quot;piston_velocity_(ks)&quot;*aO*Al*bw*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(w)&quot;)*12e-15*rho
+
+ELSE
+&quot;piston_velocity_(ks)&quot;*aO*Al*bw*(0.0004165-&quot;pCO2(w)&quot;)*12e-15*rho</eqn>
 			</aux>
 			<aux name="Al">
 				<eqn>0.85</eqn>
@@ -1296,7 +1366,11 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>m^2</units>
 			</aux>
 			<aux name="Fac">
-				<eqn>&quot;piston_velocity_(ks)&quot;*aO*Ah*bc*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(c)&quot;)*12e-15*rho</eqn>
+				<eqn>IF Ocean_CO2_switch = 1 THEN
+
+&quot;piston_velocity_(ks)&quot;*aO*Ah*bc*(&quot;partial_pressure_of_CO2_(pCO2)&quot;-&quot;pCO2(c)&quot;)*12e-15*rho
+
+ELSE &quot;piston_velocity_(ks)&quot;*aO*Ah*bc*(0.0004165-&quot;pCO2(c)&quot;)*12e-15*rho</eqn>
 			</aux>
 			<aux name="bc">
 				<eqn>EXP(-60.2409 + 93.4517*(100/Th) + 23.3585*LN(Th/100) 
@@ -1373,7 +1447,8 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>pgC/Years</units>
 			</flow>
 			<aux name="pCO2 ppmv">
-				<eqn>&quot;partial_pressure_of_CO2_(pCO2)&quot;*1e6</eqn>
+				<eqn>IF Terr_CO2_switch = 1 THEN  &quot;partial_pressure_of_CO2_(pCO2)&quot;*1e6
+ELSE 0.0004165</eqn>
 			</aux>
 			<flow name="GHG emissions">
 				<eqn>EIND*0.2727</eqn>
@@ -1439,7 +1514,25 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>mol/pgC</units>
 			</aux>
 			<aux name="surface temp">
-				<eqn>Anomaly+288.15</eqn>
+				<eqn>288+(anomaly_1)</eqn>
+			</aux>
+			<aux name="Ocean CO2 switch">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="Terr CO2 switch">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="photo temp switch">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="anomaly">
+				<eqn>IF photo_temp_switch = 1 THEN anomaly_1 ELSE 0</eqn>
+			</aux>
+			<aux name="temp-resp switch soil">
+				<eqn>1</eqn>
+			</aux>
+			<aux name="temp-resp switch veg">
+				<eqn>1</eqn>
 			</aux>
 		</variables>
 		<views>
@@ -1573,14 +1666,14 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 						<pt x="638.451" y="326.964"/>
 					</pts>
 				</flow>
-				<aux x="220.65" y="82.0029" name="photosynthesis rate (kp)"/>
-				<aux x="216.236" y="394.038" name="plant respiration rate (kr)"/>
+				<aux x="184.405" y="147.457" name="photosynthesis rate (kp)"/>
+				<aux x="194.717" y="350.347" name="plant respiration rate (kr)"/>
 				<aux x="70.4043" y="534.405" name="turnover rate (kt)"/>
 				<aux x="269.501" y="628.393" name="soil respiration rate (ksr)"/>
 				<aux x="330.592" y="87.8485" name="Half saturation point (KM)"/>
-				<aux x="334.037" y="394.038" name="Plant respiration activation energy (Ea)"/>
+				<aux x="287.501" y="387.969" name="Plant respiration activation energy (Ea)"/>
 				<aux x="88.4043" y="100.003" name="photosynthesis normalizing constant (kMM)"/>
-				<aux x="452.939" y="386.944" name="plant respiration\nnormalizing constant (kA)"/>
+				<aux x="449.023" y="339.435" name="plant respiration\nnormalizing constant (kA)"/>
 				<aux label_side="bottom" x="1069.85" y="344.113" name="thermohaline overturning (kT)"/>
 				<aux x="1133.41" y="405.969" name="high latitude overturning (kU)"/>
 				<aux x="950.811" y="190.372" name="warm-intermediate exchange (kwi)"/>
@@ -1608,7 +1701,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>&quot;photosynthesis_normalizing_constant_(kMM)&quot;</from>
 					<to>Photosynthesis</to>
 				</connector>
-				<connector uid="6" angle="323.943">
+				<connector uid="6" angle="346.086">
 					<from>&quot;photosynthesis_rate_(kp)&quot;</from>
 					<to>Photosynthesis</to>
 				</connector>
@@ -1620,11 +1713,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>&quot;Half_saturation_point_(KM)&quot;</from>
 					<to>Photosynthesis</to>
 				</connector>
-				<aux font_style="italic" font_weight="bold" x="441.794" y="82.0029" name="Anomaly"/>
-				<connector uid="9" angle="213.784">
-					<from>Anomaly</from>
-					<to>Photosynthesis</to>
-				</connector>
+				<aux font_style="italic" font_weight="bold" x="106.404" y="29.917" name="anomaly 1"/>
 				<aux x="693.204" y="739.473" name="Cs0"/>
 				<aux x="651.051" y="739.473" name="Ca0"/>
 				<aux x="483.833" y="739.473" name="Cv0"/>
@@ -1654,15 +1743,15 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					</from>
 					<to>Photosynthesis</to>
 				</connector>
-				<connector uid="15" angle="71.0983">
+				<connector uid="15" angle="50.9512">
 					<from>&quot;plant_respiration_rate_(kr)&quot;</from>
 					<to>Plant_Respiration</to>
 				</connector>
-				<connector uid="16" angle="65.2624">
+				<connector uid="16" angle="33.6081">
 					<from>&quot;Plant_respiration_activation_energy_(Ea)&quot;</from>
 					<to>Plant_Respiration</to>
 				</connector>
-				<connector uid="17" angle="131.97">
+				<connector uid="17" angle="149.923">
 					<from>&quot;plant_respiration_normalizing_constant_(kA)&quot;</from>
 					<to>Plant_Respiration</to>
 				</connector>
@@ -1670,8 +1759,8 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>Vegetation_Carbon</from>
 					<to>Plant_Respiration</to>
 				</connector>
-				<aux x="259.783" y="479.085" name="R"/>
-				<connector uid="19" angle="68.0862">
+				<aux x="209.419" y="405.969" name="R"/>
+				<connector uid="19" angle="38.9915">
 					<from>R</from>
 					<to>Plant_Respiration</to>
 				</connector>
@@ -1981,7 +2070,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					<from>&quot;pre-industrial_moles_of_molecules_in_the_atmosphere_(fgtm)&quot;</from>
 					<to>&quot;partial_pressure_of_CO2_(pCO2)&quot;</to>
 				</connector>
-				<connector uid="87" angle="266.491">
+				<connector uid="87" angle="187.522">
 					<from>&quot;partial_pressure_of_CO2_(pCO2)&quot;</from>
 					<to>pCO2_ppmv</to>
 				</connector>
@@ -2001,22 +2090,22 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 					</from>
 					<to>Fac</to>
 				</connector>
-				<aux x="363.922" y="476.956" name="surface temp"/>
-				<connector uid="91" angle="84.5135">
+				<aux x="371.002" y="440.956" name="surface temp"/>
+				<connector uid="91" angle="90.5799">
 					<from>surface_temp</from>
 					<to>Plant_Respiration</to>
 				</connector>
-				<connector uid="92" angle="290.926">
+				<connector uid="92" angle="291.567">
 					<from>surface_temp</from>
 					<to>Soil_Respiration</to>
 				</connector>
-				<connector uid="93" angle="161.058">
+				<connector uid="93" angle="151.523">
 					<from>
 						<alias uid="94"/>
 					</from>
 					<to>surface_temp</to>
 				</connector>
-				<stacked_container uid="95" x="75.5963" y="941.704" width="772.153" height="581.431" visible_index="1">
+				<stacked_container uid="95" x="75.5963" y="941.704" width="772.153" height="581.431" visible_index="2">
 					<graph width="772.153" height="581.431" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
 						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
 							<entity name="Atmospheric_Carbon"/>
@@ -2055,7 +2144,50 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 							<entity name="Permafrost_dynamics.Fthawedatmo"/>
 						</plot>
 					</graph>
+					<graph width="772.153" height="581.431" comparative="true" type="time_series" show_grid="false" isee:tick_type="none" include_units_in_legend="false" plot_numbers="false" isee:label_pie_slices="false" isee:show_pie_borders="true" num_x_grid_lines="0" num_y_grid_lines="0" num_x_labels="5" num_y_labels="3" isee:fill_intensity="0.1" isee:allow_zero_axis="true" left_axis_multi_scale="false" left_axis_auto_scale="true" left_include_units="true" right_axis_multi_scale="false" right_axis_auto_scale="true" right_include_units="true">
+						<plot color="blue" isee:keep_zero_visible="true" pen_width="1" index="0" show_y_axis="true">
+							<entity name="Photosynthesis"/>
+						</plot>
+					</graph>
 				</stacked_container>
+				<aux x="1151.41" y="946.67" name="Ocean CO2 switch"/>
+				<connector uid="96" angle="21.9894">
+					<from>Ocean_CO2_switch</from>
+					<to>Fac</to>
+				</connector>
+				<connector uid="97" angle="151.105">
+					<from>Ocean_CO2_switch</from>
+					<to>Faw</to>
+				</connector>
+				<aux x="517.324" y="29.917" name="Terr CO2 switch"/>
+				<aux x="289.231" y="29.917" name="photo temp switch"/>
+				<aux x="209.419" y="40.613" name="anomaly"/>
+				<connector uid="99" angle="40.225">
+					<from>anomaly_1</from>
+					<to>anomaly</to>
+				</connector>
+				<connector uid="100" angle="160.047">
+					<from>photo_temp_switch</from>
+					<to>anomaly</to>
+				</connector>
+				<connector uid="101" angle="265.146">
+					<from>Terr_CO2_switch</from>
+					<to>pCO2_ppmv</to>
+				</connector>
+				<connector uid="102" angle="290.073">
+					<from>anomaly</from>
+					<to>Photosynthesis</to>
+				</connector>
+				<aux x="269.501" y="516.405" name="temp-resp switch soil"/>
+				<connector uid="103" angle="318.913">
+					<from>&quot;temp-resp_switch_soil&quot;</from>
+					<to>Soil_Respiration</to>
+				</connector>
+				<aux x="449.023" y="272.641" name="temp-resp switch veg"/>
+				<connector uid="104" angle="168.126">
+					<from>&quot;temp-resp_switch_veg&quot;</from>
+					<to>Plant_Respiration</to>
+				</connector>
 				<alias font_style="italic" uid="14" x="97.4043" y="150.917" width="18" height="18">
 					<of>&quot;Cv(s)&quot;</of>
 				</alias>
@@ -2092,8 +2224,8 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<alias color="#008F00" font_style="italic" font_color="#008F00" uid="86" x="1160.27" y="642.47" width="18" height="18">
 					<of>&quot;partial_pressure_of_CO2_(pCO2)&quot;</of>
 				</alias>
-				<alias font_style="italic" font_weight="bold" uid="94" x="465.658" y="471.229" width="18" height="18">
-					<of>Anomaly</of>
+				<alias font_style="italic" font_weight="bold" uid="94" x="452.673" y="449.956" width="18" height="18">
+					<of>anomaly_1</of>
 				</alias>
 			</view>
 		</views>
@@ -2112,7 +2244,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<units>pgC</units>
 			</stock>
 			<flow name="delta Cperm" access="output">
-				<eqn>-1*(frozen_fraction - DELAY(frozen_fraction, DT)) * DELAY(Cperm,  DT)</eqn>
+				<eqn>( DELAY(frozen_fraction, 1) - frozen_fraction ) * Cperm</eqn>
 				<units>pgC/Years</units>
 			</flow>
 			<stock name="thawed C">
@@ -2217,7 +2349,7 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="2" isee:page_rows="2" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -2386,6 +2518,29 @@ ELSE &quot;Miscellaneous_forcing_2020_(Fmisc0)&quot; + (&quot;Miscellaneous_forc
 							<entity name="T200"/>
 						</plot>
 					</graph>
+				</stacked_container>
+				<stacked_container uid="25" x="222.483" y="568.445">
+					<table width="350" height="250">
+						<item type="time"/>
+						<item>
+							<entity name="Cperm"/>
+						</item>
+						<item>
+							<entity name="thawed_C"/>
+						</item>
+						<item>
+							<entity name="abrupt_thaw"/>
+						</item>
+						<item>
+							<entity name="delta_Cperm"/>
+						</item>
+						<item>
+							<entity name="Fthawedatmo"/>
+						</item>
+						<item>
+							<entity name="frozen_fraction"/>
+						</item>
+					</table>
 				</stacked_container>
 			</view>
 		</views>
@@ -2842,7 +2997,7 @@ ELSE ECO2eGHGB2020 + (ECO2eGHGB2100 - ECO2eGHGB2020) / (2100 - 2020) * (TIME - 2
 				<isee:iframe color="black" background="white" text_align="left" vertical_text_align="top" font_size="12pt" border_width="thin" border_style="solid"/>
 				<isee:financial_table color="black" background="#E0E0E0" text_align="right" font_size="12pt" hide_border="false" auto_fit="true" first_column_width="250" other_column_width="100" header_font_style="normal" header_font_weight="bold" header_text_decoration="none" header_text_align="center" header_vertical_text_align="center" header_font_color="black" header_font_family="Arial" header_font_size="14pt" header_text_padding="2" header_text_border_color="black" header_text_border_width="thin" header_text_border_style="none"/>
 			</style>
-			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:scroll_x="640" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
+			<view isee:show_pages="false" background="white" page_width="768" page_height="588" isee:page_cols="4" isee:page_rows="3" isee:popup_graphs_are_comparative="true" isee:enable_non_negative_highlights="false" type="stock_flow">
 				<style color="black" background="white" font_style="normal" font_weight="normal" text_decoration="none" text_align="center" vertical_text_align="center" font_color="black" font_family="Arial" font_size="10pt" padding="2" border_color="black" border_width="thin" border_style="none">
 					<stock color="blue" background="white" font_color="blue" font_size="9pt" label_side="top">
 						<shape type="rectangle" width="45" height="35"/>
@@ -3161,7 +3316,7 @@ ELSE ECO2eGHGB2020 + (ECO2eGHGB2100 - ECO2eGHGB2020) / (2100 - 2020) * (TIME - 2
 					<from>STP_with_precautionary_factor</from>
 					<to>total_period_utility</to>
 				</connector>
-				<connector uid="142" angle="61.0297">
+				<connector uid="142" angle="61.0339">
 					<from>total_period_utility</from>
 					<to>accumulation_of_utility</to>
 				</connector>
@@ -3204,7 +3359,7 @@ ELSE ECO2eGHGB2020 + (ECO2eGHGB2100 - ECO2eGHGB2020) / (2100 - 2020) * (TIME - 2
 					<from>&quot;Depreciation_rate_of_capital_(dK)&quot;</from>
 					<to>optimal_longrun_savings_rate</to>
 				</connector>
-				<connector uid="158" angle="1.0309">
+				<connector uid="158" angle="1.03091">
 					<from>&quot;capital_elasticity_(γ)&quot;</from>
 					<to>optimal_longrun_savings_rate</to>
 				</connector>
@@ -3212,7 +3367,7 @@ ELSE ECO2eGHGB2020 + (ECO2eGHGB2100 - ECO2eGHGB2020) / (2100 - 2020) * (TIME - 2
 					<from>&quot;risk-adjusted_pure_time_preference_(ρa)&quot;</from>
 					<to>optimal_longrun_savings_rate</to>
 				</connector>
-				<connector uid="160" angle="253.443">
+				<connector uid="160" angle="253.445">
 					<from>&quot;elasticity_marginal_utility_(η)&quot;</from>
 					<to>optimal_longrun_savings_rate</to>
 				</connector>
@@ -3289,7 +3444,7 @@ ELSE ECO2eGHGB2020 + (ECO2eGHGB2100 - ECO2eGHGB2020) / (2100 - 2020) * (TIME - 2
 					<from>STP_without_precautionary_factor</from>
 					<to>STP_with_precautionary_factor</to>
 				</connector>
-				<connector uid="204" angle="137.553">
+				<connector uid="204" angle="137.557">
 					<from>scale_1</from>
 					<to>accumulation_of_utility</to>
 				</connector>

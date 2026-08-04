@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<isee:sensi_specs name="Sensitivity 2" method="grid">
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Climate."Lenton?"' num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.photo_temp_switch" num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Lenton_Carbon."temp-resp_switch_soil"' num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name='Lenton_Carbon."temp-resp_switch_veg"' num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.Terr_CO2_switch" num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Permafrost_dynamics.permafrost_switch" num_samples="2"/>
+	<isee:variable starting_value="0" ending_value="1" type="incremental" min="0" max="1" seed="12345" name="Lenton_Carbon.Ocean_CO2_switch" num_samples="2"/>
+</isee:sensi_specs>
+
