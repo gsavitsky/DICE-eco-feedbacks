@@ -51,14 +51,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.margin = margin(t = 55, r = 12, b = 10, l = 10)
   )
 
@@ -216,7 +216,7 @@ p_d <- make_phase_panel(
 
 fig <- (p_a | p_b) / plot_spacer() / (p_c | p_d) + plot_layout(heights = c(1, 0.06, 1))
 
-ggsave("vis/temp_co2.png", fig, width = 15, height = 12, dpi = 300)
+ggsave("vis/fig_temp_co2.png", fig, width = 15, height = 12, dpi = 300)
 
 # Figure: DICE configurations vs. CMIP6 SSP ensemble means, 2020-2100
 # Data sources: CMIP_temp_by_scenario.csv (SSP temperature anomalies, already
@@ -328,7 +328,7 @@ p <- ggplot() +
     legend.key.height = unit(1.0, "cm")
   )
 
-ggsave("vis/cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
+ggsave("vis/fig_cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
 
 # Figure 4: Isolated and conditional contributions of individual Lenton carbon
 # cycle feedbacks to atmospheric temperature anomaly, 2020-2420
@@ -389,7 +389,7 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakTemp, fill = State)) +
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
 
-ggsave("vis/feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
+ggsave("vis/fig_feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
 
 # Figure: Isolated and conditional contributions of individual Lenton carbon
 # cycle feedbacks to atmospheric carbon concentration, 2020-2420
@@ -450,7 +450,7 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakCarbon, fill = State)) +
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
 
-ggsave("fig4_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
+ggsave("fig_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
 
 # Figure: Climate damage fraction under three model configurations, 2020-2420
 # Structurally matches fig_temp_co2.R, but for a single variable (damage
@@ -717,14 +717,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
 
@@ -1027,14 +1027,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.tag.position = "topleft",
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
