@@ -293,14 +293,14 @@ series_levels <- c("DICE 2023", "DICE-C", "DICE-CP",
                    "SSP1-2.6", "SSP2-4.5", "SSP3-7.0", "SSP5-8.5")
 
 series_colors <- c(
-  "DICE 2023" = "#0b3d5c", "DICE-C" = "#e67e22", "DICE-CP" = "#27ae60",
+  "DICE 2023" = "#000000", "DICE-C" = "#e67e22", "DICE-CP" = "#27ae60",
   "SSP1-2.6"  = "#8ecae6", "SSP2-4.5" = "#8e44ad",
   "SSP3-7.0"  = "#f4978e", "SSP5-8.5" = "#5c2a1a"
 )
 
 series_linewidth <- c(
-  "DICE 2023" = 1.4, "DICE-C" = 1.4, "DICE-CP" = 1.4,
-  "SSP1-2.6"  = 1.4, "SSP2-4.5" = 1.4, "SSP3-7.0" = 1.4, "SSP5-8.5" = 1.4
+  "DICE 2023" = 2.2, "DICE-C" = 2.2, "DICE-CP" = 2.2,
+  "SSP1-2.6"  = 0.7, "SSP2-4.5" = 0.7, "SSP3-7.0" = 0.7, "SSP5-8.5" = 0.7
 )
 
 all_long <- bind_rows(dice_long, ssp_long) %>%
@@ -327,6 +327,8 @@ p <- ggplot() +
     legend.key.width = unit(1.0, "cm"),
     legend.key.height = unit(1.0, "cm")
   )
+
+ggsave("vis/fig_cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
 
 ggsave("vis/fig_cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
 
