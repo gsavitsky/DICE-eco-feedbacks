@@ -51,14 +51,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.margin = margin(t = 55, r = 12, b = 10, l = 10)
   )
 
@@ -216,7 +216,7 @@ p_d <- make_phase_panel(
 
 fig <- (p_a | p_b) / plot_spacer() / (p_c | p_d) + plot_layout(heights = c(1, 0.06, 1))
 
-ggsave("vis/temp_co2.png", fig, width = 15, height = 12, dpi = 300)
+ggsave("vis/fig_temp_co2.png", fig, width = 15, height = 12, dpi = 300)
 
 # Figure: DICE configurations vs. CMIP6 SSP ensemble means, 2020-2100
 # Data sources: CMIP_temp_by_scenario.csv (SSP temperature anomalies, already
@@ -293,14 +293,14 @@ series_levels <- c("DICE 2023", "DICE-C", "DICE-CP",
                    "SSP1-2.6", "SSP2-4.5", "SSP3-7.0", "SSP5-8.5")
 
 series_colors <- c(
-  "DICE 2023" = "#0b3d5c", "DICE-C" = "#e67e22", "DICE-CP" = "#27ae60",
+  "DICE 2023" = "#000000", "DICE-C" = "#e67e22", "DICE-CP" = "#27ae60",
   "SSP1-2.6"  = "#8ecae6", "SSP2-4.5" = "#8e44ad",
   "SSP3-7.0"  = "#f4978e", "SSP5-8.5" = "#5c2a1a"
 )
 
 series_linewidth <- c(
-  "DICE 2023" = 1.4, "DICE-C" = 1.4, "DICE-CP" = 1.4,
-  "SSP1-2.6"  = 1.4, "SSP2-4.5" = 1.4, "SSP3-7.0" = 1.4, "SSP5-8.5" = 1.4
+  "DICE 2023" = 2.2, "DICE-C" = 2.2, "DICE-CP" = 2.2,
+  "SSP1-2.6"  = 0.7, "SSP2-4.5" = 0.7, "SSP3-7.0" = 0.7, "SSP5-8.5" = 0.7
 )
 
 all_long <- bind_rows(dice_long, ssp_long) %>%
@@ -328,7 +328,8 @@ p <- ggplot() +
     legend.key.height = unit(1.0, "cm")
   )
 
-ggsave("vis/cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
+ggsave("vis/fig_cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
+
 
 # Figure 4: Isolated and conditional contributions of individual Lenton carbon
 # cycle feedbacks to atmospheric temperature anomaly, 2020-2420
@@ -389,7 +390,7 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakTemp, fill = State)) +
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
 
-ggsave("vis/feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
+ggsave("vis/fig_feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
 
 # Figure: Isolated and conditional contributions of individual Lenton carbon
 # cycle feedbacks to atmospheric carbon concentration, 2020-2420
@@ -450,7 +451,7 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakCarbon, fill = State)) +
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
 
-ggsave("fig4_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
+ggsave("vis/fig_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
 
 # Figure: Climate damage fraction under three model configurations, 2020-2420
 # Structurally matches fig_temp_co2.R, but for a single variable (damage
@@ -698,7 +699,7 @@ p <- ggplot(delta_df, aes(Year, Delta, color = Config, linetype = Config)) +
   base_theme +
   theme(legend.position = c(0.15, 0.15), legend.background = element_blank())
 
-ggsave("fig_output_delta.png", p, width = 10, height = 7, dpi = 300)
+ggsave("vis/fig_output_delta.png", p, width = 10, height = 7, dpi = 300)
 
 # Figure: Climate damage fraction under three model configurations, 2020-2420
 # Structurally matches fig_temp_co2.R, but for a single variable (damage
@@ -717,14 +718,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
 
@@ -862,7 +863,7 @@ p_b <- ggplot(phase_df, aes(x = D23)) +
 
 fig <- p_a | p_b
 
-ggsave("fig_damage_fraction.png", fig, width = 15, height = 7, dpi = 300)
+ggsave("vis/fig_damage_fraction.png", fig, width = 15, height = 7, dpi = 300)
 
 
 # Figure: Welfare loss vs. DICE 2023 standard-damage baseline, across damage
@@ -1027,14 +1028,14 @@ library(patchwork)
 
 # ---- Shared theme: larger, darker text throughout ----
 
-base_theme <- theme_bw(base_size = 15) +
+base_theme <- theme_bw(base_size = 17) +
   theme(
     text = element_text(color = "black"),
-    axis.title = element_text(color = "black", size = 17, face = "bold"),
-    axis.text = element_text(color = "black", size = 16, face = "bold"),
-    legend.text = element_text(color = "black", size = 16),
-    legend.title = element_text(color = "black", size = 17),
-    plot.tag = element_text(color = "black", size = 18, face = "bold"),
+    axis.title = element_text(color = "black", size = 20, face = "bold"),
+    axis.text = element_text(color = "black", size = 19, face = "bold"),
+    legend.text = element_text(color = "black", size = 19),
+    legend.title = element_text(color = "black", size = 20),
+    plot.tag = element_text(color = "black", size = 21, face = "bold"),
     plot.tag.position = "topleft",
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
@@ -1131,4 +1132,4 @@ p_c <- make_panel(welfare_main, "Discounted social welfare\nper year (dimensionl
 
 fig <- p_a | p_b | p_c
 
-ggsave("fig_output_welfare_levels.png", fig, width = 20, height = 7, dpi = 300)
+ggsave("vis/fig_output_welfare_levels.png", fig, width = 20, height = 7, dpi = 300)

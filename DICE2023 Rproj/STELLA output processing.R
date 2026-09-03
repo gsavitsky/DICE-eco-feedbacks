@@ -11,12 +11,12 @@ library(tidyr)
 library(stringr)
 library(purrr)
 
-# ---- CONFIG: update to match your machine ----
+
 input_dir  <- "STELLA results"
 output_dir <- "vis"
 dir.create(output_dir, showWarnings = FALSE, recursive = TRUE)
 
-# Parse "Years", "Run X: Module.Variable" columns into long format
+# "Years", "Run X: Module.Variable" columns into long format
 parse_stella_sheet <- function(df, year_col = "Years") {
   df %>%
     rename(Years = all_of(year_col)) %>%
@@ -30,7 +30,7 @@ parse_stella_sheet <- function(df, year_col = "Years") {
     select(Years, Run, Module, Variable, Value)
 }
 
-# Collapse a parsed parameter sheet into one row per run (parameters are
+# Collapse into one row per run (parameters are
 # constant through time). Warns if any variable isn't actually constant.
 summarize_parameters <- function(parsed_long) {
   bad <- parsed_long %>%
