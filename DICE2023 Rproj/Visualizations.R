@@ -1,16 +1,16 @@
 # Import all cleaned sensitivity analysis data for visualization
-# Data output from STELLA and cleaned in F file STELLA output processing.R
+# Data output from STELLA and cleaned in file STELLA output processing.R
 
 library(readr)
 library(purrr)
 library(dplyr)
 
-# ---- CONFIG ----
+
 vis_dir <- "vis"
 fs_dir  <- file.path(vis_dir, "feedback sensitivity")
 ws_dir  <- file.path(vis_dir, "welfare sensitivity")
 
-# Read every CSV in a by_variable folder into a named list (name = variable)
+# Read every CSV in a variable folder into a named list (name = variable)
 read_variable_csvs <- function(dir_path) {
   files <- list.files(dir_path, pattern = "\\.csv$", full.names = TRUE)
   var_names <- tools::file_path_sans_ext(basename(files))
@@ -39,17 +39,13 @@ cat("Welfare variables:   ", paste(names(ws_vars), collapse = ", "), "\n")
 
 # Figure: Projected atmospheric temperature anomaly and atmospheric carbon
 # concentration under three model configurations, 2020-2420
-# Data source: welfare sensitivity results (ws_params / ws_vars / ws_gams),
-# using the DICE 2023 / DICE-C / DICE-CP runs under default welfare and
-# discounting settings (Economy.altdam = 0, Economy.altdisc = 0)
-# Assumes ws_params / ws_vars / ws_gams are already loaded (see import_data.R)
+
 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
 
-# ---- Shared theme: larger, darker text throughout ----
 
 base_theme <- theme_bw(base_size = 17) +
   theme(
@@ -108,7 +104,6 @@ configs_df <- bind_rows(
 ) %>%
   mutate(Config = factor(Config, levels = c("DICE 2023", "DICE-C", "DICE-CP")))
 
-# ---- Styling shared across panels ----
 
 series_colors <- c(
   "DICE 2023" = "#1f77b4", "DICE-C" = "#ff7f0e",
@@ -163,8 +158,8 @@ phase_df <- configs_df %>%
   pivot_wider(names_from = ConfigKey, values_from = c(Temperature, Carbon)) %>%
   arrange(Year)
 
-# Build a few arrowhead segments spaced evenly along the path's arc length
-# (not evenly by index), so arrows don't bunch up where the curve moves slowly
+# arrowhead segments along the path's arc length
+
 make_arrows <- function(px, py, n_arrows = 6) {
   d <- sqrt(diff(px)^2 + diff(py)^2)
   cum_d <- c(0, cumsum(d))
@@ -219,10 +214,7 @@ fig <- (p_a | p_b) / plot_spacer() / (p_c | p_d) + plot_layout(heights = c(1, 0.
 ggsave("vis/fig_temp_co2.png", fig, width = 15, height = 12, dpi = 300)
 
 # Figure: DICE configurations vs. CMIP6 SSP ensemble means, 2020-2100
-# Data sources: CMIP_temp_by_scenario.csv (SSP temperature anomalies, already
-# expressed relative to 1850-1900) and ws_vars/ws_params (welfare sensitivity
-# results) for the DICE 2023 / DICE-C / DICE-CP runs.
-# Assumes ws_params / ws_vars are already loaded (see import_data.R)
+
 
 library(dplyr)
 library(tidyr)
@@ -254,7 +246,7 @@ ssp_ribbon <- cmip %>%
     ymax = pmax(`SSP1-2.6`, `SSP2-4.5`, `SSP3-7.0`, `SSP5-8.5`)
   )
 
-# ---- Identify DICE 2023 / DICE-C / DICE-CP runs (default welfare/discounting) ----
+# ---- Identify DICE 2023 / DICE-C / DICE-CP runs ----
 
 find_run <- function(params, switch_values) {
   out <- params
@@ -331,11 +323,8 @@ p <- ggplot() +
 ggsave("vis/fig_cmip6_comparison.png", p, width = 12, height = 8, dpi = 300)
 
 
-# Figure 4: Isolated and conditional contributions of individual Lenton carbon
-# cycle feedbacks to atmospheric temperature anomaly, 2020-2420
-# Conditional on Lenton dynamics being active (Climate.Lenton? = 1), boxplots
-# of peak temperature anomaly per run, split by each feedback's on/off state.
-# Assumes fs_params / fs_vars are already loaded (see import_data.R)
+# Contributions of individual Lenton carbon cycle feedbacks to 
+# atmospheric temperature anomaly, 2020-2420
 
 library(dplyr)
 library(tidyr)
@@ -392,11 +381,8 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakTemp, fill = State)) +
 
 ggsave("vis/fig_feedback_boxplot.png", p, width = 16, height = 8, dpi = 300)
 
-# Figure: Isolated and conditional contributions of individual Lenton carbon
-# cycle feedbacks to atmospheric carbon concentration, 2020-2420
-# Conditional on Lenton dynamics being active (Climate.Lenton? = 1), boxplots
-# of peak atmospheric carbon per run, split by each feedback's on/off state.
-# Assumes fs_params / fs_vars are already loaded (see import_data.R)
+# Contributions of individual Lenton carbon cycle feedbacks to 
+# atmospheric carbon concentration, 2020-2420
 
 library(dplyr)
 library(tidyr)
@@ -454,21 +440,15 @@ p <- ggplot(long_df, aes(x = Feedback, y = PeakCarbon, fill = State)) +
 ggsave("vis/fig_feedback_boxplot_carbon.png", p, width = 16, height = 8, dpi = 300)
 
 # Figure: Climate damage fraction under three model configurations, 2020-2420
-# Structurally matches fig_temp_co2.R, but for a single variable (damage
-# fraction) rather than two, so there are two panels instead of four:
 #   (a) time series with GAMS benchmark + peak-year vlines
 #   (b) phase plot (DICE 2023 vs. DICE-C/DICE-CP) with 1:1 reference + arrows
-# Data source: welfare sensitivity results (ws_params / ws_vars / ws_gams),
-# using the DICE 2023 / DICE-C / DICE-CP runs under default welfare and
-# discounting settings (Economy.altdam = 0, Economy.altdisc = 0)
-# Assumes ws_params / ws_vars / ws_gams are already loaded (see import_data.R)
+
 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
 
-# ---- Shared theme: larger, darker text throughout ----
 
 base_theme <- theme_bw(base_size = 15) +
   theme(
@@ -481,8 +461,7 @@ base_theme <- theme_bw(base_size = 15) +
     plot.margin = margin(t = 34, r = 12, b = 10, l = 10)
   )
 
-# ---- Identify the three configuration runs within ws_params ----
-# (default welfare/discounting settings: Economy.altdam = 0, Economy.altdisc = 0)
+
 
 find_run <- function(params, switch_values) {
   out <- params
@@ -500,7 +479,6 @@ run_dicec    <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
 run_dicecp   <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
                                       "Permafrost dynamics.permafrost switch" = 1))
 
-# ---- Pull damage fraction series for those three runs ----
 
 find_var <- function(vars_list, pattern) {
   m <- grep(pattern, names(vars_list), value = TRUE, ignore.case = TRUE)
@@ -540,7 +518,7 @@ series_shapes <- c(
   "DICE-CP" = NA, "GAMS benchmark" = 21
 )
 
-# ---- Panel (a): time series with GAMS benchmark + peak-year vlines ----
+# ---- Panel (a): GAMS benchmark + peak-year + time series ----
 
 main <- configs_df %>% transmute(Year, Config, Value = Dfrac)
 gams <- ws_gams %>% transmute(Year = Years, Config = "GAMS benchmark",
@@ -565,7 +543,7 @@ p_a <- ggplot(combined, aes(Year, Value, color = Config, linetype = Config, shap
   base_theme +
   theme(legend.position = c(0.78, 0.75), legend.background = element_blank())
 
-# ---- Panel (b): phase plot with directional arrows ----
+# ---- Panel (b): phase plot ----
 
 phase_df <- configs_df %>%
   mutate(ConfigKey = recode(Config, "DICE 2023" = "D23", "DICE-C" = "DC", "DICE-CP" = "DCP")) %>%
@@ -573,8 +551,7 @@ phase_df <- configs_df %>%
   pivot_wider(names_from = ConfigKey, values_from = Dfrac) %>%
   arrange(Year)
 
-# Build a few arrowhead segments spaced evenly along the path's arc length
-# (not evenly by index), so arrows don't bunch up where the curve moves slowly
+
 make_arrows <- function(px, py, n_arrows = 6) {
   d <- sqrt(diff(px)^2 + diff(py)^2)
   cum_d <- c(0, cumsum(d))
@@ -611,26 +588,18 @@ p_b <- ggplot(phase_df, aes(x = D23)) +
   base_theme +
   theme(legend.position = c(0.8, 0.15), legend.background = element_blank())
 
-# ---- Combine and save ----
+
 
 fig <- p_a | p_b
 
 ggsave("vis/fig_damage_fraction.png", fig, width = 15, height = 7, dpi = 300)
 
 # Figure: Difference in economic output relative to the DICE 2023 baseline,
-# 2020-2420 (single panel, per Dale's comments - abatement cost and
-# accumulated utility deltas dropped; abatement cost moves to prose in the
-# output/welfare section, accumulated utility becomes a final-value table)
-# Data source: welfare sensitivity results (ws_params / ws_vars), using the
-# DICE 2023 / DICE-C / DICE-CP runs under default welfare and discounting
-# settings (Economy.altdam = 0, Economy.altdisc = 0)
-# Assumes ws_params / ws_vars are already loaded (see import_data.R)
-
+# 2020-2420
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-# ---- Shared theme: larger, darker text throughout ----
 
 base_theme <- theme_bw(base_size = 15) +
   theme(
@@ -641,9 +610,6 @@ base_theme <- theme_bw(base_size = 15) +
     legend.title = element_text(color = "black", size = 17),
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
-
-# ---- Identify the three configuration runs within ws_params ----
-# (default welfare/discounting settings: Economy.altdam = 0, Economy.altdisc = 0)
 
 find_run <- function(params, switch_values) {
   out <- params
@@ -661,7 +627,6 @@ run_dicec    <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
 run_dicecp   <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
                                       "Permafrost dynamics.permafrost switch" = 1))
 
-# ---- Pull economic output series and compute deltas relative to DICE 2023 ----
 
 find_var <- function(vars_list, pattern) {
   m <- grep(pattern, names(vars_list), value = TRUE, ignore.case = TRUE)
@@ -681,7 +646,6 @@ delta_df <- bind_rows(
 ) %>%
   mutate(Config = factor(Config, levels = c("DICE-C", "DICE-CP")))
 
-# ---- Plot ----
 
 series_colors    <- c("DICE-C" = "#ff7f0e", "DICE-CP" = "#d62728")
 series_linetypes <- c("DICE-C" = "dashed",  "DICE-CP" = "dotted")
@@ -693,7 +657,6 @@ p <- ggplot(delta_df, aes(Year, Delta, color = Config, linetype = Config)) +
   scale_linetype_manual(values = series_linetypes, name = NULL) +
   labs(
     x = "Year",
-    # NOTE: update units to match your model's actual output units
     y = "Difference in economic output\nrelative to DICE 2023 baseline"
   ) +
   base_theme +
@@ -702,21 +665,14 @@ p <- ggplot(delta_df, aes(Year, Delta, color = Config, linetype = Config)) +
 ggsave("vis/fig_output_delta.png", p, width = 10, height = 7, dpi = 300)
 
 # Figure: Climate damage fraction under three model configurations, 2020-2420
-# Structurally matches fig_temp_co2.R, but for a single variable (damage
-# fraction) rather than two, so there are two panels instead of four:
-#   (a) time series with GAMS benchmark + peak-year vlines
-#   (b) phase plot (DICE 2023 vs. DICE-C/DICE-CP) with 1:1 reference + arrows
-# Data source: welfare sensitivity results (ws_params / ws_vars / ws_gams),
-# using the DICE 2023 / DICE-C / DICE-CP runs under default welfare and
-# discounting settings (Economy.altdam = 0, Economy.altdisc = 0)
-# Assumes ws_params / ws_vars / ws_gams are already loaded (see import_data.R)
+
 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
 
-# ---- Shared theme: larger, darker text throughout ----
+
 
 base_theme <- theme_bw(base_size = 17) +
   theme(
@@ -729,8 +685,7 @@ base_theme <- theme_bw(base_size = 17) +
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
 
-# ---- Identify the three configuration runs within ws_params ----
-# (default welfare/discounting settings: Economy.altdam = 0, Economy.altdisc = 0)
+
 
 find_run <- function(params, switch_values) {
   out <- params
@@ -748,7 +703,7 @@ run_dicec    <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
 run_dicecp   <- find_run(ws_params, c(default_welfare, "Climate.Lenton?" = 1,
                                       "Permafrost dynamics.permafrost switch" = 1))
 
-# ---- Pull damage fraction series for those three runs ----
+
 
 find_var <- function(vars_list, pattern) {
   m <- grep(pattern, names(vars_list), value = TRUE, ignore.case = TRUE)
@@ -773,7 +728,6 @@ configs_df <- bind_rows(
 ) %>%
   mutate(Config = factor(Config, levels = c("DICE 2023", "DICE-C", "DICE-CP")))
 
-# ---- Styling shared across panels ----
 
 series_colors <- c(
   "DICE 2023" = "#1f77b4", "DICE-C" = "#ff7f0e",
@@ -788,7 +742,6 @@ series_shapes <- c(
   "DICE-CP" = NA, "GAMS benchmark" = 21
 )
 
-# ---- Panel (a): time series with GAMS benchmark + peak-year vlines ----
 
 main <- configs_df %>% transmute(Year, Config, Value = Dfrac)
 gams <- ws_gams %>% transmute(Year = Years, Config = "GAMS benchmark",
@@ -813,7 +766,6 @@ p_a <- ggplot(combined, aes(Year, Value, color = Config, linetype = Config, shap
   base_theme +
   theme(legend.position = c(0.78, 0.75), legend.background = element_blank())
 
-# ---- Panel (b): phase plot with directional arrows ----
 
 phase_df <- configs_df %>%
   mutate(ConfigKey = recode(Config, "DICE 2023" = "D23", "DICE-C" = "DC", "DICE-CP" = "DCP")) %>%
@@ -821,8 +773,6 @@ phase_df <- configs_df %>%
   pivot_wider(names_from = ConfigKey, values_from = Dfrac) %>%
   arrange(Year)
 
-# Build a few arrowhead segments spaced evenly along the path's arc length
-# (not evenly by index), so arrows don't bunch up where the curve moves slowly
 make_arrows <- function(px, py, n_arrows = 6) {
   d <- sqrt(diff(px)^2 + diff(py)^2)
   cum_d <- c(0, cumsum(d))
@@ -859,7 +809,6 @@ p_b <- ggplot(phase_df, aes(x = D23)) +
   base_theme +
   theme(legend.position = c(0.8, 0.15), legend.background = element_blank())
 
-# ---- Combine and save ----
 
 fig <- p_a | p_b
 
@@ -869,17 +818,12 @@ ggsave("vis/fig_damage_fraction.png", fig, width = 15, height = 7, dpi = 300)
 # Figure: Welfare loss vs. DICE 2023 standard-damage baseline, across damage
 # function and discounting assumptions (slope graph showing sensitivity of
 # welfare loss to the damage function choice, faceted by discount regime)
-# Data source: welfare sensitivity results (ws_params / ws_vars), using final-
-# year accumulated utility. Each discount regime (standard vs. zero time
-# preference) is normalized against its own DICE 2023 / standard-damage run,
-# since welfare totals are not comparable across discounting conventions.
-# Assumes ws_params / ws_vars are already loaded (see import_data.R)
+
 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 
-# ---- Shared theme: larger, darker text throughout ----
 
 base_theme <- theme_bw(base_size = 15) +
   theme(
@@ -905,7 +849,6 @@ run_util <- tibble(
 
 df <- ws_params %>%
   left_join(run_util, by = "Run") %>%
-  # drop the "permafrost only, Lenton off" combination - not one of the three named configs
   filter(!(`Climate.Lenton?` == 0 & `Permafrost dynamics.permafrost switch` == 1)) %>%
   mutate(
     Config = case_when(
@@ -923,7 +866,6 @@ df <- ws_params %>%
   ungroup() %>%
   mutate(WelfareLoss = (Utility - Baseline) / Baseline * 100)
 
-# ---- Plot ----
 
 series_colors <- c("DICE 2023" = "#1f77b4", "DICE-C" = "#ff7f0e", "DICE-CP" = "#d62728")
 
@@ -940,11 +882,6 @@ ggsave("vis/fig_welfare_slopegraph.png", p, width = 12, height = 6.5, dpi = 300)
 # Figure: Welfare loss vs. DICE 2023 standard-damage baseline, across damage
 # function and discounting assumptions (grouped bar chart, faceted by discount
 # regime, shared y-axis for direct visual comparison across panels)
-# Data source: welfare sensitivity results (ws_params / ws_vars), using final-
-# year accumulated utility. Each discount regime (standard vs. zero time
-# preference) is normalized against its own DICE 2023 / standard-damage run,
-# since welfare totals are not comparable across discounting conventions.
-# Assumes ws_params / ws_vars are already loaded (see import_data.R)
 
 library(dplyr)
 library(tidyr)
@@ -964,7 +901,6 @@ base_theme <- theme_bw(base_size = 15) +
     plot.margin = margin(t = 15, r = 12, b = 10, l = 10)
   )
 
-# ---- Compute welfare loss (%) for each config x damage x discount combo ----
 
 util <- ws_vars[[grep("Accumulated_Utility", names(ws_vars), value = TRUE, ignore.case = TRUE)]]
 final_util <- util %>% filter(Years == max(Years))
@@ -976,7 +912,6 @@ run_util <- tibble(
 
 df <- ws_params %>%
   left_join(run_util, by = "Run") %>%
-  # drop the "permafrost only, Lenton off" combination - not one of the three named configs
   filter(!(`Climate.Lenton?` == 0 & `Permafrost dynamics.permafrost switch` == 1)) %>%
   mutate(
     Config = case_when(
@@ -994,7 +929,6 @@ df <- ws_params %>%
   ungroup() %>%
   mutate(WelfareLoss = (Utility - Baseline) / Baseline * 100)
 
-# ---- Plot ----
 
 damage_colors <- c("Standard damage" = "#e8a33d", "Howard-Sterner damage" = "#2a9d8f")
 
@@ -1011,22 +945,13 @@ p <- ggplot(df, aes(x = Config, y = WelfareLoss, fill = Damage)) +
 ggsave("vis/fig_welfare_barchart.png", p, width = 12, height = 6.5, dpi = 300)
 
 # Figure: Economic output, abatement cost, and discounted social welfare per
-# year under three model configurations, 2020-2420 (levels, not deltas, per
-# Dale's comments - the deltas figure remains separate and unchanged)
-# Panel (c) is the discounted per-year welfare flow (d(Uacc)/dt), not the
-# running accumulated-utility sum, since only the final-year total and the
-# per-period flow are informative on their own.
-# Data source: welfare sensitivity results (ws_params / ws_vars), using the
-# DICE 2023 / DICE-C / DICE-CP runs under default welfare and discounting
-# settings (Economy.altdam = 0, Economy.altdisc = 0)
-# Assumes ws_params / ws_vars are already loaded (see import_data.R)
+# year under three model configurations, 2020-2420
 
 library(dplyr)
 library(tidyr)
 library(ggplot2)
 library(patchwork)
 
-# ---- Shared theme: larger, darker text throughout ----
 
 base_theme <- theme_bw(base_size = 17) +
   theme(
@@ -1040,8 +965,6 @@ base_theme <- theme_bw(base_size = 17) +
     plot.margin = margin(t = 30, r = 12, b = 10, l = 10)
   )
 
-# ---- Identify the three configuration runs within ws_params ----
-# (default welfare/discounting settings: Economy.altdam = 0, Economy.altdisc = 0)
 
 find_run <- function(params, switch_values) {
   out <- params
@@ -1079,14 +1002,12 @@ configs <- tibble(
   Config = factor(c("DICE 2023", "DICE-C", "DICE-CP"), levels = c("DICE 2023", "DICE-C", "DICE-CP"))
 )
 
-# Extract a level-series (Years, Config, Value) for a given variable's wide table
 extract_levels <- function(var_data) {
   purrr::pmap_dfr(configs, function(run, Config) {
     tibble(Year = var_data$Years, Config = Config, Value = var_data[[paste0("Run_", run)]])
   })
 }
 
-# Extract a per-year discounted flow by differencing a cumulative series
 extract_flow <- function(var_data) {
   purrr::pmap_dfr(configs, function(run, Config) {
     y <- var_data$Years
@@ -1095,7 +1016,6 @@ extract_flow <- function(var_data) {
   })
 }
 
-# ---- Generic panel builder: levels, no GAMS overlay ----
 
 make_panel <- function(combined, y_lab, tag, legend_pos) {
   ggplot(combined, aes(Year, Value, color = Config, linetype = Config)) +
@@ -1107,28 +1027,26 @@ make_panel <- function(combined, y_lab, tag, legend_pos) {
     theme(legend.position = legend_pos, legend.background = element_blank())
 }
 
-# ---- Panel (a): Economic output (levels) ----
 
 output_main <- extract_levels(output_data) %>%
   mutate(Config = factor(Config, levels = names(series_colors)))
 
 p_a <- make_panel(output_main, "Gross economic output\n(trillions 2019 USD)", "(a)", c(0.2, 0.8))
 
-# ---- Panel (b): Abatement cost (levels) ----
 
 cabate_main <- extract_levels(cabate_data) %>%
   mutate(Config = factor(Config, levels = names(series_colors)))
 
 p_b <- make_panel(cabate_main, "Cost of emissions abatement\n(trillions 2019 USD)", "(b)", c(0.2, 0.8))
 
-# ---- Panel (c): Discounted social welfare per year ----
+
 
 welfare_main <- extract_flow(uacc_data) %>%
   mutate(Config = factor(Config, levels = names(series_colors)))
 
 p_c <- make_panel(welfare_main, "Discounted social welfare\nper year (dimensionless)", "(c)", c(0.8, 0.8))
 
-# ---- Combine and save ----
+
 
 fig <- p_a | p_b | p_c
 
